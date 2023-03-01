@@ -1,0 +1,38 @@
+{
+	"compilerOptions": {
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"baseUrl": ".",
+		"paths": {
+			"@css/*": ["ui/css/*"],
+			"@hooks/*": ["hooks/*"],
+			"@icons/*": ["ui/icons/*"],
+			"@images/*": ["ui/img/*"],
+			"@presentation/*": ["presentation/*"],
+			"@tester/*": ["tester/*"],
+			"@type/*": ["types/*"],
+			"@ui/*": ["ui/components/*"],
+			"@utils/*": ["utils/*"]
+		},
+		"skipLibCheck": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"allowSyntheticDefaultImports": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"preserveConstEnums": true,
+		"removeComments": true,
+		"sourceMap": true,
+		"target": "ES2021",
+		"incremental": true
+	},
+	"exclude": ["node_modules", "_legacy"],
+	"include": ["**/*.ts", "**/*.tsx", "tester/next-env.d.ts"]
+}

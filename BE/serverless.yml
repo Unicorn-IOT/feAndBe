@@ -1,0 +1,142 @@
+service: unicorn-iot
+
+console: false # FIXME - injects tracking layer to lambda, really slows down cold starts and invocations
+frameworkVersion: '3'
+configValidationMode: error
+
+provider:
+    name: aws
+    runtime: nodejs16.x
+    stage: ${opt:stage, 'dev'}
+    region: eu-west-1
+    profile: unicornIoT
+    memorySize: 192 # optional, in MB, default is 1024
+    timeout: 10 # optional, in seconds, default is 6
+    architecture: arm64
+    lambdaHashingVersion: 20201221
+    versionFunctions: false
+    deploymentMethod: direct
+    logRetentionInDays: 30
+    apiGateway:
+        shouldStartNameWithService: true
+        minimumCompressionSize: 1024
+        binaryMediaTypes:
+            - image/*
+            - image/gif
+    httpApi:
+        name: ${self:custom.prefix}
+        cors: true
+        authorizers:
+            user-authorize:
+                type: request
+                functionName: user-authorize
+                identitySource:
+                    - $request.header.Authorization
+
+functions:
+    # Authorization
+    auth-register-post:
+        handler: src/lambda/auth/register/post.handler
+        events:
+            - httpApi:
+                  path: /auth/register
+                  method: post
+
+    auth-register-patch:
+        handler: src/lambda/auth/register/patch.handler
+        events:
+            - httpApi:
+                  path: /auth/register
+                  method: patch
+
+    auth-reset-post:
+        handler: src/lambda/auth/reset/post.handler
+        events:
+            - httpApi:
+                  path: /auth/reset
+                  method: post
+
+    auth-reset-patch:
+        handler: src/lambda/auth/reset/patch.handler
+        events:
+            - httpApi:
+                  path: /auth/reset
+                  method: patch
+
+    auth-login-post:
+        handler: src/lambda/auth/login/post.handler
+        provisionedConcurrency: ${param:provisionedOne}
+        events:
+            - httpApi:
+                  path: /auth/login
+                  method: post
+
+    # User management
+    user-authorize:
+        handler: src/lambda/user/authorize.handler
+        provisionedConcurrency: ${param:provisionedOne}
+
+    user-get:
+        handler: src/lambda/user/get.handler
+        provisionedConcurrency: ${param:provisionedOne}
+        events:
+            - httpApi:
+                  authorizer: user-authorize
+                  path: /user
+                  method: get
+
+    user-patch:
+        handler: src/lambda/user/patch.handler
+        events:
+            - httpApi:
+                  authorizer: user-authorize
+                  path: /user
+                  method: patch
+
+    user-delete:
+        handler: src/lambda/user/delete.handler
+        events:
+            - httpApi:
+                  authorizer: user-authorize
+                  path: /user
+                  method: delete
+params:
+    local:
+        DEBUG_PERFORMANCE: 1
+    default:
+        provisionedOne: 1
+        provisionedThree: 3
+
+        DEBUG_PERFORMANCE: ${env:DEBUG_PERFORMANCE, 1}
+    dev:
+        provisionedOne: 0
+        provisionedThree: 0
+
+        DEBUG_PERFORMANCE: 1
+
+custom:
+    prefix: ${self:service}-${opt:stage, 'dev'}
+    # domain: xxxx.xx
+    serverless-offline:
+        httpPort: 3333
+        ignoreJWTSignature: true
+    esbuild:
+        concurrency: 1
+        target: node16
+        watch:
+            pattern: ['src/**/*.ts']
+        exclude:
+            - aws-sdk
+            - pg-hstore
+    prune:
+        automatic: true
+        number: 1
+
+package:
+    individually: true
+
+plugins:
+    - serverless-prune-plugin
+    - serverless-domain-manager
+    - serverless-esbuild
+    - serverless-offline

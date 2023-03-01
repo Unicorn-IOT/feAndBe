@@ -1,0 +1,8 @@
+/node_modules
+/.*/
+/log
+/src/layers/google-service-account/*.json
+.env
+
+# Jetbrains IDEs
+.idea
