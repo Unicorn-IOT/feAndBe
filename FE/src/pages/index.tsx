@@ -31,10 +31,14 @@ const Home = () => {
 								height: '100%',
 							}}
 						>
-							<Typography component="h1" variant="h6" color="inherit">
+							<Typography component="h1" variant="h6" color="#1976d2">
 								Welcome !{' '}
 							</Typography>
-							<Typography variant="body1">This is our weather station page </Typography>
+							<Typography variant="body1">
+								This is our weather station page. What you can find here ? We provide data from our weather stations, you
+								can check this data in real time, or you can check data from yesterday and many more ! <br />
+								And all developers who work on this application will have some ideas for home page right ? :)
+							</Typography>
 						</Paper>
 					</Grid>
 				</Grid>
