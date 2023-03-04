@@ -6,9 +6,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
 
-const Home = () => {
+const Stations = () => {
 	return (
 		<Box
 			component="main"
@@ -31,10 +30,20 @@ const Home = () => {
 								height: '100%',
 							}}
 						>
-							<Typography component="h1" variant="h6" color="inherit">
-								Welcome !{' '}
-							</Typography>
-							<Typography variant="body1">This is our weather station page </Typography>
+							Stations!
+						</Paper>
+					</Grid>
+
+					<Grid item xs={12} md={4} lg={3}>
+						<Paper
+							sx={{
+								p: 2,
+								display: 'flex',
+								flexDirection: 'column',
+								height: '100%',
+							}}
+						>
+							a tady takyyyyyy !
 						</Paper>
 					</Grid>
 				</Grid>
@@ -43,4 +52,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default Stations;
