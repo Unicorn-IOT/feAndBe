@@ -1,4 +1,4 @@
-import { response } from 'libs/http/response';
+import { response } from '../../libs/http/response';
 
 export const status307 = (location: string) =>
 	response({

@@ -1,4 +1,4 @@
-import { response } from 'libs/http/response';
+import { response } from '../../libs/http/response';
 import { StatusProps } from '../../../../types/http';
 
 export const status403 = (props?: StatusProps) => {

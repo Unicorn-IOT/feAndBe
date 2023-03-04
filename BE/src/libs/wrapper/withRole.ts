@@ -1,6 +1,6 @@
-import { Role } from 'libs/database/models/user';
-import { status403 } from 'libs/http/status403';
-import { useUser, withUser } from 'libs/wrapper/withUser';
+import { Role } from '../../libs/database/models/user';
+import { status403 } from '../../libs/http/status403';
+import { useUser, withUser } from '../../libs/wrapper/withUser';
 import { Lambda } from '../../../../types/lambda';
 
 export const withRole = (allowedRoles: Role[], handler: Lambda): Lambda =>

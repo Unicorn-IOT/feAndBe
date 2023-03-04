@@ -1,5 +1,5 @@
-import { db } from 'libs/database/db';
-import { User } from 'libs/database/models/user';
+import { db } from '../../../libs/database/db';
+import { User } from '../../../libs/database/models/user';
 import {
 	Association,
 	DataTypes,

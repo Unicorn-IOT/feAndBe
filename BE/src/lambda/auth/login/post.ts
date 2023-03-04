@@ -1,9 +1,9 @@
-import { status200 } from 'libs/http/status200';
-import { status400 } from 'libs/http/status400';
-import { status403 } from 'libs/http/status403';
-import { status404 } from 'libs/http/status404';
-import { useDB, withDB } from 'libs/wrapper/withDB';
-import { withHttp } from 'libs/wrapper/withHttp';
+import { status200 } from '../../../libs/http/status200';
+import { status400 } from '../../../libs/http/status400';
+import { status403 } from '../../../libs/http/status403';
+import { status404 } from '../../../libs/http/status404';
+import { useDB, withDB } from '../../../libs/wrapper/withDB';
+import { withHttp } from '../../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../../types/lambda';
 
 export const handler: Lambda = withHttp(

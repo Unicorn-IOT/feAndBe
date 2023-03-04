@@ -1,6 +1,6 @@
 import { APIGatewayProxyResult } from 'aws-lambda/trigger/api-gateway-proxy';
-import { compress as compressGzip, supports as supportsGzip } from 'libs/gzip';
-import { useRequest } from 'libs/wrapper/withHttp';
+import { compress as compressGzip, supports as supportsGzip } from '../../libs/gzip';
+import { useRequest } from '../../libs/wrapper/withHttp';
 import { Headers, HTTPRequest, ResponseProps } from '../../../../types/http';
 
 export const response = ({ statusCode, message, data, headers, cache }: ResponseProps): APIGatewayProxyResult => {

@@ -1,6 +1,6 @@
-import { db } from 'libs/database/db';
-import { Email } from 'libs/database/models/email';
-import { User } from 'libs/database/models/user';
+import { db } from '../../libs/database/db';
+import { Email } from '../../libs/database/models/email';
+import { User } from '../../libs/database/models/user';
 import { Mesurement } from './models/mesurement';
 
 // User has one e-mail

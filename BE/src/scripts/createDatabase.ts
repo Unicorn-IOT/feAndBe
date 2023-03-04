@@ -1,4 +1,4 @@
-import { useDB } from 'libs/wrapper/withDB';
+import { useDB } from '../libs/wrapper/withDB';
 
 export const createDatabase = async () => {
 	const { db } = await useDB();

@@ -1,5 +1,5 @@
 import { APIGatewayTokenAuthorizerEvent } from 'aws-lambda';
-import { isOffline } from 'config';
+import { isOffline } from '../config';
 import { RequestAuthorizerEvent } from '../../../types/lambda';
 
 const isRequest = (_event: RequestAuthorizerEvent | APIGatewayTokenAuthorizerEvent): _event is RequestAuthorizerEvent => !isOffline;

@@ -1,4 +1,4 @@
-import { db } from 'libs/database/db';
+import { db } from '../../../libs/database/db';
 import {
 	Association,
 	BelongsToCreateAssociationMixin,

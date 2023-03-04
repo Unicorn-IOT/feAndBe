@@ -1,5 +1,5 @@
-import * as config from 'config';
-import { isOffline } from 'config';
+import * as config from '../../config';
+import { isOffline } from '../../config';
 import mysql from 'mysql2';
 import { Sequelize } from 'sequelize';
 

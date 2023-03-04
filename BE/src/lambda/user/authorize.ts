@@ -1,8 +1,8 @@
 import { APIGatewayTokenAuthorizerEvent } from 'aws-lambda';
-import { getAuthorizerEvent } from 'libs/getAuthorizerEvent';
-import { allow, deny } from 'libs/iamPolicy';
-import { decodeJwt } from 'libs/jwt';
-import { useDB, withDB } from 'libs/wrapper/withDB';
+import { getAuthorizerEvent } from '../../libs/getAuthorizerEvent';
+import { allow, deny } from '../../libs/iamPolicy';
+import { decodeJwt } from '../../libs/jwt';
+import { useDB, withDB } from '../../libs/wrapper/withDB';
 import { Lambda, RequestAuthorizerEvent } from '../../../../types/lambda';
 import { UserJWTPayload } from '../../../../types/User';
 

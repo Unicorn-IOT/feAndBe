@@ -1,11 +1,11 @@
-export const isOffline = process.env.IS_OFFLINE;
+export const isOffline = false;
 
-export const localDB = true;
+export const localDB = false;
 
 export const db = {
-	host: isOffline ? 'localhost' : 'XXXX',
-	database: 'iot',
-	user: isOffline && localDB ? 'root' : 'XXX',
-	password: isOffline && localDB ? 'admin' : 'xxx',
-	port: isOffline ? (localDB ? 3306 : 3307) : 3306,
+	host: isOffline ? 'localhost' : 'fdb1029.awardspace.net',
+	database: '4273731_iot',
+	user: isOffline && localDB ? 'root' : '4273731_iot',
+	password: isOffline && localDB ? 'admin' : 'zuUBUAv@6i]IB0uU',
+	port: 3306,
 };

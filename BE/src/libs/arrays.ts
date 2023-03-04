@@ -1,4 +1,4 @@
-import { ONE_DAY } from 'projectConstants';
+import { ONE_DAY } from '../projectConstants';
 
 export const chunk = <T>(array: T[], size: number): T[][] => {
 	const result: T[][] = [];

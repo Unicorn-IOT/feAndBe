@@ -1,7 +1,7 @@
-import { db } from 'libs/database/db';
-import { Email } from 'libs/database/models/email';
-import { getSalt, hashPassword, verifyPassword } from 'libs/hmac';
-import { signJwt, verifyJwt } from 'libs/jwt';
+import { db } from '../../../libs/database/db';
+import { Email } from '../../../libs/database/models/email';
+import { getSalt, hashPassword, verifyPassword } from '../../../libs/hmac';
+import { signJwt, verifyJwt } from '../../../libs/jwt';
 import {
 	Association,
 	BelongsToCreateAssociationMixin,
@@ -33,9 +33,9 @@ export enum Role {
 export interface UserAttributes {
 	id: number;
 	name: string;
-	password: string;
-	salt: string;
-	magic: string;
+	password: string | null;
+	salt: string | null;
+	magic: string | null;
 	role: Role;
 	terms: boolean;
 	emailId: number;
@@ -53,9 +53,9 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 
 	// Specified attributes
 	public name!: string;
-	public password!: string;
-	public salt!: string;
-	public magic!: string;
+	public password!: string | null;
+	public salt!: string | null;
+	public magic!: string | null;
 	public role!: Role;
 	public terms!: boolean;
 	public emailId!: number;
@@ -125,12 +125,12 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 	public async getToken(payload?: UserJWTPayload) {
 		return signJwt({
 			payload: payload ?? (await this.getPayload()),
-			secret: this.salt,
+			secret: this.salt || '',
 		});
 	}
 
 	public verifyToken(token: string) {
-		return verifyJwt({ jwt: token, secret: this.salt });
+		return verifyJwt({ jwt: token, secret: this.salt || '' });
 	}
 
 	public verifyPassword(password: string) {
@@ -161,7 +161,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 		});
 	}
 
-	public register(name: string, password: string, terms: boolean, newsletter: boolean) {
+	public register(name: string, password: string, terms: boolean) {
 		const { hash, salt } = hashPassword({ password });
 		return this.update({
 			name,
@@ -169,7 +169,6 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 			password: hash,
 			magic: null,
 			terms,
-			newsletter,
 		});
 	}
 

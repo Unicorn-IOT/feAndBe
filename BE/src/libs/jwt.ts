@@ -1,7 +1,7 @@
 import { JWTPayload, SignJWT } from 'jose/jwt/sign';
 import { jwtVerify } from 'jose/jwt/verify';
 import { decode } from 'jose/util/base64url';
-import { ONE_MONTH } from 'projectConstants';
+import { ONE_MONTH } from '../projectConstants';
 
 const getKey = (secret: string) => Buffer.from(secret);
 

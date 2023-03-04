@@ -5,11 +5,13 @@ export let useRequest = (): HTTPRequest => {
 	throw new Error('Wrap Lambda handler with `withHTTP` first.');
 };
 
-export const withHttp = (handler: Lambda): Lambda => async (...args: Parameters<Lambda>) => {
-	const [event] = args;
-	const { headers, httpMethod } = event;
+export const withHttp =
+	(handler: Lambda): Lambda =>
+	async (...args: Parameters<Lambda>) => {
+		const [event] = args;
+		const { headers, httpMethod } = event;
 
-	useRequest = () => ({ method: httpMethod, headers });
+		useRequest = () => ({ method: httpMethod, headers });
 
-	return handler(...args);
-};
+		return handler(...args);
+	};
