@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,9 +6,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
 
-const Home = () => {
+import { Chart } from '../components/Chart';
+import { WeatherRIghtNow } from '../components/WeatherRIghtNow';
+
+const Dashboard = () => {
 	return (
 		<Box
 			component="main"
@@ -28,17 +30,23 @@ const Home = () => {
 								p: 2,
 								display: 'flex',
 								flexDirection: 'column',
-								height: '100%',
+								height: 300,
 							}}
 						>
-							<Typography component="h1" variant="h6" color="#1976d2">
-								Welcome !{' '}
-							</Typography>
-							<Typography variant="body1">
-								This is our weather station page. What you can find here ? We provide data from our weather stations, you
-								can check this data in real time, or you can check data from yesterday and many more ! <br />
-								And all developers who work on this application will have some ideas for home page right ? :)
-							</Typography>
+							<Chart />
+						</Paper>
+					</Grid>
+
+					<Grid item xs={12} md={4} lg={3}>
+						<Paper
+							sx={{
+								p: 2,
+								display: 'flex',
+								flexDirection: 'column',
+								height: 300,
+							}}
+						>
+							<WeatherRIghtNow />
 						</Paper>
 					</Grid>
 				</Grid>
@@ -47,4 +55,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default Dashboard;

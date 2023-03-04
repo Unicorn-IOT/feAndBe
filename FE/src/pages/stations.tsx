@@ -6,9 +6,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
 
-const Home = () => {
+const Stations = () => {
 	return (
 		<Box
 			component="main"
@@ -31,14 +30,20 @@ const Home = () => {
 								height: '100%',
 							}}
 						>
-							<Typography component="h1" variant="h6" color="#1976d2">
-								Welcome !{' '}
-							</Typography>
-							<Typography variant="body1">
-								This is our weather station page. What you can find here ? We provide data from our weather stations, you
-								can check this data in real time, or you can check data from yesterday and many more ! <br />
-								And all developers who work on this application will have some ideas for home page right ? :)
-							</Typography>
+							Stations!
+						</Paper>
+					</Grid>
+
+					<Grid item xs={12} md={4} lg={3}>
+						<Paper
+							sx={{
+								p: 2,
+								display: 'flex',
+								flexDirection: 'column',
+								height: '100%',
+							}}
+						>
+							a tady takyyyyyy !
 						</Paper>
 					</Grid>
 				</Grid>
@@ -47,4 +52,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default Stations;
