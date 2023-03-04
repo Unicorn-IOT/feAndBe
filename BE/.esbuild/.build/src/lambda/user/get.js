@@ -65489,9 +65489,9 @@ __export(model_exports, {
 var isOffline = false;
 var localDB = false;
 var db = {
-  host: isOffline ? "localhost" : "fdb1029.awardspace.net",
-  database: "4273731_iot",
-  user: isOffline && localDB ? "root" : "4273731_iot",
+  host: isOffline ? "localhost" : "212.237.39.159",
+  database: "w20hxd056y",
+  user: isOffline && localDB ? "root" : "m6gb7d3z5v",
   password: isOffline && localDB ? "admin" : "zuUBUAv@6i]IB0uU",
   port: 3306
 };
@@ -66948,14 +66948,15 @@ var User = class extends Model {
       magic: null
     });
   }
-  register(name, password, terms) {
+  register(name, password, terms, role = "user" /* USER */) {
     const { hash, salt } = hashPassword({ password });
     return this.update({
       name,
       salt,
       password: hash,
       magic: null,
-      terms
+      terms,
+      role
     });
   }
   async changeEmail(newEmail) {
@@ -66982,7 +66983,7 @@ User.init(
     password: { type: DataTypes.STRING(128), allowNull: true, defaultValue: null },
     salt: { type: DataTypes.STRING(128), allowNull: true, defaultValue: null },
     magic: { type: DataTypes.STRING(128), allowNull: true, defaultValue: null },
-    role: { type: DataTypes.ENUM("admin", "user", "iot"), allowNull: false, defaultValue: false },
+    role: { type: DataTypes.ENUM("admin", "user", "iot"), allowNull: false, defaultValue: "user" },
     terms: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
     emailId: { type: DataTypes.INTEGER.UNSIGNED }
   },
@@ -67005,9 +67006,9 @@ var Mesurement = class extends Model {
 Mesurement.init(
   {
     id: { type: DataTypes.INTEGER.UNSIGNED, autoIncrement: true, primaryKey: true },
-    value: { type: DataTypes.NUMBER, allowNull: false },
+    value: { type: DataTypes.INTEGER, allowNull: false },
     type: { type: DataTypes.ENUM("temperature", "humidity"), allowNull: false },
-    userId: { type: DataTypes.NUMBER, allowNull: false }
+    userId: { type: DataTypes.INTEGER.UNSIGNED }
   },
   {
     sequelize: db2.sequelize,

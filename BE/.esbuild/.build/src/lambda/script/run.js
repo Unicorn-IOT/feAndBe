@@ -65401,12 +65401,12 @@ var require_lib3 = __commonJS({
   }
 });
 
-// src/lambda/auth/reset/post.ts
-var post_exports = {};
-__export(post_exports, {
+// src/lambda/script/run.ts
+var run_exports = {};
+__export(run_exports, {
   handler: () => handler
 });
-module.exports = __toCommonJS(post_exports);
+module.exports = __toCommonJS(run_exports);
 
 // src/libs/gzip.ts
 var import_zlib = require("zlib");
@@ -65476,22 +65476,12 @@ var status200 = (props) => {
   });
 };
 
-// src/libs/http/status400.ts
-var status400 = (props) => {
+// src/libs/http/status500.ts
+var status500 = (props) => {
   const { message, ...rest } = props ?? {};
   return response({
-    statusCode: 400,
-    message: message ?? "Bad Request",
-    ...rest
-  });
-};
-
-// src/libs/http/status404.ts
-var status404 = (props) => {
-  const { message, ...rest } = props ?? {};
-  return response({
-    statusCode: 404,
-    message: message ?? "Not Found",
+    statusCode: 500,
+    message: message ?? "Internal Server Error",
     ...rest
   });
 };
@@ -67085,23 +67075,30 @@ var withDB = (handler2) => async (...args) => {
   return handler2(...args);
 };
 
-// src/lambda/auth/reset/post.ts
+// src/scripts/createDatabase.ts
+var createDatabase = async () => {
+  const { db: db3 } = await useDB();
+  await db3.sequelize.sync({ alter: true });
+};
+
+// src/lambda/script/run.ts
+var scripts = {
+  createDatabase
+};
 var handler = withHttp(
-  withDB(async ({ body }) => {
-    if (!body)
-      return status400();
-    const { email } = JSON.parse(body);
-    if (!email)
-      return status400();
-    const { Email: Email2 } = await useDB();
-    const [emailEntity, created] = await Email2.findOrCreateByEmail(email);
-    if (created)
-      return status404();
-    const user = await emailEntity.getUser();
-    if (!user)
-      return status404();
-    await user.resetCredentials();
-    return status200();
+  withDB(async ({ pathParameters, queryStringParameters }) => {
+    const { name } = pathParameters || {};
+    if (!name)
+      return { statusCode: 400, body: "Missing required parameter script." };
+    if (!scripts[name])
+      return { statusCode: 404, body: "Script not found." };
+    try {
+      const response2 = await scripts[name]({ queryStringParameters });
+      return status200({ data: typeof response2 === "undefined" ? "" : response2 });
+    } catch (e) {
+      console.error(e);
+      return status500();
+    }
   })
 );
 // Annotate the CommonJS export names for ESM import in node:

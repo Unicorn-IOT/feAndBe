@@ -161,7 +161,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 		});
 	}
 
-	public register(name: string, password: string, terms: boolean) {
+	public register(name: string, password: string, terms: boolean, role = Role.USER) {
 		const { hash, salt } = hashPassword({ password });
 		return this.update({
 			name,
@@ -169,6 +169,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 			password: hash,
 			magic: null,
 			terms,
+			role,
 		});
 	}
 
@@ -199,7 +200,7 @@ User.init(
 		password: { type: DataTypes.STRING(128), allowNull: true, defaultValue: null },
 		salt: { type: DataTypes.STRING(128), allowNull: true, defaultValue: null },
 		magic: { type: DataTypes.STRING(128), allowNull: true, defaultValue: null },
-		role: { type: DataTypes.ENUM('admin', 'user', 'iot'), allowNull: false, defaultValue: false },
+		role: { type: DataTypes.ENUM('admin', 'user', 'iot'), allowNull: false, defaultValue: 'user' },
 		terms: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
 		emailId: { type: DataTypes.INTEGER.UNSIGNED },
 	},

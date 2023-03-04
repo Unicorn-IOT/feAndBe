@@ -53,9 +53,9 @@ export class Mesurement extends Model<MesurementAttributes, MesurementCreationAt
 Mesurement.init(
 	{
 		id: { type: DataTypes.INTEGER.UNSIGNED, autoIncrement: true, primaryKey: true },
-		value: { type: DataTypes.NUMBER, allowNull: false },
+		value: { type: DataTypes.INTEGER, allowNull: false },
 		type: { type: DataTypes.ENUM('temperature', 'humidity'), allowNull: false },
-		userId: { type: DataTypes.NUMBER, allowNull: false },
+		userId: { type: DataTypes.INTEGER.UNSIGNED },
 	},
 	{
 		sequelize: db.sequelize,

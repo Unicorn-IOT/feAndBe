@@ -100,6 +100,13 @@ functions:
                   authorizer: user-authorize
                   path: /user
                   method: delete
+
+    script-run:
+        handler: src/lambda/script/run.handler
+        events:
+            - httpApi:
+                  path: /script/{name}
+                  method: get
 params:
     local:
         DEBUG_PERFORMANCE: 1
