@@ -4,8 +4,10 @@ import { Toolbar } from './Toolbar';
 
 export const AppBar = () => {
 	return (
-		<MuiAppBar>
-			<Toolbar />
-		</MuiAppBar>
+		<>
+			<MuiAppBar>
+				<Toolbar />
+			</MuiAppBar>
+		</>
 	);
 };

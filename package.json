@@ -20,6 +20,12 @@
 		"url": "https://github.com/Unicorn-IOT/feAndBe/issues"
 	},
 	"dependencies": {
+		"@emotion/cache": "latest",
+		"@emotion/react": "latest",
+		"@emotion/server": "latest",
+		"@emotion/styled": "latest",
+		"@mui/icons-material": "latest",
+		"@mui/material": "latest",
 		"@reduxjs/toolkit": "^1.9.3",
 		"aws-sdk": "^2.892.0",
 		"jose": "^3.12.3",
