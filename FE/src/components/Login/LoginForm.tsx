@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -15,7 +15,7 @@ export type LoginPageType = {
 };
 
 const schema = yup.object({
-	clientName: yup.string().required('Je povinné zadat uživatelské jméno'),
+	clientName: yup.string().required('User name is required'),
 	clientPassword: yup.string().min(3, 'Minimálně 3 znaky').max(10, ' Maximálně 10 znaků').required('Je povinné zadat heslo'),
 });
 
@@ -24,26 +24,43 @@ export default function LoginForm() {
 		resolver: yupResolver(schema),
 		defaultValues: { clientName: '', clientPassword: '' },
 	});
+	const router = useRouter();
 
 	const handleClick = (data: LoginPageType) => {
-		// navigate(ROUTES.DASHBOARD);
+		router.push('/dashboard');
 		console.log(data);
 	};
 
 	return (
 		<Grid>
 			<form onSubmit={handleSubmit(handleClick)}>
-				<Container sx={{ marginTop: 10, display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-					<Typography variant="h4" color={'black'} marginBottom={2} fontWeight={'bold'}>
-						Přihlášení
+				<Grid
+					sx={{
+						marginTop: 10,
+						display: 'flex',
+						justifyContent: 'center',
+						flexDirection: 'column',
+					}}
+				>
+					<Typography
+						variant="h4"
+						color={'black'}
+						marginBottom={2}
+						fontWeight={'bold'}
+						sx={{ display: 'flex', justifyContent: 'center' }}
+					>
+						Login
 					</Typography>
-					<LoginClientName control={control} />
-
-					<LoginClientPassword control={control} />
+					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+						<LoginClientName control={control} />
+					</Grid>
+					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+						<LoginClientPassword control={control} />
+					</Grid>
 					<Button type="submit" sx={{ marginTop: 2, fontWeight: 'bold' }}>
 						Log in
 					</Button>
-				</Container>
+				</Grid>
 			</form>
 		</Grid>
 	);

@@ -19,6 +19,7 @@ interface MyAppProps extends AppProps {
 
 export default function App(props: MyAppProps) {
 	const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+	const login = false;
 	return (
 		<>
 			<CacheProvider value={emotionCache}>
@@ -29,9 +30,13 @@ export default function App(props: MyAppProps) {
 					{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
 					<CssBaseline />
 
-					<Dashboard>
-						<Component {...pageProps} />
-					</Dashboard>
+					{!login ? (
+						<LoginForm />
+					) : (
+						<Dashboard>
+							<Component {...pageProps} />
+						</Dashboard>
+					)}
 				</ThemeProvider>
 			</CacheProvider>
 		</>

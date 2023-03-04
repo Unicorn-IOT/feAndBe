@@ -13,7 +13,7 @@ export const LoginClientPassword = ({ control }: LoginClientPasswordProps) => {
 	return (
 		<Grid>
 			<Typography variant="body2" marginTop={2} marginBottom={1}>
-				password
+				Password
 			</Typography>
 			<Controller
 				render={(params) => {
@@ -21,7 +21,7 @@ export const LoginClientPassword = ({ control }: LoginClientPasswordProps) => {
 						field,
 						fieldState: { error },
 					} = params;
-					return <Input {...field} type="password" placeholder="Heslo" error={Boolean(error)} />;
+					return <Input {...field} type="password" placeholder="Password" error={Boolean(error)} />;
 				}}
 				name="clientPassword"
 				control={control}

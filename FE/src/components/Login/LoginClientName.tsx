@@ -21,7 +21,7 @@ export const LoginClientName = ({ control }: LoginClientNameProps) => {
 						field,
 						fieldState: { error },
 					} = params;
-					return <Input {...field} type="text" placeholder="Jméno" error={Boolean(error)} />;
+					return <Input {...field} type="text" placeholder="User Name" error={Boolean(error)} />;
 				}}
 				name="clientName"
 				control={control}
