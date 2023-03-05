@@ -11,6 +11,7 @@ export const handler: Lambda<RequestAuthorizerEvent | APIGatewayTokenAuthorizerE
 	if (!authorizationToken) return deny(arn);
 
 	const jwt = authorizationToken.split(' ')[1];
+	console.log(jwt);
 	if (!jwt) return deny(arn);
 
 	const payload = await decodeJwt<UserJWTPayload>({ jwt });

@@ -20,6 +20,5 @@ export const withUser =
 		if (!user) return status404();
 
 		useUser = () => user;
-
 		return handler(...args);
 	};

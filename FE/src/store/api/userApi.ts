@@ -1,5 +1,5 @@
-import { GetUserResponse, UpdateUserRequest, UpdateUserResponse } from '@type/User';
-import { appApi } from '.';
+import { appApi } from '../api/index';
+import { DeleteUserResponse, GetUserResponse, UpdateUserRequest, UpdateUserResponse } from '@type/User';
 
 export const userApi = appApi.injectEndpoints({
 	endpoints: (builder) => ({
@@ -18,7 +18,14 @@ export const userApi = appApi.injectEndpoints({
 			}),
 			invalidatesTags: [{ type: 'User', id: 'USER' }],
 		}),
+		deleteUser: builder.mutation<DeleteUserResponse, void>({
+			query: () => ({
+				url: '/user',
+				method: 'DELETE',
+			}),
+			invalidatesTags: [{ type: 'User', id: 'USER' }],
+		}),
 	}),
 });
 
-export const { useGetUserQuery, useUpdateUserMutation } = userApi;
+export const { useGetUserQuery, useUpdateUserMutation, useDeleteUserMutation } = userApi;

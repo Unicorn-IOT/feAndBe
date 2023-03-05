@@ -6,6 +6,7 @@ import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
 export const appApi = createApi({
 	reducerPath: 'api',
 	baseQuery: fetchBaseQuery({
+		baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL ?? ''}`,
 		prepareHeaders: (headers, { getState }) => {
 			const { token } = getState() as AppState;
 			if (token) headers.set('Authorization', `Bearer ${token}`);
@@ -17,6 +18,6 @@ export const appApi = createApi({
 			return action.payload[reducerPath];
 		}
 	},
-	tagTypes: [],
+	tagTypes: ['Organization', 'Organization/User', 'Organization/Test', 'Test', 'Test/Email', 'Test/Url', 'User'],
 	endpoints: () => ({}),
 });
