@@ -9,6 +9,7 @@
 	},
 	"author": "",
 	"license": "ISC",
+	"private": true,
 	"husky": {
 		"hooks": {
 			"pre-commit": "lint-staged"
