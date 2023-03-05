@@ -1,5 +1,5 @@
-import { useGetUserQuery } from '../store/api/userApi';
-import { Navbar } from './Navbar';
+// import { useGetUserQuery } from '../store/api/userApi';
+// import { Navbar } from './Navbar';
 
 export const Header = () => {
 	// const { data, isError, isLoading } = useGetUserQuery();
@@ -20,7 +20,7 @@ export const Header = () => {
 
 	return (
 		<>
-			<Navbar />
+			{/* <Navbar /> */}
 			{/* <h1>email: {data?.email}</h1> */}
 		</>
 	);

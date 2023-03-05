@@ -1,8 +1,8 @@
-import { status200 } from 'libs/http/status200';
-import { status500 } from 'libs/http/status500';
-import { withDB } from 'libs/wrapper/withDB';
-import { withHttp } from 'libs/wrapper/withHttp';
-import { createDatabase } from 'scripts/createDatabase';
+import { status200 } from '../../libs/http/status200';
+import { status500 } from '../../libs/http/status500';
+import { withDB } from '../../libs/wrapper/withDB';
+import { withHttp } from '../../libs/wrapper/withHttp';
+import { createDatabase } from '../../scripts/createDatabase';
 import { Lambda, ScriptParameters } from '../../../../types/lambda';
 
 const scripts: Record<string, (parameters: ScriptParameters) => Promise<string | string[] | void>> = {
