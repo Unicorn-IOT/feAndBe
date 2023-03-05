@@ -12,7 +12,8 @@
 		"postupdate": "npm install",
 		"back:dev": "cd BE && npm run dev",
 		"front:dev": "cd FE && npm run dev",
-		"dev": "npm-run-all --parallel back:dev front:dev"
+		"dev": "npm-run-all --parallel back:dev front:dev",
+		"build": "cd FE && npm run build"
 	},
 	"repository": {
 		"type": "git",
