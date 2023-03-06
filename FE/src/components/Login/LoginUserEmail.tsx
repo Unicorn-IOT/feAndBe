@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Control, Controller } from 'react-hook-form';
 
-import { Grid, Input, Typography } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import { LoginPageType } from './LoginForm';
 
 type LoginUserEmailProps = {
@@ -21,7 +21,16 @@ export const LoginUserEmail = ({ control }: LoginUserEmailProps) => {
 						field,
 						fieldState: { error },
 					} = params;
-					return <Input {...field} type="text" placeholder="User email" error={Boolean(error)} />;
+					return (
+						<TextField
+							{...field}
+							type="text"
+							variant="standard"
+							placeholder="User email"
+							error={Boolean(error)}
+							helperText={error?.message}
+						/>
+					);
 				}}
 				name="email"
 				control={control}
