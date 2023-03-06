@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ReactElement, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -15,16 +15,18 @@ import { MainListItems, SecondaryListItems } from './listItems';
 
 import { AppBar } from './AppBar';
 import { Drawer } from './Drawer';
+import { useGetUserQuery } from '../store/api/userApi';
 
 const mdTheme = createTheme();
 
 type DashboardContentProps = {
-	children: React.ReactElement;
+	children: ReactElement;
 };
 
 function DashboardContent({ children }: DashboardContentProps) {
-	const [open, setOpen] = React.useState(true);
+	const [open, setOpen] = useState(true);
 	const router = useRouter();
+	const { data } = useGetUserQuery();
 
 	const toggleDrawer = () => {
 		setOpen(!open);
@@ -52,6 +54,7 @@ function DashboardContent({ children }: DashboardContentProps) {
 						>
 							<MenuIcon />
 						</IconButton>
+						{'Vitej vole ' + data?.data.user.name}
 						<Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
 							Unicorn Team IoT - XX
 						</Typography>
@@ -88,7 +91,7 @@ function DashboardContent({ children }: DashboardContentProps) {
 }
 
 type DashboardProps = {
-	children: React.ReactElement;
+	children: ReactElement;
 };
 
 export default function Dashboard({ children }: DashboardProps) {

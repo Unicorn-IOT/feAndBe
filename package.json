@@ -30,6 +30,7 @@
 		"@mui/icons-material": "latest",
 		"@mui/material": "latest",
 		"@reduxjs/toolkit": "^1.9.3",
+		"abortcontroller-polyfill": "^1.7.5",
 		"aws-sdk": "^2.892.0",
 		"jose": "^3.12.3",
 		"md5": "^2.3.0",

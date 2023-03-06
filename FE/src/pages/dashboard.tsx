@@ -9,6 +9,9 @@ import Paper from '@mui/material/Paper';
 
 import { Chart } from '../components/Chart';
 import { WeatherRIghtNow } from '../components/WeatherRIghtNow';
+import { wrapper } from '../store';
+import { prepopulateUserInfo } from '../store/server/prepopulateUserInfo';
+import { useServerLoggedOutRedirect } from '../store/server/useServerLoggedOutRedirect';
 
 const Dashboard = () => {
 	return (
@@ -56,3 +59,11 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
+	prepopulateUserInfo(store, context);
+	return {
+		props: {},
+		redirect: useServerLoggedOutRedirect(context),
+	};
+});

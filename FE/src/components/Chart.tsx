@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Fragment } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import { Title } from './Title';
@@ -30,7 +30,7 @@ export const Chart = () => {
 	const theme = useTheme();
 
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Title>{Today}</Title>
 			<ResponsiveContainer>
 				<LineChart
@@ -73,6 +73,6 @@ export const Chart = () => {
 					<Line isAnimationActive={true} type="natural" dataKey="humidity" stroke="blue" dot={true} />
 				</LineChart>
 			</ResponsiveContainer>
-		</React.Fragment>
+		</Fragment>
 	);
 };

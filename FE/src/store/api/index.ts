@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { AppState } from '../';
 import { HYDRATE } from 'next-redux-wrapper';
-import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
+// import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
 
 export const appApi = createApi({
 	reducerPath: 'api',
 	baseQuery: fetchBaseQuery({
-		baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL ?? ''}`,
+		baseUrl: `http://localhost:3333`,
 		prepareHeaders: (headers, { getState }) => {
 			const { token } = getState() as AppState;
 			if (token) headers.set('Authorization', `Bearer ${token}`);

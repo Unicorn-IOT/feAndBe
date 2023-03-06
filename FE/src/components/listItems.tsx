@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Fragment } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -16,7 +16,7 @@ type mainListItemsProps = {
 
 export const MainListItems = ({ toHome, toDashboard, toStations }: mainListItemsProps) => {
 	return (
-		<React.Fragment>
+		<Fragment>
 			<ListItemButton onClick={toHome}>
 				<ListItemIcon>
 					<HomeIcon />
@@ -35,7 +35,7 @@ export const MainListItems = ({ toHome, toDashboard, toStations }: mainListItems
 				</ListItemIcon>
 				<ListItemText primary="Stations" />
 			</ListItemButton>
-		</React.Fragment>
+		</Fragment>
 	);
 };
 
@@ -46,7 +46,7 @@ type secondaryListItemsProps = {
 
 export const SecondaryListItems = ({ toCurrentMonth, toLastDays }: secondaryListItemsProps) => {
 	return (
-		<React.Fragment>
+		<Fragment>
 			<ListSubheader component="div" inset>
 				Saved reports
 			</ListSubheader>
@@ -62,6 +62,6 @@ export const SecondaryListItems = ({ toCurrentMonth, toLastDays }: secondaryList
 				</ListItemIcon>
 				<ListItemText primary="Last 30 days" />
 			</ListItemButton>
-		</React.Fragment>
+		</Fragment>
 	);
 };

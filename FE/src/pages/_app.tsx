@@ -1,14 +1,15 @@
 import * as React from 'react';
 import Head from 'next/head';
+import CssBaseline from '@mui/material/CssBaseline';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
+import { useRouter } from 'next/router';
 
 import theme from '../utils/theme';
 import createEmotionCache from '../utils/createEmotionCache';
 import Dashboard from '../components/Dashboard';
-import LoginForm from '../components/Login/LoginForm';
+import { wrapper } from '../store';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -17,9 +18,10 @@ interface MyAppProps extends AppProps {
 	emotionCache?: EmotionCache;
 }
 
-export default function App(props: MyAppProps) {
+function App(props: MyAppProps) {
 	const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-	const login = false;
+	const router = useRouter();
+
 	return (
 		<>
 			<CacheProvider value={emotionCache}>
@@ -30,8 +32,8 @@ export default function App(props: MyAppProps) {
 					{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
 					<CssBaseline />
 
-					{!login ? (
-						<LoginForm />
+					{router.pathname == '/login' ? (
+						<Component {...pageProps} />
 					) : (
 						<Dashboard>
 							<Component {...pageProps} />
@@ -42,3 +44,5 @@ export default function App(props: MyAppProps) {
 		</>
 	);
 }
+
+export default wrapper.withRedux(App);

@@ -6,6 +6,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import { wrapper } from '../store';
+import { prepopulateUserInfo } from '../store/server/prepopulateUserInfo';
+import { useServerLoggedOutRedirect } from '../store/server/useServerLoggedOutRedirect';
 
 const Stations = () => {
 	return (
@@ -53,3 +56,11 @@ const Stations = () => {
 };
 
 export default Stations;
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
+	prepopulateUserInfo(store, context);
+	return {
+		props: {},
+		redirect: useServerLoggedOutRedirect(context),
+	};
+});

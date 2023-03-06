@@ -1,12 +1,14 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useRouter } from 'next/router';
 
+import { Message } from '@mui/icons-material';
 import { Button, Grid, Typography } from '@mui/material';
 import { LoginUserPassword } from './LoginUserPassword';
 import { LoginUserEmail } from './LoginUserEmail';
+import { useLoginMutation } from 'FE/src/store/api/authenticationApi';
 
 export type LoginPageType = {
 	email: string;
@@ -15,7 +17,7 @@ export type LoginPageType = {
 
 const schema = yup.object({
 	email: yup.string().required('User email is required'),
-	password: yup.string().min(3, 'Min 3 chars').max(10, ' Max 10 chars').required('Password is required'),
+	password: yup.string().required('Password is required').min(3, 'Min 3 chars').max(10, ' Max 10 chars'),
 });
 
 export default function LoginForm() {
@@ -23,16 +25,20 @@ export default function LoginForm() {
 		resolver: yupResolver(schema),
 		defaultValues: { email: '', password: '' },
 	});
-	const router = useRouter();
 
-	const handleClick = (data: LoginPageType) => {
-		router.push('/dashboard');
-		console.log(JSON.stringify(data));
+	const router = useRouter();
+	const [login, { isSuccess, isError, error }] = useLoginMutation();
+
+	const onSubmit = async (data: LoginPageType) => {
+		await Promise.all([router.prefetch('/dashboard'), login(data)]);
 	};
+	useEffect(() => {
+		if (isSuccess) router.push('/dashboard');
+	}, [isSuccess]);
 
 	return (
 		<Grid>
-			<form onSubmit={handleSubmit(handleClick)}>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<Grid
 					sx={{
 						marginTop: 10,
@@ -59,6 +65,11 @@ export default function LoginForm() {
 					<Button type="submit" sx={{ marginTop: 2, fontWeight: 'bold' }}>
 						Log in
 					</Button>
+					{isError && (
+						<Message>
+							<>Došlo k chybě, zkontrolujte si prosím údaje ve formuláři.</>
+						</Message>
+					)}
 				</Grid>
 			</form>
 		</Grid>
