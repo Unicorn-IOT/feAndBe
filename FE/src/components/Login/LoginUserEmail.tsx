@@ -1,19 +1,19 @@
 import React from 'react';
-import type { Control } from 'react-hook-form';
-import { Controller } from 'react-hook-form';
+
+import { Control, Controller } from 'react-hook-form';
 
 import { Grid, Input, Typography } from '@mui/material';
 import { LoginPageType } from './LoginForm';
 
-type LoginClientPasswordProps = {
+type LoginUserEmailProps = {
 	control: Control<LoginPageType>;
 };
 
-export const LoginClientPassword = ({ control }: LoginClientPasswordProps) => {
+export const LoginUserEmail = ({ control }: LoginUserEmailProps) => {
 	return (
 		<Grid>
 			<Typography variant="body2" marginTop={2} marginBottom={1}>
-				Password
+				User email
 			</Typography>
 			<Controller
 				render={(params) => {
@@ -21,9 +21,9 @@ export const LoginClientPassword = ({ control }: LoginClientPasswordProps) => {
 						field,
 						fieldState: { error },
 					} = params;
-					return <Input {...field} type="password" placeholder="Password" error={Boolean(error)} />;
+					return <Input {...field} type="text" placeholder="User email" error={Boolean(error)} />;
 				}}
-				name="clientPassword"
+				name="email"
 				control={control}
 			/>
 		</Grid>
