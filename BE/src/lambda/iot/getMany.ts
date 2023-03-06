@@ -7,28 +7,28 @@ import { Op } from 'sequelize';
 import { Mesurement } from 'libs/database/models/mesurement';
 
 export const handler: Lambda = withHttp(
-	withUser(
-		withDB(async () => {
+	withDB(
+		withUser(async ({ body }) => {
 			const user = useUser();
 			const payload = await user.getPayload();
 			const token = await user.getToken(payload);
 			const db = await useDB();
+			// TO FIX: const { Mesurement } = await useDB();
+			const { value, type } = JSON.parse(body); // získání dat z requestu dny
+			if (!value || !type) return status400();
 
 			// Získání teplotních dat z databáze v rozmezí od 1 minuty do 1 dne
 			const temperatureData = await Mesurement.findAll({
 				//pipeline
 				where: {
 					createdAt: {
-						[Op.gte]: new Date(new Date().getTime() - 24 * 60 * 60 * 1000), // od 1 dne zpět
-						[Op.lte]: new Date(new Date().getTime() - 60 * 1000), // od 1 minuty zpět
+						[Op.lte]: new Date(new Date().getTime() - 60 * 1000 * 60 * 24 * days), // od 1 minuty zpět
 					},
 				},
 				order: [['createdAt', 'DESC']],
 			});
 
-			const temperatures = temperatureData.map((temp) => temp.temperature);
-
-			return status200({ data: { temperatures, user: payload, token } });
+			return status200({ data: { temperatureData } });
 		}),
 	),
 );

@@ -108,11 +108,11 @@ functions:
         handler: src/lambda/iot/post.handler
         events:
             - httpApi:
-                  authorizer: iot-authorize # token pro IoT
+                  authorizer: user-authorize # token pro IoT
                   path: /iot
                   method: post
 
-    iot-get: # FE bude volat pro získání aktualní teploty (poslední naměřené)
+    iot-get: # NENI POTREBA FE bude volat pro získání aktualní teploty (poslední naměřené)
         handler: src/lambda/iot/get.handler
         events:
             - httpApi:
@@ -123,16 +123,16 @@ functions:
         handler: src/lambda/iot/getMany.handler
         events:
             - httpApi:
-                  path: /iot
+                  path: /iot/many
                   method: get
 
-    iot-checkStatus: # ???
-        handler: src/lambda/iot....
-        events:
-            - httpApi:
-                  authorizer: iot-authorize # token pro IoT              
-                  path: /iot
-                  method: get
+    # iot-checkStatus: # ???
+    #     handler: src/lambda/iot/
+    #     events:
+    #         - httpApi:
+    #               authorizer: iot-authorize # token pro IoT              
+    #               path: /iot
+    #               method: get
 
     script-run:
         handler: src/lambda/script/run.handler
