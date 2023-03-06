@@ -101,6 +101,39 @@ functions:
                   path: /user
                   method: delete
 
+    # iot management
+   
+    # iot fetching data
+    iot-post: # IoT bude volat pro zapis dat
+        handler: src/lambda/iot/post.handler
+        events:
+            - httpApi:
+                  authorizer: iot-authorize # token pro IoT
+                  path: /iot
+                  method: post
+
+    iot-get: # FE bude volat pro získání aktualní teploty (poslední naměřené)
+        handler: src/lambda/iot/get.handler
+        events:
+            - httpApi:
+                  path: /iot
+                  method: get
+
+    iot-getMany: # FE bude volat pro získání historických dat z různé časové škály (1m,5m,10m,30m,1h,1d)
+        handler: src/lambda/iot/getMany.handler
+        events:
+            - httpApi:
+                  path: /iot
+                  method: get
+
+    iot-checkStatus: # ???
+        handler: src/lambda/iot....
+        events:
+            - httpApi:
+                  authorizer: iot-authorize # token pro IoT              
+                  path: /iot
+                  method: get
+
     script-run:
         handler: src/lambda/script/run.handler
         events:
