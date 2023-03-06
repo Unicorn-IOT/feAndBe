@@ -5,30 +5,30 @@ import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { Button, Container, Grid, Typography } from '@mui/material';
-import { LoginClientPassword } from './LoginClientPassword';
-import { LoginClientName } from './LoginClientName';
+import { Button, Grid, Typography } from '@mui/material';
+import { LoginUserPassword } from './LoginUserPassword';
+import { LoginUserEmail } from './LoginUserEmail';
 
 export type LoginPageType = {
-	clientName: string;
-	clientPassword: string;
+	email: string;
+	password: string;
 };
 
 const schema = yup.object({
-	clientName: yup.string().required('User name is required'),
-	clientPassword: yup.string().min(3, 'Minimálně 3 znaky').max(10, ' Maximálně 10 znaků').required('Je povinné zadat heslo'),
+	email: yup.string().required('User email is required'),
+	password: yup.string().min(3, 'Min 3 chars').max(10, ' Max 10 chars').required('Password is required'),
 });
 
 export default function LoginForm() {
 	const { control, handleSubmit } = useForm<LoginPageType>({
 		resolver: yupResolver(schema),
-		defaultValues: { clientName: '', clientPassword: '' },
+		defaultValues: { email: '', password: '' },
 	});
 	const router = useRouter();
 
 	const handleClick = (data: LoginPageType) => {
 		router.push('/dashboard');
-		console.log(data);
+		console.log('data na BE', data);
 	};
 
 	return (
@@ -52,10 +52,10 @@ export default function LoginForm() {
 						Login
 					</Typography>
 					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
-						<LoginClientName control={control} />
+						<LoginUserEmail control={control} />
 					</Grid>
 					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
-						<LoginClientPassword control={control} />
+						<LoginUserPassword control={control} />
 					</Grid>
 					<Button type="submit" sx={{ marginTop: 2, fontWeight: 'bold' }}>
 						Log in
