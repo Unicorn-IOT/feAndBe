@@ -1,9 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
-
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useRouter } from 'next/router';
 
 import { Button, Grid, Typography } from '@mui/material';
 import { LoginUserPassword } from './LoginUserPassword';
@@ -28,7 +27,7 @@ export default function LoginForm() {
 
 	const handleClick = (data: LoginPageType) => {
 		router.push('/dashboard');
-		console.log('data na BE', data);
+		console.log(JSON.stringify(data));
 	};
 
 	return (

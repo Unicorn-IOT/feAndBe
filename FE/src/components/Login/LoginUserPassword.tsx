@@ -1,8 +1,9 @@
 import React from 'react';
 import type { Control } from 'react-hook-form';
+
 import { Controller } from 'react-hook-form';
 
-import { Grid, Input, Typography } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import { LoginPageType } from './LoginForm';
 
 type LoginUserPasswordProps = {
@@ -21,7 +22,16 @@ export const LoginUserPassword = ({ control }: LoginUserPasswordProps) => {
 						field,
 						fieldState: { error },
 					} = params;
-					return <Input {...field} type="password" placeholder="Password" error={Boolean(error)} />;
+					return (
+						<TextField
+							{...field}
+							type="password"
+							variant="standard"
+							placeholder="Password"
+							error={Boolean(error)}
+							helperText={error?.message}
+						/>
+					);
 				}}
 				name="password"
 				control={control}

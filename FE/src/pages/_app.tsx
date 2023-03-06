@@ -19,7 +19,7 @@ interface MyAppProps extends AppProps {
 
 export default function App(props: MyAppProps) {
 	const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-	const login = true;
+	const login = false;
 	return (
 		<>
 			<CacheProvider value={emotionCache}>
