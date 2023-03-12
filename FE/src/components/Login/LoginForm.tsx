@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useRouter } from 'next/router';
 
-import { Message } from '@mui/icons-material';
-import { Button, Grid, Typography } from '@mui/material';
+import { Alert, Button, Grid, Typography } from '@mui/material';
 import { LoginUserPassword } from './LoginUserPassword';
 import { LoginUserEmail } from './LoginUserEmail';
 import { useLoginMutation } from 'FE/src/store/api/authenticationApi';
@@ -56,6 +55,11 @@ export default function LoginForm() {
 					>
 						Login
 					</Typography>
+					{isError && (
+						<Alert severity="error" sx={{ marginLeft: 'auto', marginRight: 'auto' }}>
+							Došlo k chybě, zkontrolujte si prosím údaje ve formuláři.
+						</Alert>
+					)}
 					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
 						<LoginUserEmail control={control} />
 					</Grid>
@@ -65,11 +69,6 @@ export default function LoginForm() {
 					<Button type="submit" sx={{ marginTop: 2, fontWeight: 'bold' }}>
 						Log in
 					</Button>
-					{isError && (
-						<Message>
-							<>Došlo k chybě, zkontrolujte si prosím údaje ve formuláři.</>
-						</Message>
-					)}
 				</Grid>
 			</form>
 		</Grid>

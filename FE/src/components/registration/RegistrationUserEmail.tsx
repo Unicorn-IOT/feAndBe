@@ -1,15 +1,14 @@
 import React from 'react';
-
 import { Control, Controller } from 'react-hook-form';
 
 import { Grid, TextField, Typography } from '@mui/material';
-import { LoginPageType } from './LoginForm';
+import { RegistrationPageType } from './RegistrationForm';
 
-type LoginUserEmailProps = {
-	control: Control<LoginPageType>;
+type RegistrationUserEmailProps = {
+	control: Control<RegistrationPageType>;
 };
 
-export const LoginUserEmail = ({ control }: LoginUserEmailProps) => {
+export const RegistrationUserEmail = ({ control }: RegistrationUserEmailProps) => {
 	return (
 		<Grid>
 			<Typography variant="body2" marginTop={2} marginBottom={1}>

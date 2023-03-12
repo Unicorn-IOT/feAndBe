@@ -11,7 +11,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { MainListItems, SecondaryListItems } from './listItems';
+import { MainListItems } from './listItems';
 
 import { AppBar } from './AppBar';
 import { Drawer } from './Drawer';
@@ -54,9 +54,11 @@ function DashboardContent({ children }: DashboardContentProps) {
 						>
 							<MenuIcon />
 						</IconButton>
-						{'Vitej vole ' + data?.data.user.name}
 						<Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
 							Unicorn Team IoT - XX
+						</Typography>
+						<Typography align="right" variant="h6">
+							{'Vitej ' + data?.data.user.name}
 						</Typography>
 					</Toolbar>
 				</AppBar>
@@ -75,13 +77,8 @@ function DashboardContent({ children }: DashboardContentProps) {
 					</Toolbar>
 					<Divider />
 					<List component="nav">
-						<MainListItems
-							toHome={() => router.push('/')}
-							toDashboard={() => router.push('/dashboard')}
-							toStations={() => router.push('/stations')}
-						/>
+						<MainListItems toDashboard={() => router.push('/dashboard')} toStations={() => router.push('/stations')} />
 						<Divider sx={{ my: 1 }} />
-						<SecondaryListItems toCurrentMonth={() => router.push('/dashboard')} toLastDays={() => router.push('/dashboard')} />
 					</List>
 				</Drawer>
 				{children}

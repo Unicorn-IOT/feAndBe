@@ -27,9 +27,9 @@ export const LoginUserPassword = ({ control }: LoginUserPasswordProps) => {
 							{...field}
 							type="password"
 							variant="standard"
-							placeholder="Password"
 							error={Boolean(error)}
 							helperText={error?.message}
+							sx={{ width: '200px' }}
 						/>
 					);
 				}}

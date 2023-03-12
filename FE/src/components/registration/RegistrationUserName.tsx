@@ -3,17 +3,17 @@ import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 
 import { Grid, TextField, Typography } from '@mui/material';
-import { LoginPageType } from './LoginForm';
+import { RegistrationPageType } from './RegistrationForm';
 
-type LoginUserEmailProps = {
-	control: Control<LoginPageType>;
+type RegistrationUserNameProps = {
+	control: Control<RegistrationPageType>;
 };
 
-export const LoginUserEmail = ({ control }: LoginUserEmailProps) => {
+export const RegistrationUserName = ({ control }: RegistrationUserNameProps) => {
 	return (
 		<Grid>
 			<Typography variant="body2" marginTop={2} marginBottom={1}>
-				User email
+				User name
 			</Typography>
 			<Controller
 				render={(params) => {
@@ -32,7 +32,7 @@ export const LoginUserEmail = ({ control }: LoginUserEmailProps) => {
 						/>
 					);
 				}}
-				name="email"
+				name="name"
 				control={control}
 			/>
 		</Grid>

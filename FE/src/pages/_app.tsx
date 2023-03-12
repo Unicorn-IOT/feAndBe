@@ -22,6 +22,28 @@ function App(props: MyAppProps) {
 	const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 	const router = useRouter();
 
+	if (router.pathname == '/login') {
+		<Component {...pageProps} />;
+	} else if (router.pathname == '/terms') {
+		<Component {...pageProps} />;
+	} else {
+		<Dashboard>
+			<Component {...pageProps} />
+		</Dashboard>;
+	}
+
+	function routovani() {
+		return router.pathname == '/login' ? (
+			<Component {...pageProps} />
+		) : router.pathname == '/terms' ? (
+			<Component {...pageProps} />
+		) : (
+			<Dashboard>
+				<Component {...pageProps} />
+			</Dashboard>
+		);
+	}
+
 	return (
 		<>
 			<CacheProvider value={emotionCache}>
@@ -31,14 +53,24 @@ function App(props: MyAppProps) {
 				<ThemeProvider theme={theme}>
 					{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
 					<CssBaseline />
-
 					{router.pathname == '/login' ? (
+						<Component {...pageProps} />
+					) : router.pathname == '/terms' ? (
+						<Component {...pageProps} />
+					) : router.pathname == '/registration' ? (
 						<Component {...pageProps} />
 					) : (
 						<Dashboard>
 							<Component {...pageProps} />
 						</Dashboard>
 					)}
+					{/* {router.pathname == '/login' ? (
+						<Component {...pageProps} />
+					) : (
+						<Dashboard>
+							<Component {...pageProps} />
+						</Dashboard>
+					)} */}
 				</ThemeProvider>
 			</CacheProvider>
 		</>
