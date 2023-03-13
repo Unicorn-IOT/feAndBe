@@ -112,7 +112,7 @@ functions:
                   path: /iot
                   method: post
 
-    iot-get: # NENI POTREBA FE bude volat pro získání aktualní teploty (poslední naměřené)
+    iot-get: # Endpoint pro získání seznamu dostupných meteostanic; pres role
         handler: src/lambda/iot/get.handler
         events:
             - httpApi:
@@ -125,6 +125,29 @@ functions:
             - httpApi:
                   path: /iot/many
                   method: get
+
+    # iot-getNow: # Endpoint pro zobrazení aktuálních dat o teplotě a vlhkosti v webové aplikaci
+    #     handler: src/lambda/iot/get.handler
+    #     events:
+    #         - httpApi:
+    #               path: /iot
+    #               method: get
+
+    # iot-newDevice: # Endpoint pro přidání nové meteostanice
+    #     handler: src/lambda/iot/...
+    #     events:
+    #         - httpApi:
+    #               authorizer: user-authorize # token pro IoT
+    #               path: /iot
+    #               method: post
+
+    # iot-removeDevice: # Endpoint pro odebráni meteo stanice
+    #     handler: src/lambda/iot/...
+    #     events:
+    #         - httpApi:
+    #               authorizer: user-authorize # token pro IoT
+    #               path: /iot
+    #               method: post
 
     # iot-checkStatus: # ???
     #     handler: src/lambda/iot/

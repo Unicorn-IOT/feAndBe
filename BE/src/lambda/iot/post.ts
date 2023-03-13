@@ -12,7 +12,8 @@ import { Role } from 'libs/database/models/user';
 
 export const handler: Lambda = withHttp(
 	withDB(
-		withRole([ Role.USER], async ({ body }) => {
+		// TODO: odstranit roli USER
+		withRole([Role.IOT, Role.USER], async ({ body }) => {
 			// získání dat z requestu
 			if (!body) return status400();
 			const { value, type } = JSON.parse(body);
