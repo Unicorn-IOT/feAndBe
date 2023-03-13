@@ -123,7 +123,7 @@ functions:
         handler: src/lambda/iot/getMany.handler
         events:
             - httpApi:
-                  path: /iot/many
+                  path: /iot/getMany
                   method: get
 
     # iot-getNow: # Endpoint pro zobrazení aktuálních dat o teplotě a vlhkosti v webové aplikaci
