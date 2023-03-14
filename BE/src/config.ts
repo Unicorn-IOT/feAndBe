@@ -1,11 +1,9 @@
-export const isOffline = false;
-
-export const localDB = false;
+export const isOffline = true;
 
 export const db = {
-	host: isOffline ? 'localhost' : 'unicorniot.cd98mbmqu8a5.eu-west-1.rds.amazonaws.com',
+	host: 'unicorniot.cd98mbmqu8a5.eu-west-1.rds.amazonaws.com',
 	database: 'unicorniot',
-	user: isOffline && localDB ? 'root' : 'admin',
-	password: isOffline && localDB ? 'admin' : 'rootroot',
+	user: 'admin',
+	password: 'rootroot',
 	port: 3306,
 };
