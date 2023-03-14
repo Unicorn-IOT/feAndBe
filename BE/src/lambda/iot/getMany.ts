@@ -6,13 +6,9 @@ import { Lambda } from '../../../../types/lambda';
 import { Op } from 'sequelize';
 
 export const handler: Lambda = withHttp(
-	withDB(async ({ body }) => {
-		//const user = useUser();
-		// const payload = await user.getPayload();
-		// const token = await user.getToken(payload);
-		console.log(body);
-		if (!body) return status400();
-		const { type, userId, days } = JSON.parse(body); // získání dat z requestu dny
+	withDB(async ({ queryStringParameters }) => {
+		if (!queryStringParameters) return status400();
+		const { type, userId, days } = queryStringParameters;
 		if (!type || !userId || !days) return status400();
 
 		const { Mesurement } = await useDB();
@@ -22,7 +18,7 @@ export const handler: Lambda = withHttp(
 			//pipeline
 			where: {
 				createdAt: {
-					[Op.gte]: new Date(new Date().getTime() - 60 * 1000 * 60 * 24 * days),
+					[Op.gte]: new Date(new Date().getTime() - 60 * 1000 * 60 * 24 * parseInt(days)),
 				},
 				type: {
 					[Op.eq]: type,

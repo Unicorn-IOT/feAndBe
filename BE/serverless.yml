@@ -117,7 +117,7 @@ functions:
                   path: /iot
                   method: get
 
-    iot-getMany: # FE bude volat pro získání historických dat z různé časové škály (1m,5m,10m,30m,1h,#d)
+    iot-getMany: # FE bude volat pro získání historických; PARAM iot/getMany?type=temperature&userId=1&days=1
         handler: src/lambda/iot/getMany.handler
         events:
             - httpApi:
