@@ -13,19 +13,26 @@ export const handler: Lambda = withHttp(
 
 		const { Mesurement } = await useDB();
 
-		// Získání teplotních dat z databáze v rozmezí od 1 minuty do dnů
-		const temperatureData = await Mesurement.findAll({
-			//pipeline
-			where: {
-				createdAt: {
-					[Op.gte]: new Date(new Date().getTime() - 60 * 1000 * 60 * 24 * parseInt(days)),
-				},
+		const types = type.split(','); // hodnoty oddělené čárkou -> pole
+
+		// data z databáze v rozmezí od 1 minuty do dnů pro všechny typy
+		const measurementWhereClauses = types.map((t) => {
+			return {
 				type: {
-					[Op.eq]: type,
+					[Op.eq]: t,
 				},
 				userId: {
 					[Op.eq]: userId,
 				},
+				createdAt: {
+					[Op.gte]: new Date(new Date().getTime() - 60 * 1000 * 60 * 24 * parseInt(days)),
+				},
+			};
+		});
+
+		const temperatureData = await Mesurement.findAll({
+			where: {
+				[Op.or]: measurementWhereClauses,
 			},
 			order: [['createdAt', 'DESC']],
 		});
