@@ -17,12 +17,12 @@ export const handler: Lambda = withHttp(
 
 		const { Mesurement } = await useDB();
 
-		// Získání teplotních dat z databáze v rozmezí od 1 minuty do 1 dne
+		// Získání teplotních dat z databáze v rozmezí od 1 minuty do dnů
 		const temperatureData = await Mesurement.findAll({
 			//pipeline
 			where: {
 				createdAt: {
-					[Op.gte]: new Date(new Date().getTime() - 60 * 1000 * 60 * 24 * days), // od 1 minuty zpět
+					[Op.gte]: new Date(new Date().getTime() - 60 * 1000 * 60 * 24 * days),
 				},
 				type: {
 					[Op.eq]: type,

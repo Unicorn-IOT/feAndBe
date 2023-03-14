@@ -9,11 +9,21 @@ import { Mesurement } from 'libs/database/models/mesurement';
 export const handler: Lambda = withHttp(
 	withDB(async () => {
 		// poslední záznamu z databáze
-		const measurement = await Mesurement.findOne({
+		const temperatureMeasurement = await Mesurement.findOne({
+			where: { type: 'temperature' },
+			order: [['createdAt', 'DESC']],
+		});
+		const humidityMeasurement = await Mesurement.findOne({
+			where: { type: 'humidity' },
 			order: [['createdAt', 'DESC']],
 		});
 
 		// výsledek
-		return status200({ data: { measurement } });
+		return status200({
+			data: {
+				temperature: temperatureMeasurement?.value,
+				humidity: humidityMeasurement?.value,
+			},
+		});
 	}),
 );
