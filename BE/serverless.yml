@@ -101,8 +101,6 @@ functions:
                   path: /user
                   method: delete
 
-    # iot management
-   
     # iot fetching data
     iot-post: # IoT bude volat pro zapis dat
         handler: src/lambda/iot/post.handler
@@ -112,7 +110,7 @@ functions:
                   path: /iot
                   method: post
 
-    iot-get: # Endpoint pro získání seznamu dostupných meteostanic; pres role
+    iot-get:  # Endpoint pro zobrazení aktuálních dat o teplotě a vlhkosti v webové aplikaci
         handler: src/lambda/iot/get.handler
         events:
             - httpApi:
@@ -126,7 +124,9 @@ functions:
                   path: /iot/getMany
                   method: get
 
-    # iot-getNow: # Endpoint pro zobrazení aktuálních dat o teplotě a vlhkosti v webové aplikaci
+    # iot management
+
+    # iot-getIot: # Endpoint pro získání seznamu dostupných meteostanic; pres role
     #     handler: src/lambda/iot/get.handler
     #     events:
     #         - httpApi:
