@@ -9,7 +9,7 @@ provider:
     runtime: nodejs16.x
     stage: ${opt:stage, 'dev'}
     region: eu-west-1
-    profile: unicornIoT
+    profile: unicorniot
     memorySize: 192 # optional, in MB, default is 1024
     timeout: 10 # optional, in seconds, default is 6
     architecture: arm64
@@ -65,7 +65,7 @@ functions:
 
     auth-login-post:
         handler: src/lambda/auth/login/post.handler
-        provisionedConcurrency: ${param:provisionedOne}
+        # provisionedConcurrency: ${param:provisionedOne}
         events:
             - httpApi:
                   path: /auth/login
@@ -74,11 +74,11 @@ functions:
     # User management
     user-authorize:
         handler: src/lambda/user/authorize.handler
-        provisionedConcurrency: ${param:provisionedOne}
+        # provisionedConcurrency: ${param:provisionedOne}
 
     user-get:
         handler: src/lambda/user/get.handler
-        provisionedConcurrency: ${param:provisionedOne}
+        # provisionedConcurrency: ${param:provisionedOne}
         events:
             - httpApi:
                   authorizer: user-authorize
@@ -110,7 +110,7 @@ functions:
                   path: /iot
                   method: post
 
-    iot-get:  # Endpoint pro zobrazení aktuálních dat o teplotě a vlhkosti v webové aplikaci
+    iot-get: # Endpoint pro zobrazení aktuálních dat o teplotě a vlhkosti v webové aplikaci
         handler: src/lambda/iot/get.handler
         events:
             - httpApi:
@@ -153,7 +153,7 @@ functions:
     #     handler: src/lambda/iot/
     #     events:
     #         - httpApi:
-    #               authorizer: iot-authorize # token pro IoT              
+    #               authorizer: iot-authorize # token pro IoT
     #               path: /iot
     #               method: get
 
@@ -200,6 +200,6 @@ package:
 
 plugins:
     - serverless-prune-plugin
-    - serverless-domain-manager
+    # - serverless-domain-manager
     - serverless-esbuild
     - serverless-offline
