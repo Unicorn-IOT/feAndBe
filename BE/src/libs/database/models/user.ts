@@ -91,6 +91,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 
 	public static findByEmail(email: string) {
 		return User.findOne({
+			where: { role: Role.USER },
 			include: [{ association: User.associations.email, where: { email }, required: true }],
 		});
 	}

@@ -133,13 +133,13 @@ functions:
     #               path: /iot
     #               method: get
 
-    # iot-newDevice: # Endpoint pro přidání nové meteostanice
-    #     handler: src/lambda/iot/...
-    #     events:
-    #         - httpApi:
-    #               authorizer: user-authorize # token pro IoT
-    #               path: /iot
-    #               method: post
+    iotRegister: # Endpoint pro přidání nové meteostanice
+        handler: src/lambda/iot/iotRegister.handler
+        events:
+            - httpApi:
+                #   authorizer: user-authorize # token pro IoT
+                  path: /iot/iotRegister
+                  method: post
 
     # iot-removeDevice: # Endpoint pro odebráni meteo stanice
     #     handler: src/lambda/iot/...
