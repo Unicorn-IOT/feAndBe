@@ -126,14 +126,14 @@ functions:
 
     # iot management
 
-    iot-getIot: # Endpoint pro získání seznamu dostupných meteostanic; pres role
-        handler: src/lambda/iot/getIot.handler
+    iot-iotGet: # Endpoint pro získání seznamu dostupných meteostanic; pres role
+        handler: src/lambda/iot/iotGet.handler
         events:
             - httpApi:
                   path: /iot/getIot
                   method: get
 
-    iotRegister: # Endpoint pro přidání nové meteostanice
+    iot-iotRegister: # Endpoint pro přidání nové meteostanice
         handler: src/lambda/iot/iotRegister.handler
         events:
             - httpApi:
@@ -141,20 +141,20 @@ functions:
                   path: /iot/iotRegister
                   method: post
 
-    iotLogin:
+    iot-iotLogin:
         handler: src/lambda/iot/iotLogin.handler
         events:
             - httpApi:
                   path: /iot/iotLogin
                   method: post
 
-    # iot-removeDevice: # Endpoint pro odebráni meteo stanice
-    #     handler: src/lambda/iot/...
-    #     events:
-    #         - httpApi:
-    #               authorizer: user-authorize # token pro IoT
-    #               path: /iot
-    #               method: post
+    iot-iotRemove: # Endpoint pro odebráni meteo stanice
+        handler: src/lambda/iot/iotRemove
+        events:
+            - httpApi:
+                  # authorizer: user-authorize # token pro IoT
+                  path: /iot/iotRemove
+                  method: post
 
     # iot-checkStatus: # ???
     #     handler: src/lambda/iot/

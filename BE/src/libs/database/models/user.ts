@@ -96,14 +96,6 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 		});
 	}
 
-	//TOFIX: This is not working
-	public static findByNameIot(name: string) {
-		return User.findOne({
-			where: { role: Role.IOT },
-			include: [{ where: { name }, required: true }],
-		});
-	}
-
 	public static findByMagic(magic: string) {
 		return User.findOne({
 			where: { magic },
