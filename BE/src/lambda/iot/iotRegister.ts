@@ -18,19 +18,13 @@ export const handler: Lambda = withHttp(
 
 		if (user && user.role === Role.IOT) return status403();
 
-		const newIot = await User.create({
+		await User.create({
 			name,
 			emailId: email.id,
 			password,
 			terms,
 			role: Role.IOT,
 		});
-
-		newIot.update({
-			emailId: email.id,
-		});
-
-		console.log("new"+newIot);
 
 		return status200();
 	}),
