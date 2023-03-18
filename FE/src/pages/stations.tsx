@@ -1,11 +1,6 @@
 import React from 'react';
 
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import { Box, Toolbar, Container, Grid, Paper } from '@mui/material';
 import { wrapper } from '../store';
 import { prepopulateUserInfo } from '../store/server/prepopulateUserInfo';
 import { useServerLoggedOutRedirect } from '../store/server/useServerLoggedOutRedirect';

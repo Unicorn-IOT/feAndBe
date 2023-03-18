@@ -1,7 +1,6 @@
 import React from 'react';
-import type { Control } from 'react-hook-form';
-
 import { Controller } from 'react-hook-form';
+import type { Control } from 'react-hook-form';
 
 import { Grid, TextField, Typography } from '@mui/material';
 import { LoginPageType } from './LoginForm';

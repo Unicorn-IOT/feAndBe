@@ -24,15 +24,15 @@ export default function LoginForm() {
 		resolver: yupResolver(schema),
 		defaultValues: { email: '', password: '' },
 	});
-
 	const router = useRouter();
 	const [login, { isSuccess, isError, error }] = useLoginMutation();
 
 	const onSubmit = async (data: LoginPageType) => {
-		await Promise.all([router.prefetch('/dashboard'), login(data)]);
+		await Promise.all([router.prefetch('/'), login(data)]);
 	};
+
 	useEffect(() => {
-		if (isSuccess) router.push('/dashboard');
+		if (isSuccess) router.push('/');
 	}, [isSuccess]);
 
 	return (
@@ -57,7 +57,7 @@ export default function LoginForm() {
 					</Typography>
 					{isError && (
 						<Alert severity="error" sx={{ marginLeft: 'auto', marginRight: 'auto' }}>
-							Došlo k chybě, zkontrolujte si prosím údaje ve formuláři.
+							There is an error, please check your registration data.
 						</Alert>
 					)}
 					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -66,9 +66,11 @@ export default function LoginForm() {
 					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
 						<LoginUserPassword control={control} />
 					</Grid>
-					<Button type="submit" sx={{ marginTop: 2, fontWeight: 'bold' }}>
-						Log in
-					</Button>
+					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+						<Button type="submit" sx={{ marginTop: 2, fontWeight: 'bold' }}>
+							Log in
+						</Button>
+					</Grid>
 				</Grid>
 			</form>
 		</Grid>

@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
-import { useTheme } from '@mui/material/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
+
+import { useTheme } from '@mui/material/styles';
 import { Title } from './Title';
 
-// Generate Sales Data
 function createData(temperature: number, humidity: number, time: string) {
 	return { temperature, humidity, time };
 }

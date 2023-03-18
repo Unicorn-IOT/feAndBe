@@ -1,21 +1,15 @@
 import { ReactElement, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Box, Toolbar, List, Typography, Divider, IconButton } from '@mui/material';
+import { ChevronLeft, Menu } from '@mui/icons-material';
 import { MainListItems } from './listItems';
-
 import { AppBar } from './AppBar';
 import { Drawer } from './Drawer';
 import { useGetUserQuery } from '../store/api/userApi';
+import Logout from './logout/Logout';
 
 const mdTheme = createTheme();
 
@@ -52,14 +46,15 @@ function DashboardContent({ children }: DashboardContentProps) {
 								...(open && { display: 'none' }),
 							}}
 						>
-							<MenuIcon />
+							<Menu />
 						</IconButton>
 						<Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
 							Unicorn Team IoT - XX
 						</Typography>
 						<Typography align="right" variant="h6">
-							{'Vitej ' + data?.data.user.name}
+							{data?.data.user.name}
 						</Typography>
+						<Logout />
 					</Toolbar>
 				</AppBar>
 				<Drawer variant="permanent" open={open}>
@@ -72,12 +67,12 @@ function DashboardContent({ children }: DashboardContentProps) {
 						}}
 					>
 						<IconButton onClick={toggleDrawer}>
-							<ChevronLeftIcon />
+							<ChevronLeft />
 						</IconButton>
 					</Toolbar>
 					<Divider />
 					<List component="nav">
-						<MainListItems toDashboard={() => router.push('/dashboard')} toStations={() => router.push('/stations')} />
+						<MainListItems toDashboard={() => router.push('/')} toStations={() => router.push('/stations')} />
 						<Divider sx={{ my: 1 }} />
 					</List>
 				</Drawer>
