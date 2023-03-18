@@ -9,7 +9,6 @@ import { MainListItems } from './listItems';
 import { AppBar } from './AppBar';
 import { Drawer } from './Drawer';
 import { useGetUserQuery } from '../store/api/userApi';
-import Logout from './logout/Logout';
 
 const mdTheme = createTheme();
 
@@ -54,7 +53,6 @@ function DashboardContent({ children }: DashboardContentProps) {
 						<Typography align="right" variant="h6">
 							{data?.data.user.name}
 						</Typography>
-						<Logout />
 					</Toolbar>
 				</AppBar>
 				<Drawer variant="permanent" open={open}>

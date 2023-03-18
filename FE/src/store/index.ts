@@ -1,5 +1,5 @@
 import { AnyAction, configureStore, PayloadAction, ThunkAction } from '@reduxjs/toolkit';
-import { appApi } from './api';
+import { appApi } from './api/index';
 import { appReducer } from './reducers';
 import { tokenSlice } from './slices/tokenSlice';
 import { nextReduxCookieMiddleware, wrapMakeStore } from 'next-redux-cookie-wrapper';
