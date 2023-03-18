@@ -6,7 +6,7 @@ import { HYDRATE } from 'next-redux-wrapper';
 export const appApi = createApi({
 	reducerPath: 'api',
 	baseQuery: fetchBaseQuery({
-		baseUrl: `http://localhost:3333`,
+		baseUrl: `https://1fntd115qh.execute-api.eu-west-1.amazonaws.com/`,
 		prepareHeaders: (headers, { getState }) => {
 			const { token } = getState() as AppState;
 			if (token) headers.set('Authorization', `Bearer ${token}`);
