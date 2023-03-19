@@ -4,8 +4,8 @@ import { useDB, withDB } from '../../libs/wrapper/withDB';
 import { withHttp } from '../../libs/wrapper/withHttp';
 import { useUser } from '../../libs/wrapper/withUser';
 import { Lambda } from '../../../../types/lambda';
-import { withRole } from 'libs/wrapper/withRole';
-import { Role } from 'libs/database/models/user';
+import { withRole } from './../../libs/wrapper/withRole';
+import { Role } from './../../libs/database/models/user';
 
 // Endpoint pro zápis dat z IoT do DB
 
