@@ -25,7 +25,7 @@ export default function LoginForm() {
 		defaultValues: { email: '', password: '' },
 	});
 	const router = useRouter();
-	const [login, { isSuccess, isError, error }] = useLoginMutation();
+	const [login, { isSuccess, isError }] = useLoginMutation();
 
 	const onSubmit = async (data: LoginPageType) => {
 		await Promise.all([router.prefetch('/'), login(data)]);
@@ -33,6 +33,7 @@ export default function LoginForm() {
 
 	useEffect(() => {
 		if (isSuccess) router.push('/');
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSuccess]);
 
 	return (
