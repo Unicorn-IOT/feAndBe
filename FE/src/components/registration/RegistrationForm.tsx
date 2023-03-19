@@ -32,7 +32,7 @@ export default function RegistrationForm() {
 	});
 
 	const router = useRouter();
-	const [registration, { isSuccess, isError, error }] = useRegisterMutation();
+	const [registration, { isSuccess, isError }] = useRegisterMutation();
 
 	const onSubmit = async (data: RegistrationPageType) => {
 		console.log('Ahoj Registr', data);
@@ -41,6 +41,7 @@ export default function RegistrationForm() {
 
 	useEffect(() => {
 		isSuccess && router.push('/');
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSuccess]);
 
 	return (
