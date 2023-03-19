@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import { Box, Button, Grid, Typography } from '@mui/material';
 
-export default function terms() {
+export default function Terms() {
 	const router = useRouter();
 	return (
 		<Box
