@@ -45,46 +45,49 @@ export default function RegistrationForm() {
 	}, [isSuccess]);
 
 	return (
-		<Grid
-			sx={{
-				marginTop: 10,
-				display: 'flex',
-				justifyContent: 'center',
-				flexDirection: 'column',
-			}}
-			onSubmit={handleSubmit(onSubmit)}
-		>
-			<Typography
-				variant="h4"
-				color={'black'}
-				marginBottom={2}
-				fontWeight={'bold'}
-				sx={{ display: 'flex', justifyContent: 'center' }}
-			>
-				Registration
-			</Typography>
-			{isError && (
-				<Alert severity="error" sx={{ marginLeft: 'auto', marginRight: 'auto' }}>
-					There is an error, please check your registration data.
-				</Alert>
-			)}
-			<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
-				<RegistrationUserName control={control} />
-			</Grid>
-			<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
-				<RegistrationUserEmail control={control} />
-			</Grid>
-			<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
-				<RegistrationUserPassword control={control} />
-			</Grid>
-			<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
-				<RegistrationUserTerms control={control} />
-			</Grid>
-			<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
-				<Button type="submit" sx={{ marginTop: 2, fontWeight: 'bold' }}>
-					Registration
-				</Button>
-			</Grid>
+		<Grid>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<Grid
+					sx={{
+						marginTop: 10,
+						display: 'flex',
+						justifyContent: 'center',
+						flexDirection: 'column',
+					}}
+				>
+					<Typography
+						variant="h4"
+						color={'black'}
+						marginBottom={2}
+						fontWeight={'bold'}
+						sx={{ display: 'flex', justifyContent: 'center' }}
+					>
+						Registration
+					</Typography>
+					{isError && (
+						<Alert severity="error" sx={{ marginLeft: 'auto', marginRight: 'auto' }}>
+							There is an error, please check your registration data.
+						</Alert>
+					)}
+					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+						<RegistrationUserName control={control} />
+					</Grid>
+					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+						<RegistrationUserEmail control={control} />
+					</Grid>
+					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+						<RegistrationUserPassword control={control} />
+					</Grid>
+					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+						<RegistrationUserTerms control={control} />
+					</Grid>
+					<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+						<Button type="submit" sx={{ marginTop: 2, fontWeight: 'bold' }}>
+							Registration
+						</Button>
+					</Grid>
+				</Grid>
+			</form>
 		</Grid>
 	);
 }

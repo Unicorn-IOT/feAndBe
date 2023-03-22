@@ -40,13 +40,6 @@ function App(props: MyAppProps) {
 						<Component {...pageProps} />
 					</Dashboard>
 				)}
-				{/* {router.pathname == '/login' ? (
-						<Component {...pageProps} />
-					) : (
-						<Dashboard>
-							<Component {...pageProps} />
-						</Dashboard>
-					)} */}
 			</ThemeProvider>
 		</CacheProvider>
 	);
