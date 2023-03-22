@@ -1,10 +1,10 @@
 import { ReactElement, useState } from 'react';
 import { useRouter } from 'next/router';
-
+import { Box, Toolbar, List, Typography, Divider, IconButton, Button } from '@mui/material';
+import { ChevronLeft, Menu } from '@mui/icons-material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Box, Toolbar, List, Typography, Divider, IconButton } from '@mui/material';
-import { ChevronLeft, Menu } from '@mui/icons-material';
+
 import { MainListItems } from './listItems';
 import { AppBar } from './AppBar';
 import { Drawer } from './Drawer';
@@ -51,8 +51,11 @@ function DashboardContent({ children }: DashboardContentProps) {
 							Unicorn Team IoT - XX
 						</Typography>
 						<Typography align="right" variant="h6">
-							{data?.data.user.name}
+							Vítej prasáku {data?.data.user.name}
 						</Typography>
+						<Button sx={{ color: '#ffff' }} onClick={() => router.push('/logout')}>
+							Logout
+						</Button>
 					</Toolbar>
 				</AppBar>
 				<Drawer variant="permanent" open={open}>
