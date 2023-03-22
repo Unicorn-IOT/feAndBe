@@ -15,16 +15,21 @@ export const handler: Lambda = withHttp(
 
 		const { User } = await useDB();
 		const user = await User.findByEmail(email);
-
 		if (user && user.role === Role.IOT) return status403();
 
-		await User.create({
-			name,
-			emailId: email.id,
-			password,
-			terms,
-			role: Role.IOT,
-		});
+		const a = await User.findByEmail(email);
+		if (!a) return status403();
+
+		if (!user) return status403();
+		await user.register(name, password, terms, Role.IOT);
+
+		// await User.create({
+		// 	name,
+		// 	emailId: email.id,
+		// 	password,
+		// 	terms,
+		// 	role: Role.IOT,
+		// });
 
 		return status200();
 	}),
