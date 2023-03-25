@@ -13,9 +13,7 @@ export const handler: Lambda = withHttp(
 
 		const { Mesurement } = await useDB();
 
-		const types = type.split(','); // hodnoty oddělené čárkou -> pole
-
-		// data z databáze v rozmezí od 1 minuty do dnů pro všechny typy
+		const types = type.split(',');
 		const measurementWhereClauses = types.map((t) => {
 			return {
 				type: {

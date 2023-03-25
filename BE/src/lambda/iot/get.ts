@@ -8,7 +8,6 @@ import { Mesurement } from 'libs/database/models/mesurement';
 
 export const handler: Lambda = withHttp(
 	withDB(async () => {
-		// poslední záznamu z databáze
 		const temperatureMeasurement = await Mesurement.findOne({
 			where: { type: 'temperature' },
 			order: [['createdAt', 'DESC']],
@@ -18,7 +17,6 @@ export const handler: Lambda = withHttp(
 			order: [['createdAt', 'DESC']],
 		});
 
-		// výsledek
 		return status200({
 			data: {
 				temperature: temperatureMeasurement?.value,

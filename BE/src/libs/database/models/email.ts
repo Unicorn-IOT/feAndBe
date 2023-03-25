@@ -1,5 +1,5 @@
 import { db } from '../../../libs/database/db';
-import { Role, User } from '../../../libs/database/models/user';
+import { User } from '../../../libs/database/models/user';
 import {
 	Association,
 	DataTypes,
@@ -13,11 +13,7 @@ import {
 	HasManyRemoveAssociationMixin,
 	HasManyRemoveAssociationsMixin,
 	HasManySetAssociationsMixin,
-	HasOneCreateAssociationMixin,
-	HasOneGetAssociationMixin,
-	HasOneSetAssociationMixin,
 	Model,
-	Op,
 	Optional,
 	Transaction,
 } from 'sequelize';

@@ -5,8 +5,7 @@ import { status404 } from '../../libs/http/status404';
 import { useDB, withDB } from '../../libs/wrapper/withDB';
 import { withHttp } from '../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../types/lambda';
-import { withUser, useUser } from 'libs/wrapper/withUser';
-import { Email } from 'libs/database/model';
+import { withUser, useUser } from '../../libs/wrapper/withUser';
 
 export const handler: Lambda = withHttp(
 	withDB(
@@ -16,7 +15,6 @@ export const handler: Lambda = withHttp(
 
 			const user = useUser();
 			const emailId = user.emailId;
-			// console.log('email ID', emailId);
 
 			const { name, password } = JSON.parse(body);
 			if (!name || !password) return status400();
@@ -27,11 +25,8 @@ export const handler: Lambda = withHttp(
 
 			const iotName = await User.findByName(name);
 			if (!iotName) return status404();
-			// console.log('iotName', iotName);
 
 			const emailIdIot = iotName.emailId;
-			// console.log('iotId', iotId);
-			// console.log('emailIdIot', emailIdIot);
 
 			const { Email } = await useDB();
 			const email = await Email.findWithEmailId(emailId);
