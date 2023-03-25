@@ -20,6 +20,9 @@ export const handler: Lambda = withHttp(
 			const emailId = user.emailId;
 
 			const { User } = await useDB();
+			const iotName = await User.findByName(name);
+			if (iotName) return status400();
+
 			const { hash, salt } = hashPassword({ password });
 			const iot = await User.create({ emailId, name, salt, password: hash, terms: true, role: Role.IOT });
 
