@@ -184,8 +184,8 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 		const [emailEntity, created] = await Email.findOrCreateByEmail(email);
 
 		if (!created) {
-			const userEntity = await emailEntity.getUser();
-			if (userEntity) return [userEntity, false];
+			const userEntity = await emailEntity.getUsers({ where: { role: Role.USER } });
+			if (userEntity) return [userEntity[0], false];
 		}
 
 		const userEntity = await emailEntity.createUser();

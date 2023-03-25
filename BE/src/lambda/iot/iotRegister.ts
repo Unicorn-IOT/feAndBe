@@ -5,32 +5,28 @@ import { useDB, withDB } from '../../libs/wrapper/withDB';
 import { withHttp } from '../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../types/lambda';
 import { Role } from 'libs/database/models/user';
+import { useUser, withUser } from 'libs/wrapper/withUser';
+import { hashPassword } from 'libs/hmac';
 
 export const handler: Lambda = withHttp(
-	withDB(async ({ body }) => {
-		if (!body) return status400();
+	withDB(
+		withUser(async ({ body }) => {
+			if (!body) return status400();
 
-		const { email, name, terms, password } = JSON.parse(body);
-		if (!email || !name || !terms || !password) return status400();
+			const { name, password } = JSON.parse(body);
+			if (!name || !password) return status400();
 
-		const { User } = await useDB();
-		const user = await User.findByEmail(email);
-		if (user && user.role === Role.IOT) return status403();
+			const user = useUser();
+			const emailId = user.emailId;
 
-		const a = await User.findByEmail(email);
-		if (!a) return status403();
+			const { User } = await useDB();
+			const { hash } = hashPassword({ password });
+			const iot = await User.create({ emailId, name, password: hash, terms: true, role: Role.IOT });
 
-		if (!user) return status403();
-		await user.register(name, password, terms, Role.IOT);
+			if (!iot) return status403();
 
-		// await User.create({
-		// 	name,
-		// 	emailId: email.id,
-		// 	password,
-		// 	terms,
-		// 	role: Role.IOT,
-		// });
-
-		return status200();
-	}),
+			const token = await iot.getToken();
+			return status200({ data: { token } });
+		}),
+	),
 );

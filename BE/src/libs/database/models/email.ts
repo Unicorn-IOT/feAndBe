@@ -3,6 +3,16 @@ import { User } from '../../../libs/database/models/user';
 import {
 	Association,
 	DataTypes,
+	HasManyAddAssociationMixin,
+	HasManyAddAssociationsMixin,
+	HasManyCountAssociationsMixin,
+	HasManyCreateAssociationMixin,
+	HasManyGetAssociationsMixin,
+	HasManyHasAssociationMixin,
+	HasManyHasAssociationsMixin,
+	HasManyRemoveAssociationMixin,
+	HasManyRemoveAssociationsMixin,
+	HasManySetAssociationsMixin,
 	HasOneCreateAssociationMixin,
 	HasOneGetAssociationMixin,
 	HasOneSetAssociationMixin,
@@ -31,14 +41,20 @@ export class Email extends Model<EmailAttributes, EmailCreationAttributes> imple
 
 	// Associations
 	public static associations: {
-		user: Association<Email, User>;
+		users: Association<Email, User>;
 	};
 
-	public user?: User;
-	public getUser!: HasOneGetAssociationMixin<User>;
-	public setUser!: HasOneSetAssociationMixin<User, number>;
-	public createUser!: HasOneCreateAssociationMixin<User>;
-
+	public users?: User[];
+	public getUsers!: HasManyGetAssociationsMixin<User>;
+	public setUsers!: HasManySetAssociationsMixin<User, number>;
+	public addUser!: HasManyAddAssociationMixin<User, number>;
+	public removeUsers!: HasManyRemoveAssociationsMixin<User, number>;
+	public removeUser!: HasManyRemoveAssociationMixin<User, number>;
+	public addUsers!: HasManyAddAssociationsMixin<User, number>;
+	public hasUser!: HasManyHasAssociationMixin<User, number>;
+	public hasUsers!: HasManyHasAssociationsMixin<User, number>;
+	public countUsers!: HasManyCountAssociationsMixin;
+	public createUser!: HasManyCreateAssociationMixin<User>;
 	// Methods
 	public static findByEmail(email: string, transaction?: Transaction) {
 		const lowerCaseEmail = email.toLowerCase();
