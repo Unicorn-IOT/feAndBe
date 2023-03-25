@@ -1,5 +1,5 @@
 import { db } from '../../../libs/database/db';
-import { User } from '../../../libs/database/models/user';
+import { Role, User } from '../../../libs/database/models/user';
 import {
 	Association,
 	DataTypes,
@@ -17,6 +17,7 @@ import {
 	HasOneGetAssociationMixin,
 	HasOneSetAssociationMixin,
 	Model,
+	Op,
 	Optional,
 	Transaction,
 } from 'sequelize';
@@ -64,6 +65,12 @@ export class Email extends Model<EmailAttributes, EmailCreationAttributes> imple
 	public static findOrCreateByEmail(email: string, transaction?: Transaction) {
 		const lowerCaseEmail = email.toLowerCase();
 		return Email.findOrCreate({ where: { email: lowerCaseEmail }, defaults: { email: lowerCaseEmail }, transaction });
+	}
+
+	public static findWithEmailId(id: number) {
+		return User.findOne({
+			where: { id },
+		});
 	}
 }
 

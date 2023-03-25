@@ -5,23 +5,46 @@ import { status404 } from '../../libs/http/status404';
 import { useDB, withDB } from '../../libs/wrapper/withDB';
 import { withHttp } from '../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../types/lambda';
+import { withUser, useUser } from 'libs/wrapper/withUser';
+import { Email } from 'libs/database/model';
 
 export const handler: Lambda = withHttp(
-	withDB(async ({ body }) => {
-		if (!body) return status400();
+	withDB(
+		withUser(async ({ body }) => {
+			if (!body) return status400();
+			console.log('body', body);
 
-		const { email, password, name } = JSON.parse(body);
-		if (!email || !password || !name) return status400();
+			const user = useUser();
+			const emailId = user.emailId;
+			// console.log('email ID', emailId);
 
-		const { User } = await useDB();
-		const user = await User.findByNameIot(name);
-		if (!user) return status404();
+			const { name, password } = JSON.parse(body);
+			if (!name || !password) return status400();
 
-		const verified = user.verifyPassword(password);
-		if (!verified) return status403();
+			const { User } = await useDB();
+			const iot = await User.findWithEmail(emailId);
+			if (!iot) return status404();
 
-		const token = await user.getToken();
+			const iotName = await User.findByName(name);
+			if (!iotName) return status404();
+			// console.log('iotName', iotName);
 
-		return status200({ data: { token } });
-	}),
+			const iotId = iotName.id;
+			const emailIdIot = iotName.emailId;
+			// console.log('iotId', iotId);
+			// console.log('emailIdIot', emailIdIot);
+
+			const { Email } = await useDB();
+			const email = await Email.findWithEmailId(emailId);
+			if (!email) return status404();
+			if (emailId !== emailIdIot) return status400();
+
+			const verified = iot.verifyPassword(password);
+			if (!verified) return status403();
+
+			const token = await iot.getToken();
+
+			return status200({ data: { token } });
+		}),
+	),
 );

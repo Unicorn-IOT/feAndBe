@@ -145,6 +145,7 @@ functions:
         handler: src/lambda/iot/iotLogin.handler
         events:
             - httpApi:
+                  authorizer: user-authorize # token pro IoT
                   path: /iot/iotLogin
                   method: post
 

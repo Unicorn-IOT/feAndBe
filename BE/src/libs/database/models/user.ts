@@ -97,6 +97,12 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 		});
 	}
 
+	public static findByName(name: string) {
+		return User.findOne({
+			where: { role: Role.IOT, name },
+		});
+	}
+
 	public static findByMagic(magic: string) {
 		return User.findOne({
 			where: { magic },
