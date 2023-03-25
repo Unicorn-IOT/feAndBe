@@ -122,6 +122,25 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 		});
 	}
 
+	public static findWithIotId(id: number) {
+		return User.findOne({
+			where: { role: { [Op.ne]: Role.USER }, id },
+			include: [
+				{
+					association: User.associations.email,
+					attributes: ['email'],
+					required: true,
+				},
+			],
+		});
+	}
+
+	public static removeIot(id: number) {
+		return User.destroy({
+			where: { id, role: Role.IOT },
+		});
+	}
+
 	public async getPayload(): Promise<UserJWTPayload> {
 		return {
 			id: this.id,

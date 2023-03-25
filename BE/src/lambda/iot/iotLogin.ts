@@ -29,7 +29,6 @@ export const handler: Lambda = withHttp(
 			if (!iotName) return status404();
 			// console.log('iotName', iotName);
 
-			const iotId = iotName.id;
 			const emailIdIot = iotName.emailId;
 			// console.log('iotId', iotId);
 			// console.log('emailIdIot', emailIdIot);

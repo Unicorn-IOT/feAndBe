@@ -137,7 +137,7 @@ functions:
         handler: src/lambda/iot/iotRegister.handler
         events:
             - httpApi:
-                  authorizer: user-authorize # token pro IoT
+                  authorizer: user-authorize
                   path: /iot/iotRegister
                   method: post
 
@@ -150,10 +150,10 @@ functions:
                   method: post
 
     iot-iotRemove: # Endpoint pro odebráni meteo stanice
-        handler: src/lambda/iot/iotRemove
+        handler: src/lambda/iot/iotRemove.handler
         events:
             - httpApi:
-                  # authorizer: user-authorize # token pro IoT
+                  authorizer: user-authorize
                   path: /iot/iotRemove
                   method: post
 
