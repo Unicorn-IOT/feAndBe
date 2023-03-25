@@ -20,6 +20,7 @@ import {
 	HasManySetAssociationsMixin,
 	Model,
 	Optional,
+	Op,
 } from 'sequelize';
 import { UserJWTPayload } from '../../../../../types/User';
 import { Mesurement, TYPE } from './mesurement';
@@ -103,7 +104,8 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 	}
 
 	public static findWithEmail(id: number) {
-		return User.findByPk(id, {
+		return User.findOne({
+			where: { role: { [Op.ne]: Role.IOT }, id },
 			include: [
 				{
 					association: User.associations.email,
