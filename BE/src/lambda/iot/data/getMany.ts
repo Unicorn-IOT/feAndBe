@@ -1,8 +1,8 @@
-import { status200 } from '../../libs/http/status200';
-import { status400 } from '../../libs/http/status400';
-import { useDB, withDB } from '../../libs/wrapper/withDB';
-import { withHttp } from '../../libs/wrapper/withHttp';
-import { Lambda } from '../../../../types/lambda';
+import { status200 } from '../../../libs/http/status200';
+import { status400 } from '../../../libs/http/status400';
+import { useDB, withDB } from '../../../libs/wrapper/withDB';
+import { withHttp } from '../../../libs/wrapper/withHttp';
+import { Lambda } from '../../../../../types/lambda';
 import { Op } from 'sequelize';
 
 export const handler: Lambda = withHttp(

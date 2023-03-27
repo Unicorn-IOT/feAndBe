@@ -124,7 +124,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 
 	public static findWithIotId(id: number) {
 		return User.findOne({
-			where: { role: { [Op.ne]: Role.USER }, id },
+			where: { role: Role.IOT, id },
 			include: [
 				{
 					association: User.associations.email,
