@@ -114,7 +114,6 @@ functions:
         handler: src/lambda/iot/auth/login/post.handler
         events:
             - httpApi:
-                  authorizer: user-authorize
                   path: /iot/auth/login
                   method: post
 
