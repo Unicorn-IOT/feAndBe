@@ -9,7 +9,7 @@ export const useServerLoggedInRedirect = ({ req }: GetServerSidePropsContext): R
 
 	if (typeof token === 'string' && token.length > 0) {
 		return {
-			destination: '/dashboard',
+			destination: '/',
 			permanent: false,
 		};
 	}

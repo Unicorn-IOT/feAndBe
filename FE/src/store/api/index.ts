@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { AppState } from '../';
 import { HYDRATE } from 'next-redux-wrapper';
-import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
+// import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
 
 export const appApi = createApi({
 	reducerPath: 'api',
 	baseQuery: fetchBaseQuery({
-		baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL ?? ''}`,
+		baseUrl: `https://1fntd115qh.execute-api.eu-west-1.amazonaws.com/`,
 		prepareHeaders: (headers, { getState }) => {
 			const { token } = getState() as AppState;
-			if (token) headers.set('Authorization', `Bearer ${token}`);
+			if (token) headers.set('authorization', `Bearer ${token}`);
 			return headers;
 		},
 	}),
@@ -18,6 +18,6 @@ export const appApi = createApi({
 			return action.payload[reducerPath];
 		}
 	},
-	tagTypes: ['Organization', 'Organization/User', 'Organization/Test', 'Test', 'Test/Email', 'Test/Url', 'User'],
+	tagTypes: ['User'],
 	endpoints: () => ({}),
 });

@@ -1,11 +1,11 @@
-import * as React from 'react';
+import { Fragment } from 'react';
 
 import Typography from '@mui/material/Typography';
 import { Title } from './Title';
 
 export const WeatherRIghtNow = () => {
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Title>Weather right now !</Title>
 			<Typography component="p" variant="h6">
 				Humidity:
@@ -19,6 +19,6 @@ export const WeatherRIghtNow = () => {
 			<Typography color="text.secondary" sx={{ flex: 1 }}>
 				23°C
 			</Typography>
-		</React.Fragment>
+		</Fragment>
 	);
 };

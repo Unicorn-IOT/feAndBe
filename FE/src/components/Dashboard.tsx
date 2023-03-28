@@ -1,30 +1,25 @@
-import * as React from 'react';
+import { ReactElement, useState } from 'react';
 import { useRouter } from 'next/router';
-
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Box, Toolbar, List, Typography, Divider, IconButton, Button } from '@mui/material';
+import { ChevronLeft, Menu } from '@mui/icons-material';
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { MainListItems, SecondaryListItems } from './listItems';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { MainListItems } from './listItems';
 import { AppBar } from './AppBar';
 import { Drawer } from './Drawer';
+import { useGetUserQuery } from '../store/api/userApi';
 
 const mdTheme = createTheme();
 
 type DashboardContentProps = {
-	children: React.ReactElement;
+	children: ReactElement;
 };
 
 function DashboardContent({ children }: DashboardContentProps) {
-	const [open, setOpen] = React.useState(true);
+	const [open, setOpen] = useState(true);
 	const router = useRouter();
+	const { data } = useGetUserQuery();
 
 	const toggleDrawer = () => {
 		setOpen(!open);
@@ -50,11 +45,17 @@ function DashboardContent({ children }: DashboardContentProps) {
 								...(open && { display: 'none' }),
 							}}
 						>
-							<MenuIcon />
+							<Menu />
 						</IconButton>
 						<Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
 							Unicorn Team IoT - XX
 						</Typography>
+						<Typography align="right" variant="h6">
+							Vítej prasáku {data?.data.user.name}
+						</Typography>
+						<Button sx={{ color: '#ffff' }} onClick={() => router.push('/logout')}>
+							Logout
+						</Button>
 					</Toolbar>
 				</AppBar>
 				<Drawer variant="permanent" open={open}>
@@ -67,18 +68,13 @@ function DashboardContent({ children }: DashboardContentProps) {
 						}}
 					>
 						<IconButton onClick={toggleDrawer}>
-							<ChevronLeftIcon />
+							<ChevronLeft />
 						</IconButton>
 					</Toolbar>
 					<Divider />
 					<List component="nav">
-						<MainListItems
-							toHome={() => router.push('/')}
-							toDashboard={() => router.push('/dashboard')}
-							toStations={() => router.push('/stations')}
-						/>
+						<MainListItems toDashboard={() => router.push('/')} toStations={() => router.push('/stations')} />
 						<Divider sx={{ my: 1 }} />
-						<SecondaryListItems toCurrentMonth={() => router.push('/dashboard')} toLastDays={() => router.push('/dashboard')} />
 					</List>
 				</Drawer>
 				{children}
@@ -88,7 +84,7 @@ function DashboardContent({ children }: DashboardContentProps) {
 }
 
 type DashboardProps = {
-	children: React.ReactElement;
+	children: ReactElement;
 };
 
 export default function Dashboard({ children }: DashboardProps) {

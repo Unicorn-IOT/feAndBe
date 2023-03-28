@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
+import { Fragment } from 'react';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
+
+import { useTheme } from '@mui/material/styles';
 import { Title } from './Title';
 
-// Generate Sales Data
 function createData(temperature: number, humidity: number, time: string) {
 	return { temperature, humidity, time };
 }
@@ -30,7 +30,7 @@ export const Chart = () => {
 	const theme = useTheme();
 
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Title>{Today}</Title>
 			<ResponsiveContainer>
 				<LineChart
@@ -73,6 +73,6 @@ export const Chart = () => {
 					<Line isAnimationActive={true} type="natural" dataKey="humidity" stroke="blue" dot={true} />
 				</LineChart>
 			</ResponsiveContainer>
-		</React.Fragment>
+		</Fragment>
 	);
 };
