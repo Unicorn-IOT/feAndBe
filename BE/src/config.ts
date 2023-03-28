@@ -1,7 +1,6 @@
 /**local*/
 //LOCAL Setup
 // export const isOffline = false;
-
 // export const localDB = false;
 
 // export const db = {
