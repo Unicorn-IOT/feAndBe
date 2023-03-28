@@ -4,7 +4,7 @@ import { status404 } from '../../../libs/http/status404';
 import { useDB, withDB } from '../../../libs/wrapper/withDB';
 import { withHttp } from '../../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../../types/lambda';
-import { User } from 'libs/database/model';
+import { User } from '../../../libs/database/model';
 
 export const handler: Lambda = withHttp(
 	withDB(async ({ body }) => {
