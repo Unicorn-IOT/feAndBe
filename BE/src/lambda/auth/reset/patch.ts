@@ -21,8 +21,8 @@ export const handler: Lambda = withHttp(
 		if (!emailEntity) return status500();
 
 		if (!created) {
-			const existingUser = await emailEntity.getUser();
-			if (existingUser && existingUser.id !== user.id) return status400();
+			const existingUser = await emailEntity.getUsers();
+			if (existingUser && existingUser[0].id !== user.id) return status400();
 		}
 
 		await user.changeEmail(emailEntity);
