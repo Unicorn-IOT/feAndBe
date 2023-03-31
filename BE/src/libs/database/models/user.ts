@@ -201,6 +201,21 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 		});
 	}
 
+	public static async createIot(name: string, password: string, emailId: number) {
+		const { hash, salt } = hashPassword({ password });
+
+		const user = await User.create({
+			name,
+			password: hash,
+			salt,
+			role: Role.IOT,
+			terms: true,
+			emailId,
+		});
+
+		return user;
+	}
+
 	public async changeEmail(newEmail: Email) {
 		const oldEmail = await this.getEmail();
 		if (oldEmail.id === newEmail.id) return;

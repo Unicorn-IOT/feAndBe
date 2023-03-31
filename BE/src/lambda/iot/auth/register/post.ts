@@ -4,9 +4,7 @@ import { status403 } from '../../../../libs/http/status403';
 import { useDB, withDB } from '../../../../libs/wrapper/withDB';
 import { withHttp } from '../../../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../../../types/lambda';
-import { Role } from '../../../../libs/database/models/user';
 import { useUser, withUser } from '../../../../libs/wrapper/withUser';
-import { hashPassword } from '../../../../libs/hmac';
 
 export const handler: Lambda = withHttp(
 	withDB(
@@ -23,8 +21,10 @@ export const handler: Lambda = withHttp(
 			const iotName = await User.findIotByName(name);
 			if (iotName) return status403();
 
-			const { hash, salt } = hashPassword({ password });
-			const iot = await User.create({ emailId, name, salt, password: hash, terms: true, role: Role.IOT });
+			// const { hash, salt } = hashPassword({ password });
+			// const iot = await User.create({ emailId, name, salt, password: hash, terms: true, role: Role.IOT });
+
+			const iot = await User.createIot(name, password, emailId);
 
 			if (!iot) return status403();
 
