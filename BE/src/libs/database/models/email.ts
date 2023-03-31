@@ -1,5 +1,5 @@
 import { db } from '../../../libs/database/db';
-import { User } from '../../../libs/database/models/user';
+import { Role, User } from '../../../libs/database/models/user';
 import {
 	Association,
 	DataTypes,
@@ -63,9 +63,9 @@ export class Email extends Model<EmailAttributes, EmailCreationAttributes> imple
 		return Email.findOrCreate({ where: { email: lowerCaseEmail }, defaults: { email: lowerCaseEmail }, transaction });
 	}
 
-	public static findWithEmailId(id: number) {
+	public static findIotWithEmailId(id: number) {
 		return User.findOne({
-			where: { id },
+			where: { id, role: Role.IOT },
 		});
 	}
 }

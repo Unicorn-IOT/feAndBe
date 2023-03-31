@@ -97,7 +97,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 		});
 	}
 
-	public static findByName(name: string) {
+	public static findIotByName(name: string) {
 		return User.findOne({
 			where: { role: Role.IOT, name },
 		});

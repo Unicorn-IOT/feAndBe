@@ -14,7 +14,7 @@ export const handler: Lambda = withHttp(
 		if (!name || !password) return status400();
 
 		const { User } = await useDB();
-		const iotName = await User.findByName(name);
+		const iotName = await User.findIotByName(name);
 		if (!iotName) return status404();
 
 		const verified = iotName.verifyPassword(password);
