@@ -19,8 +19,11 @@ export const handler: Lambda = withHttp(
 
 		return status200({
 			data: {
+				location: temperatureMeasurement?.location,
 				temperature: temperatureMeasurement?.value,
+				dateTemp: temperatureMeasurement?.date,
 				humidity: humidityMeasurement?.value,
+				dateHum: humidityMeasurement?.date,
 			},
 		});
 	}),
