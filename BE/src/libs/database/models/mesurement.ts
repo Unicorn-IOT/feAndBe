@@ -21,6 +21,7 @@ export interface MesurementAttributes {
 	type: TYPE;
 	userId: number; //String of sensor from IoT (sensor)
 	location: string;
+	date: Date;
 	createdAt?: Date;
 	updatedAt?: Date;
 }
@@ -38,6 +39,7 @@ export class Mesurement extends Model<MesurementAttributes, MesurementCreationAt
 	public type!: TYPE;
 	public userId!: number;
 	public location!: string;
+	public date!: Date;
 
 	// Associations
 	public static associations: {
@@ -59,6 +61,7 @@ Mesurement.init(
 		type: { type: DataTypes.ENUM('temperature', 'humidity'), allowNull: false },
 		userId: { type: DataTypes.INTEGER.UNSIGNED },
 		location: { type: DataTypes.STRING, allowNull: false, defaultValue: 'Unknown' },
+		date: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
 	},
 	{
 		sequelize: db.sequelize,
