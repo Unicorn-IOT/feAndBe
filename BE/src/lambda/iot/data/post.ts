@@ -15,8 +15,8 @@ export const handler: Lambda = withHttp(
 		withRole([Role.IOT, Role.USER], async ({ body }) => {
 			// získání dat z requestu
 			if (!body) return status400();
-			const { value, type, location } = JSON.parse(body);
-			if (!value || !type || !location) return status400();
+			const { value, type, location, date } = JSON.parse(body);
+			if (!value || !type || !location || !date) return status400();
 
 			// nalezení uživatele
 			const user = useUser();
@@ -28,6 +28,7 @@ export const handler: Lambda = withHttp(
 				type,
 				userId: user.id,
 				location,
+				date,
 			});
 
 			// výsledek
