@@ -239,7 +239,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 User.init(
 	{
 		id: { type: DataTypes.INTEGER.UNSIGNED, autoIncrement: true, primaryKey: true },
-		name: { type: DataTypes.STRING, allowNull: false, defaultValue: '' },
+		name: { type: DataTypes.STRING, unique: true, allowNull: false, defaultValue: '' },
 		password: { type: DataTypes.STRING(128), allowNull: true, defaultValue: null },
 		salt: { type: DataTypes.STRING(128), allowNull: true, defaultValue: null },
 		magic: { type: DataTypes.STRING(128), allowNull: true, defaultValue: null },
@@ -251,6 +251,11 @@ User.init(
 		sequelize: db.sequelize,
 		modelName: 'user',
 		indexes: [
+			{
+				name: 'name',
+				unique: true,
+				fields: ['name'],
+			},
 			{
 				name: 'magic',
 				fields: ['magic'],
