@@ -72,7 +72,7 @@ export class Mesurement extends Model<MesurementAttributes, MesurementCreationAt
 					},
 				],
 			},
-			order: [['createdAt', 'DESC']],
+			order: [['date', 'DESC']],
 		});
 
 		return measurementData;
