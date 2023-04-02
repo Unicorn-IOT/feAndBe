@@ -25,8 +25,6 @@ export const WeatherRIghtNow = () => {
 			<Typography color="text.secondary" sx={{ flex: 1 }}>
 				23°C
 			</Typography>
-
-			<Typography color="text.secondary" sx={{ flex: 1 }}></Typography>
 		</Fragment>
 	);
 };
