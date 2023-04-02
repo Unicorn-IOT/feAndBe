@@ -8,8 +8,8 @@ import { Op } from 'sequelize';
 export const handler: Lambda = withHttp(
 	withDB(async ({ queryStringParameters }) => {
 		if (!queryStringParameters) return status400();
-		const { type, userId, days } = queryStringParameters;
-		if (!type || !userId || !days) return status400();
+		const { type, userId, startDate, endDate } = queryStringParameters;
+		if (!type || !userId || !startDate || !endDate) return status400();
 
 		const { Mesurement } = await useDB();
 
@@ -22,18 +22,10 @@ export const handler: Lambda = withHttp(
 				userId: {
 					[Op.eq]: userId,
 				},
-				createdAt: {
-					[Op.gte]: new Date(new Date().getTime() - 60 * 1000 * 60 * 24 * parseInt(days)),
-				},
 			};
 		});
 
-		const temperatureData = await Mesurement.findAll({
-			where: {
-				[Op.or]: measurementWhereClauses,
-			},
-			order: [['createdAt', 'DESC']],
-		});
+		const temperatureData = await Mesurement.findBetweenDates(new Date(startDate), new Date(endDate), measurementWhereClauses);
 
 		return status200({ data: { temperatureData } });
 	}),

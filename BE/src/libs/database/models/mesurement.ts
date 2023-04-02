@@ -6,6 +6,7 @@ import {
 	BelongsToSetAssociationMixin,
 	DataTypes,
 	Model,
+	Op,
 	Optional,
 } from 'sequelize';
 import { User } from './user';
@@ -52,6 +53,30 @@ export class Mesurement extends Model<MesurementAttributes, MesurementCreationAt
 	public createUser!: BelongsToCreateAssociationMixin<User>;
 
 	// Methods
+	public static async findBetweenDates(startDate: Date, endDate: Date, measurementWhereClauses: Record<string, any>[]) {
+		const measurementData = await this.findAll({
+			where: {
+				[Op.and]: [
+					{
+						date: {
+							[Op.gte]: startDate,
+						},
+					},
+					{
+						date: {
+							[Op.lte]: endDate,
+						},
+					},
+					{
+						[Op.or]: measurementWhereClauses,
+					},
+				],
+			},
+			order: [['createdAt', 'DESC']],
+		});
+
+		return measurementData;
+	}
 }
 
 Mesurement.init(
