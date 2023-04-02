@@ -11,7 +11,7 @@ type mainListItemsProps = {
 	toStations?: () => void;
 };
 
-export const MainListItems = ({ toDashboard, toStations }: mainListItemsProps) => {
+export const ListItems = ({ toDashboard, toStations }: mainListItemsProps) => {
 	return (
 		<Fragment>
 			<ListItemButton onClick={toDashboard}>

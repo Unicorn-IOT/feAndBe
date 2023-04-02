@@ -8,7 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../utils/theme';
 import createEmotionCache from '../utils/createEmotionCache';
-import Dashboard from '../components/Dashboard';
+import Dashboard from '../components/viewPages/dashboard/Dashboard';
 import { wrapper } from '../store';
 
 const clientSideEmotionCache = createEmotionCache();

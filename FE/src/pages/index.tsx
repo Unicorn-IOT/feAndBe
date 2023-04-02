@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { Box, Toolbar, Container, Grid, Paper } from '@mui/material';
-import { Chart } from '../components/Chart';
-import { WeatherRIghtNow } from '../components/WeatherRIghtNow';
+import { Chart } from '../components/viewPages/Chart';
+import { WeatherRIghtNow } from '../components/viewPages/dashboard/WeatherRIghtNow';
 import { wrapper } from '../store';
 import { prepopulateUserInfo } from '../store/server/prepopulateUserInfo';
 import { useServerLoggedOutRedirect } from '../store/server/useServerLoggedOutRedirect';
