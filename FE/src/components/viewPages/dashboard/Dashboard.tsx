@@ -1,14 +1,14 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Toolbar, List, Typography, Divider, IconButton, Button } from '@mui/material';
 import { ChevronLeft, Menu } from '@mui/icons-material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { MainListItems } from './listItems';
-import { AppBar } from './AppBar';
+import { ListItems } from './ListItems';
+import { AppBar } from '../AppBar';
 import { Drawer } from './Drawer';
-import { useGetUserQuery } from '../store/api/userApi';
+import { useGetUserQuery } from '../../../store/api/userApi';
 
 const mdTheme = createTheme();
 
@@ -18,12 +18,26 @@ type DashboardContentProps = {
 
 function DashboardContent({ children }: DashboardContentProps) {
 	const [open, setOpen] = useState(true);
+	const [userName, setUserName] = useState<string | undefined>();
 	const router = useRouter();
 	const { data } = useGetUserQuery();
 
 	const toggleDrawer = () => {
 		setOpen(!open);
 	};
+
+	const userData = data?.data.user.name;
+
+	useEffect(() => {
+		const arr = userData?.split(' ');
+		if (arr != undefined) {
+			for (let i = 0; i < arr?.length; i++) {
+				arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+			}
+		}
+		const formattedUserName = arr?.join(' ');
+		setUserName(formattedUserName);
+	}, [userData]);
 
 	return (
 		<ThemeProvider theme={mdTheme}>
@@ -51,7 +65,7 @@ function DashboardContent({ children }: DashboardContentProps) {
 							Unicorn Team IoT - XX
 						</Typography>
 						<Typography align="right" variant="h6">
-							Vítej prasáku {data?.data.user.name}
+							{userName ? `Vítej ${userName}` : 'Vítejte'}
 						</Typography>
 						<Button sx={{ color: '#ffff' }} onClick={() => router.push('/logout')}>
 							Logout
@@ -73,7 +87,7 @@ function DashboardContent({ children }: DashboardContentProps) {
 					</Toolbar>
 					<Divider />
 					<List component="nav">
-						<MainListItems toDashboard={() => router.push('/')} toStations={() => router.push('/stations')} />
+						<ListItems toDashboard={() => router.push('/')} toStations={() => router.push('/stations')} />
 						<Divider sx={{ my: 1 }} />
 					</List>
 				</Drawer>

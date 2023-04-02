@@ -4,6 +4,7 @@ import { Box, Toolbar, Container, Grid, Paper } from '@mui/material';
 import { wrapper } from '../store';
 import { prepopulateUserInfo } from '../store/server/prepopulateUserInfo';
 import { useServerLoggedOutRedirect } from '../store/server/useServerLoggedOutRedirect';
+import CreateStationForm from '../components/viewPages/stations/CreateStationForm.tsx';
 
 const Stations = () => {
 	return (
@@ -41,7 +42,7 @@ const Stations = () => {
 								height: '100%',
 							}}
 						>
-							a tady takyyyyyy !
+							<CreateStationForm />
 						</Paper>
 					</Grid>
 				</Grid>

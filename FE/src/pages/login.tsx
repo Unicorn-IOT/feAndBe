@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import { Button, Grid, Typography } from '@mui/material';
-import LoginForm from '../components/Login/LoginForm';
+import LoginForm from '../components/login/LoginForm';
 
 const Login = () => {
 	const router = useRouter();
