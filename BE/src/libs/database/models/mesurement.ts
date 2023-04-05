@@ -16,7 +16,7 @@ export enum TYPE {
 	HUMIDITY = 'humidity',
 }
 
-export interface MesurementAttributes {
+export type MesurementAttributes = {
 	id?: number;
 	value: number;
 	type: TYPE;
@@ -25,7 +25,7 @@ export interface MesurementAttributes {
 	date: Date;
 	createdAt?: Date;
 	updatedAt?: Date;
-}
+};
 
 export type MesurementCreationAttributes = Optional<MesurementAttributes, 'id' | 'createdAt' | 'updatedAt'>;
 
@@ -53,24 +53,16 @@ export class Mesurement extends Model<MesurementAttributes, MesurementCreationAt
 	public createUser!: BelongsToCreateAssociationMixin<User>;
 
 	// Methods
-	public static async findBetweenDates(startDate: Date, endDate: Date, measurementWhereClauses: Record<string, any>[]) {
+	public static async findBetweenDates(limitDate: Date, type: TYPE[], userId: number) {
 		const measurementData = await this.findAll({
 			where: {
-				[Op.and]: [
-					{
-						date: {
-							[Op.gte]: startDate,
-						},
-					},
-					{
-						date: {
-							[Op.lte]: endDate,
-						},
-					},
-					{
-						[Op.or]: measurementWhereClauses,
-					},
-				],
+				date: {
+					[Op.gte]: limitDate,
+				},
+				userId,
+				type: {
+					[Op.in]: type,
+				},
 			},
 			order: [['date', 'DESC']],
 		});
