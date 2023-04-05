@@ -57,7 +57,7 @@ export default Dashboard;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
 	prepopulateUserInfo(store, context);
-	await waitForRequests();
+	await waitForRequests(store);
 	return {
 		props: {},
 		redirect: useServerLoggedOutRedirect(context),
