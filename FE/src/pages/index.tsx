@@ -55,11 +55,11 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
-	prepopulateUserInfo(store, context);
-	await waitForRequests(store);
-	return {
-		props: {},
-		redirect: useServerLoggedOutRedirect(context),
-	};
-});
+// export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
+// 	prepopulateUserInfo(store, context);
+// 	await waitForRequests(store);
+// 	return {
+// 		props: {},
+// 		redirect: useServerLoggedOutRedirect(context),
+// 	};
+// });
