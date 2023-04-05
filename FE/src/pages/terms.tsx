@@ -2,6 +2,9 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import { Box, Button, Grid, Typography } from '@mui/material';
+import { wrapper } from '../store';
+import { prepopulateUserInfo } from '../store/server/prepopulateUserInfo';
+import { useServerLoggedOutRedirect } from '../store/server/useServerLoggedOutRedirect';
 
 export default function Terms() {
 	const router = useRouter();
@@ -54,3 +57,11 @@ export default function Terms() {
 		</Box>
 	);
 }
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
+	prepopulateUserInfo(store, context);
+	return {
+		props: {},
+		redirect: useServerLoggedOutRedirect(context),
+	};
+});
