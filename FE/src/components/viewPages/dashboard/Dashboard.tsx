@@ -16,7 +16,7 @@ type DashboardContentProps = {
 	children: ReactElement;
 };
 
-function DashboardContent({ children }: DashboardContentProps) {
+export default function Dashboard({ children }: DashboardContentProps) {
 	const [open, setOpen] = useState(true);
 	const [userName, setUserName] = useState<string | undefined>();
 	const router = useRouter();
@@ -95,12 +95,4 @@ function DashboardContent({ children }: DashboardContentProps) {
 			</Box>
 		</ThemeProvider>
 	);
-}
-
-type DashboardProps = {
-	children: ReactElement;
-};
-
-export default function Dashboard({ children }: DashboardProps) {
-	return <DashboardContent>{children}</DashboardContent>;
 }

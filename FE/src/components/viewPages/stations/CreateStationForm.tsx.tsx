@@ -32,7 +32,6 @@ export default function CreateStationForm() {
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Grid
 					sx={{
-						marginTop: 10,
 						display: 'flex',
 						justifyContent: 'center',
 						flexDirection: 'column',
