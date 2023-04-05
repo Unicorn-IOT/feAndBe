@@ -6,7 +6,7 @@ import { useGetDataIotQuery } from 'FE/src/store/api/dataIoTApi';
 import { measurementType } from '@type/DataIoT';
 
 export const WeatherRIghtNow = () => {
-	const { data, isError, error, isFetching } = useGetDataIotQuery({ userId: 1, days: 60, type: measurementType.TEMPERATURE });
+	const { data } = useGetDataIotQuery({ userId: 1, days: 60, type: measurementType.TEMPERATURE });
 
 	console.log('ahojky', data);
 	//TODO

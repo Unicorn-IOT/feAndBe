@@ -2,8 +2,8 @@
 	"name": "feandbe",
 	"version": "1.0.0",
 	"workspaces": [
-		"./BE",
-		"./FE"
+		"BE",
+		"FE"
 	],
 	"scripts": {
 		"prepare": "husky install",
