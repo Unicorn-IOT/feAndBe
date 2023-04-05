@@ -13,6 +13,7 @@
 		"back:dev": "cd BE && npm run dev",
 		"front:dev": "cd FE && npm run dev",
 		"dev": "npm-run-all --parallel back:dev front:dev",
+		"start":"cd FE && npm run start",
 		"build": "cd FE && npm run build"
 	},
 	"repository": {
