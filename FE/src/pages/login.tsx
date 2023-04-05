@@ -3,6 +3,9 @@ import { useRouter } from 'next/router';
 
 import { Button, Grid, Typography } from '@mui/material';
 import LoginForm from '../components/Login/LoginForm';
+import { wrapper } from '../store';
+import { prepopulateUserInfo } from '../store/server/prepopulateUserInfo';
+
 const Login = () => {
 	const router = useRouter();
 
@@ -21,5 +24,12 @@ const Login = () => {
 		</>
 	);
 };
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
+	prepopulateUserInfo(store, context);
+	return {
+		props: {},
+	};
+});
 
 export default Login;
