@@ -1,9 +1,6 @@
 import React from 'react';
 
 import { Box, Toolbar, Container, Grid, Paper } from '@mui/material';
-import { wrapper } from '../store';
-import { prepopulateUserInfo } from '../store/server/prepopulateUserInfo';
-import { useServerLoggedOutRedirect } from '../store/server/useServerLoggedOutRedirect';
 import CreateStationForm from '../components/viewPages/stations/CreateStationForm.tsx';
 import SelectStation from '../components/viewPages/stations/select/SelectStation';
 import SelectRange from '../components/viewPages/stations/select/SelectEnd';
@@ -67,11 +64,3 @@ const Stations = () => {
 };
 
 export default Stations;
-
-export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
-	prepopulateUserInfo(store, context);
-	return {
-		props: {},
-		redirect: useServerLoggedOutRedirect(context),
-	};
-});
