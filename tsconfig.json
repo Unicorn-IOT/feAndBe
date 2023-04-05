@@ -34,5 +34,5 @@
 		"incremental": true
 	},
 	"exclude": ["node_modules", "_legacy"],
-	"include": ["**/*.ts", "**/*.tsx", "tester/next-env.d.ts"]
+	"include": ["**/*.ts", "**/*.tsx"]
 }

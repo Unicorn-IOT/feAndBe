@@ -10,6 +10,7 @@ const nextConfig = {
 	experimental: {
 		externalDir: true,
 	},
+
 	webpack: (config) => {
 		const svgFileLoader = config.module.rules.find((rule) => rule?.test?.test('.svg'));
 		if (svgFileLoader) {

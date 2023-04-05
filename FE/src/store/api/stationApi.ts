@@ -1,4 +1,4 @@
-import { appApi } from '../api/index';
+// import { appApi } from '../api/index';
 // import { CreateStationResponse, GetStationsResponse } from '@type/Station';
 
 // export const stationApi = appApi.injectEndpoints({
@@ -23,3 +23,4 @@ import { appApi } from '../api/index';
 // });
 
 // export const { useCreateStationMutation, useGetStationsQuery } = stationApi;
+export {};
