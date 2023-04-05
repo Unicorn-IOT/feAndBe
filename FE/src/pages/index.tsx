@@ -6,6 +6,7 @@ import { WeatherRIghtNow } from '../components/viewPages/dashboard/WeatherRIghtN
 import { wrapper } from '../store';
 import { prepopulateUserInfo } from '../store/server/prepopulateUserInfo';
 import { useServerLoggedOutRedirect } from '../store/server/useServerLoggedOutRedirect';
+import { waitForRequests } from '../store/server/waitForRequests';
 
 const Dashboard = () => {
 	return (
@@ -56,6 +57,7 @@ export default Dashboard;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
 	prepopulateUserInfo(store, context);
+	await waitForRequests();
 	return {
 		props: {},
 		redirect: useServerLoggedOutRedirect(context),
