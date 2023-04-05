@@ -14,7 +14,6 @@ export const WeatherRIghtNow = () => {
 	// const { days } = useGetDataIotQuery((state) => state.);
 	const userId = useAppSelector(({ dataIoT }) => dataIoT.userId);
 
-	console.log('ahojky', data);
 	//TODO
 	return (
 		<Fragment>
