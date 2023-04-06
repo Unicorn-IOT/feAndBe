@@ -9,8 +9,8 @@ import { ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_MONTH } from 'projectConstants';
 export const handler: Lambda = withHttp(
 	withDB(async ({ queryStringParameters }) => {
 		if (!queryStringParameters) return status400();
-		const { type, userId, endDate, granularity, granularityUnit } = queryStringParameters;
-		if (!type || !userId || !endDate || !granularity || !granularityUnit) return status400();
+		const { type, userId, startDate, endDate, granularity, granularityUnit } = queryStringParameters;
+		if (!type || !userId || !startDate || !endDate || !granularity || !granularityUnit) return status400();
 
 		const parsedGranularity = parseInt(granularity);
 
@@ -22,7 +22,7 @@ export const handler: Lambda = withHttp(
 
 		const types = type.split(',') as TYPE[];
 
-		const result = await Mesurement.findBetweenDates(new Date(endDate), types, parseInt(userId));
+		const result = await Mesurement.findBetweenDates(types, parseInt(userId), new Date(startDate), new Date(endDate));
 
 		//granularity 1 hodinu
 

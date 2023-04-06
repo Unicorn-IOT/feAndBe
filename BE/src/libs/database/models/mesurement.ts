@@ -53,11 +53,12 @@ export class Mesurement extends Model<MesurementAttributes, MesurementCreationAt
 	public createUser!: BelongsToCreateAssociationMixin<User>;
 
 	// Methods
-	public static async findBetweenDates(limitDate: Date, type: TYPE[], userId: number) {
+	public static async findBetweenDates(type: TYPE[], userId: number, startDate: Date, endDate: Date) {
 		const measurementData = await this.findAll({
 			where: {
 				date: {
-					[Op.gte]: limitDate,
+					[Op.gte]: startDate,
+					[Op.lte]: endDate,
 				},
 				userId,
 				type: {
