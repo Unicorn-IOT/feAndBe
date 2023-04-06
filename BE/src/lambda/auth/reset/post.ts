@@ -4,6 +4,9 @@ import { status404 } from '../../../libs/http/status404';
 import { useDB, withDB } from '../../../libs/wrapper/withDB';
 import { withHttp } from '../../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../../types/lambda';
+import { User } from '../../../libs/database/model';
+import { Role } from '../../../libs/database/models/user';
+import { Op } from 'sequelize';
 
 export const handler: Lambda = withHttp(
 	withDB(async ({ body }) => {
@@ -16,10 +19,13 @@ export const handler: Lambda = withHttp(
 		const [emailEntity, created] = await Email.findOrCreateByEmail(email);
 		if (created) return status404();
 
-		const user = await emailEntity.getUser();
+		const user = await User.findOne({
+			where: { emailId: emailEntity.id, role: { [Op.ne]: Role.IOT } },
+		});
 		if (!user) return status404();
 
 		await user.resetCredentials();
+
 		return status200();
 	}),
 );

@@ -91,7 +91,14 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 
 	public static findByEmail(email: string) {
 		return User.findOne({
+			where: { role: Role.USER },
 			include: [{ association: User.associations.email, where: { email }, required: true }],
+		});
+	}
+
+	public static findIotByName(name: string) {
+		return User.findOne({
+			where: { role: Role.IOT, name },
 		});
 	}
 
@@ -102,7 +109,8 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 	}
 
 	public static findWithEmail(id: number) {
-		return User.findByPk(id, {
+		return User.findOne({
+			where: { id },
 			include: [
 				{
 					association: User.associations.email,
@@ -110,6 +118,25 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 					required: true,
 				},
 			],
+		});
+	}
+
+	public static findWithIotId(id: number) {
+		return User.findOne({
+			where: { role: Role.IOT, id },
+			include: [
+				{
+					association: User.associations.email,
+					attributes: ['email'],
+					required: true,
+				},
+			],
+		});
+	}
+
+	public static removeIot(id: number) {
+		return User.destroy({
+			where: { id, role: Role.IOT },
 		});
 	}
 
@@ -173,6 +200,21 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 		});
 	}
 
+	public static async createIot(name: string, password: string, emailId: number) {
+		const { hash, salt } = hashPassword({ password });
+
+		const user = await User.create({
+			name,
+			password: hash,
+			salt,
+			role: Role.IOT,
+			terms: true,
+			emailId,
+		});
+
+		return user;
+	}
+
 	public async changeEmail(newEmail: Email) {
 		const oldEmail = await this.getEmail();
 		if (oldEmail.id === newEmail.id) return;
@@ -183,8 +225,8 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 		const [emailEntity, created] = await Email.findOrCreateByEmail(email);
 
 		if (!created) {
-			const userEntity = await emailEntity.getUser();
-			if (userEntity) return [userEntity, false];
+			const userEntity = await emailEntity.getUsers({ where: { role: Role.USER } });
+			if (userEntity) return [userEntity[0], false];
 		}
 
 		const userEntity = await emailEntity.createUser();
@@ -196,7 +238,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 User.init(
 	{
 		id: { type: DataTypes.INTEGER.UNSIGNED, autoIncrement: true, primaryKey: true },
-		name: { type: DataTypes.STRING, allowNull: false, defaultValue: '' },
+		name: { type: DataTypes.STRING, unique: true, allowNull: false, defaultValue: '' },
 		password: { type: DataTypes.STRING(128), allowNull: true, defaultValue: null },
 		salt: { type: DataTypes.STRING(128), allowNull: true, defaultValue: null },
 		magic: { type: DataTypes.STRING(128), allowNull: true, defaultValue: null },
@@ -208,6 +250,11 @@ User.init(
 		sequelize: db.sequelize,
 		modelName: 'user',
 		indexes: [
+			{
+				name: 'name',
+				unique: true,
+				fields: ['name'],
+			},
 			{
 				name: 'magic',
 				fields: ['magic'],
