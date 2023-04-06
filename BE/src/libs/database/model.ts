@@ -4,8 +4,8 @@ import { User } from '../../libs/database/models/user';
 import { Mesurement } from './models/mesurement';
 
 // User has one e-mail
-Email.hasOne(User, { onDelete: 'CASCADE' });
-User.belongsTo(Email); // gets `emailId` column
+User.belongsTo(Email, { onDelete: 'CASCADE' });
+Email.hasMany(User); // gets `emailId` column
 
 // Mesurement has one user, user has many mesurements
 Mesurement.belongsTo(User);

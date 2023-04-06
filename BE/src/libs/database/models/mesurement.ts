@@ -6,6 +6,7 @@ import {
 	BelongsToSetAssociationMixin,
 	DataTypes,
 	Model,
+	Op,
 	Optional,
 } from 'sequelize';
 import { User } from './user';
@@ -15,15 +16,16 @@ export enum TYPE {
 	HUMIDITY = 'humidity',
 }
 
-export interface MesurementAttributes {
+export type MesurementAttributes = {
 	id?: number;
 	value: number;
 	type: TYPE;
 	userId: number; //String of sensor from IoT (sensor)
 	location: string;
+	date: Date;
 	createdAt?: Date;
 	updatedAt?: Date;
-}
+};
 
 export type MesurementCreationAttributes = Optional<MesurementAttributes, 'id' | 'createdAt' | 'updatedAt'>;
 
@@ -38,6 +40,7 @@ export class Mesurement extends Model<MesurementAttributes, MesurementCreationAt
 	public type!: TYPE;
 	public userId!: number;
 	public location!: string;
+	public date!: Date;
 
 	// Associations
 	public static associations: {
@@ -50,6 +53,23 @@ export class Mesurement extends Model<MesurementAttributes, MesurementCreationAt
 	public createUser!: BelongsToCreateAssociationMixin<User>;
 
 	// Methods
+	public static async findBetweenDates(type: TYPE[], userId: number, startDate: Date, endDate: Date) {
+		const measurementData = await this.findAll({
+			where: {
+				date: {
+					[Op.gte]: startDate,
+					[Op.lte]: endDate,
+				},
+				userId,
+				type: {
+					[Op.in]: type,
+				},
+			},
+			order: [['date', 'DESC']],
+		});
+
+		return measurementData;
+	}
 }
 
 Mesurement.init(
@@ -59,6 +79,7 @@ Mesurement.init(
 		type: { type: DataTypes.ENUM('temperature', 'humidity'), allowNull: false },
 		userId: { type: DataTypes.INTEGER.UNSIGNED },
 		location: { type: DataTypes.STRING, allowNull: false, defaultValue: 'Unknown' },
+		date: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
 	},
 	{
 		sequelize: db.sequelize,

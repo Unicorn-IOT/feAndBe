@@ -101,53 +101,36 @@ functions:
                   path: /user
                   method: delete
 
-    # iot fetching data
-    iot-post: # IoT bude volat pro zapis dat
-        handler: src/lambda/iot/post.handler
+    # iot management
+    iot-auth-register-post:
+        handler: src/lambda/iot/auth/register/post.handler
         events:
             - httpApi:
-                  authorizer: user-authorize # token pro IoT
-                  path: /iot
+                  authorizer: user-authorize
+                  path: /iot/auth/register
                   method: post
 
-    iot-get: # Endpoint pro zobrazení aktuálních dat o teplotě a vlhkosti v webové aplikaci
-        handler: src/lambda/iot/get.handler
+    iot-auth-login-post:
+        handler: src/lambda/iot/auth/login/post.handler
         events:
             - httpApi:
-                  path: /iot
-                  method: get
+                  path: /iot/auth/login
+                  method: post
 
-    iot-getMany: # FE bude volat pro získání historických; PARAM iot/getMany?type=temperature&userId=1&days=1
-        handler: src/lambda/iot/getMany.handler
+    iot-iot-get: # Endpoint pro získání seznamu dostupných meteostanic; pres role
+        handler: src/lambda/iot/iot/get.handler
         events:
             - httpApi:
-                  path: /iot/getMany
-                  method: get
+                  path: /iot/iot/get
+                  method: get                
 
-    # iot management
-
-    # iot-getIot: # Endpoint pro získání seznamu dostupných meteostanic; pres role
-    #     handler: src/lambda/iot/get.handler
-    #     events:
-    #         - httpApi:
-    #               path: /iot
-    #               method: get
-
-    # iot-newDevice: # Endpoint pro přidání nové meteostanice
-    #     handler: src/lambda/iot/...
-    #     events:
-    #         - httpApi:
-    #               authorizer: user-authorize # token pro IoT
-    #               path: /iot
-    #               method: post
-
-    # iot-removeDevice: # Endpoint pro odebráni meteo stanice
-    #     handler: src/lambda/iot/...
-    #     events:
-    #         - httpApi:
-    #               authorizer: user-authorize # token pro IoT
-    #               path: /iot
-    #               method: post
+    iot-iot-remove-post: # Endpoint pro odebráni meteo stanice
+        handler: src/lambda/iot/iot/remove.handler
+        events:
+            - httpApi:
+                  authorizer: user-authorize
+                  path: /iot/iot/remove
+                  method: post
 
     # iot-checkStatus: # ???
     #     handler: src/lambda/iot/
@@ -156,6 +139,29 @@ functions:
     #               authorizer: iot-authorize # token pro IoT
     #               path: /iot
     #               method: get
+
+    # iot data
+    iot-data-post:
+        handler: src/lambda/iot/data/post.handler
+        events:
+            - httpApi:
+                  authorizer: user-authorize
+                  path: /iot/data/post
+                  method: post
+
+    iot-data-get: # Endpoint pro zobrazení posledních dat zaslaných do DB
+        handler: src/lambda/iot/data/get.handler
+        events:
+            - httpApi:
+                  path: /iot/data/get
+                  method: get
+
+    iot-data-getMany: # FE bude volat pro získání historických; PARAM iot/getMany?type=temperature&userId=1&days=1
+        handler: src/lambda/iot/data/getMany.handler
+        events:
+            - httpApi:
+                  path: /iot/data/getMany
+                  method: get
 
     script-run:
         handler: src/lambda/script/run.handler
