@@ -13,10 +13,10 @@ export type DataIoT = {
 
 export type GetDataResponse = ApiResponse<{
 	temperatureData: {
-		id: number;
+		id: number; // ID zaznamu
 		value: number;
 		type: measurementType;
-		userId: number;
+		userId: number; // ID stanice
 		localization: string;
 	}[];
 }>;

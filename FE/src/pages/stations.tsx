@@ -6,7 +6,7 @@ import { prepopulateUserInfo } from '../store/server/prepopulateUserInfo';
 import { useServerLoggedOutRedirect } from '../store/server/useServerLoggedOutRedirect';
 import CreateStationForm from '../components/viewPages/stations/CreateStationForm.tsx';
 import SelectStation from '../components/viewPages/stations/select/SelectStation';
-import SelectRange from '../components/viewPages/stations/select/SelectRange';
+import SelectRange from '../components/viewPages/stations/select/SelectEnd';
 
 const Stations = () => {
 	return (
