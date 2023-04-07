@@ -1,9 +1,10 @@
 import { status200 } from '../../../libs/http/status200';
 import { status400 } from '../../../libs/http/status400';
+import { status403 } from '../../../libs/http/status403';
 import { useDB, withDB } from '../../../libs/wrapper/withDB';
 import { withHttp } from '../../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../../types/lambda';
-import { MesurementAttributes, TYPE } from 'libs/database/models/mesurement';
+import { MesurementAttributes, TYPE } from '../../../libs/database/models/mesurement';
 import { ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_MONTH } from 'projectConstants';
 
 export const handler: Lambda = withHttp(
@@ -11,12 +12,27 @@ export const handler: Lambda = withHttp(
 		if (!queryStringParameters) return status400();
 		const { type, userId, startDate, endDate, granularity, granularityUnit } = queryStringParameters;
 		if (!type || !userId || !startDate || !endDate || !granularity || !granularityUnit) return status400();
+		if (new Date(endDate) < new Date(startDate)) return status403();
 
 		const parsedGranularity = parseInt(granularity);
+		const diffDates = new Date(endDate).getTime() - new Date(startDate).getTime();
 
-		if (granularityUnit === 'minutes' && parsedGranularity < 5) return status400();
-		if (new Date(endDate) < new Date(new Date().getTime() - ONE_MONTH * 12) && granularityUnit === 'minutes' && parsedGranularity < 10)
-			return status400();
+		switch (granularityUnit) {
+			case 'minutes':
+				if (diffDates >= ONE_DAY || parsedGranularity < 5 || parsedGranularity > 60) return status403();
+				break;
+			case 'hours':
+				if (diffDates >= ONE_MONTH || parsedGranularity < 1 || parsedGranularity > 24) return status403();
+				break;
+			case 'days':
+				if (diffDates >= ONE_MONTH * 3 || parsedGranularity < 1 || parsedGranularity > 30) return status403();
+				break;
+			case 'months':
+				if (diffDates >= ONE_MONTH * 24 || parsedGranularity < 1 || parsedGranularity > 12) return status403();
+				break;
+			default:
+				return status403();
+		}
 
 		const { Mesurement } = await useDB();
 
