@@ -3,16 +3,23 @@ import { measurementType } from '@type/DataIoT';
 
 type DataIoT = {
 	type: measurementType;
-	userId: number; // TODO prejmenovat na iotId
-	days: number; // TODO prejmenovat na range
-	time: string;
+	userId: number;
+	startDate: Date;
+	endDate: Date;
+	granularity: number;
+	granularityUnit: string;
 };
-
-// TODO initial data dodelat tak aby se nevyskytl error
 
 export const dataIoTSlice = createSlice({
 	name: 'dataIoT',
-	initialState: { days: 90, userId: 1, type: 'temperature', time: '' } as DataIoT,
+	initialState: {
+		type: 'temperature',
+		userId: 1,
+		startDate: new Date('2023-04-02T17:25:41.000Z'),
+		endDate: new Date('2023-04-05T17:25:41.000Z'),
+		granularity: 5,
+		granularityUnit: 'hours',
+	} as DataIoT,
 	reducers: {
 		setUserId: (state, action) => {
 			state.userId = action.payload;
@@ -22,15 +29,23 @@ export const dataIoTSlice = createSlice({
 			state.type = action.payload;
 			return state;
 		},
-		setTime: (state, action) => {
-			state.time = action.payload;
+		setStartDate: (state, action) => {
+			state.startDate = action.payload;
 			return state;
 		},
-		setDays: (state, action) => {
-			state.days = action.payload;
+		setEndDate: (state, action) => {
+			state.endDate = action.payload;
+			return state;
+		},
+		setGranularity: (state, action) => {
+			state.granularity = action.payload;
+			return state;
+		},
+		setGranularityUnit: (state, action) => {
+			state.granularityUnit = action.payload;
 			return state;
 		},
 	},
 });
 
-export const { setTime, setUserId, setDays } = dataIoTSlice.actions;
+export const { setUserId, setType, setStartDate, setEndDate, setGranularity, setGranularityUnit } = dataIoTSlice.actions;
