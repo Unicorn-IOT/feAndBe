@@ -1,12 +1,14 @@
-import { Box, Grid, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import React, { ChangeEvent } from 'react';
+import { Box, Grid, Typography, FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
+import React, { ChangeEvent, useState } from 'react';
 import { setTime } from 'FE/src/store/slices/dataIoTSlice';
 import { useGetDataIotQuery } from 'FE/src/store/api/dataIoTApi';
 import { useAppDispatch, useAppSelector } from 'FE/src/store';
 import { useDataIot } from 'FE/src/hooks/useDataIot';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { StaticDateTimePicker } from '@mui/x-date-pickers/StaticDateTimePicker';
 
 export default function SelectEnd() {
+	const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
 	const dispatch = useAppDispatch();
 
 	const days = useAppSelector(({ dataIoT }) => dataIoT.days);
@@ -33,10 +35,21 @@ export default function SelectEnd() {
 				Select Range
 			</Typography>
 			<Box sx={{ minWidth: 120 }}>
-				<FormControl fullWidth>
-					<InputLabel>Range</InputLabel>
-					<DateTimePicker></DateTimePicker>
-				</FormControl>
+				{/* <InputLabel>Range</InputLabel> */}
+				{/* <DateTimePicker
+						label="Select end Date and Time"
+						// renderInput={(params: any) => <TextField {...params} />}
+						value={selectedDateTime}
+						onChange={(newValue) => {
+							setSelectedDateTime(newValue);
+						}}
+					/> */}
+				<StaticDateTimePicker
+					value={selectedDateTime}
+					onChange={(newValue) => {
+						setSelectedDateTime(newValue);
+					}}
+				/>
 			</Box>
 		</Grid>
 	);
