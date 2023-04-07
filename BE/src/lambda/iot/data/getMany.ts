@@ -33,6 +33,8 @@ export const handler: Lambda = withHttp(
 				? ONE_HOUR
 				: granularityUnit === 'days'
 				? ONE_DAY
+				: granularityUnit === 'months'
+				? ONE_MONTH
 				: undefined;
 		if (!time) return status400();
 
