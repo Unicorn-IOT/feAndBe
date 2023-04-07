@@ -5,7 +5,9 @@
 * User with role *user* must be signed in
 * Endpoint must be called with token
 * Name of User with the role *iot* must be unique
+
 #### Input:
+
 `{
 	"name":"meteo1",
 	"password":"123456"
@@ -13,17 +15,20 @@
 
 ### iot/auth/login
 #### Input:
+
 `{
 	"name":"meteo1",
 	"password":"123456"
 }`
-### iot/iot/remove
-* User with role *user* must be signed in
-* Endpoint must be called with token
-*  BE checks if the endpoint is called by a user who is related (owner) to a certain IoT
-`{
+
+### ~~iot/iot/remove~~
+* ~~User with role *user* must be signed in~~
+* ~~Endpoint must be called with token~~
+*  ~~BE checks if the endpoint is called by a user who is related (owner) to a certain IoT~~
+
+~~`{
 	"id": 12
-}`
+}`~~
 ### iot/iot/get
 * All IoTs in DB are sent back
 
@@ -34,6 +39,7 @@
 ### iot/data/post
 #### Input:
 **_ONLY user with role IOT_**
+
 `{
 	"value":11,
 	"type":"temperature",
@@ -45,6 +51,7 @@
 ## Fetching data
 ### iot/data/get
 * Returns back last mesuered data in DB
+
 *  `{
 	"statusCode": 200,
 	"message": "OK",
@@ -56,6 +63,7 @@
 		"dateHum": "2023-04-01T07:40:45.000Z"
 	}
 }`
+
 #### Input:
 `N/A`
 
