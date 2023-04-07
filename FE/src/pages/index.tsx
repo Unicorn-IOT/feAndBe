@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Box, Toolbar, Container, Grid, Paper } from '@mui/material';
 import { Chart } from '../components/viewPages/Chart';
 import { WeatherRIghtNow } from '../components/viewPages/dashboard/WeatherRIghtNow';
+import SelectForm from '../components/select/SelectForm';
 // import { wrapper } from '../store';
 // import { prepopulateUserInfo } from '../store/server/prepopulateUserInfo';
 // import { useServerLoggedOutRedirect } from '../store/server/useServerLoggedOutRedirect';
@@ -45,6 +46,18 @@ const Dashboard = () => {
 							}}
 						>
 							<WeatherRIghtNow />
+						</Paper>
+					</Grid>
+					<Grid item xs={12} md={12} lg={12}>
+						<Paper
+							sx={{
+								p: 2,
+								display: 'flex',
+								flexDirection: 'column',
+								height: 300,
+							}}
+						>
+							<SelectForm />
 						</Paper>
 					</Grid>
 				</Grid>

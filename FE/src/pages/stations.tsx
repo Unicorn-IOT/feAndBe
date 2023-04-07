@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Box, Toolbar, Container, Grid, Paper } from '@mui/material';
 import CreateStationForm from '../components/viewPages/stations/CreateStationForm.tsx';
-import SelectStation from '../components/viewPages/stations/select/SelectStation';
-import SelectRange from '../components/viewPages/stations/select/SelectEnd';
 
 const Stations = () => {
 	return (
@@ -19,7 +17,7 @@ const Stations = () => {
 			<Toolbar />
 			<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
 				<Grid container spacing={3}>
-					<Grid item xs={12} md={4} lg={3}>
+					<Grid item xs={12} md={8} lg={9}>
 						<Paper
 							sx={{
 								p: 2,
@@ -27,22 +25,7 @@ const Stations = () => {
 								flexDirection: 'column',
 								height: '100%',
 							}}
-						>
-							<SelectStation />
-						</Paper>
-					</Grid>
-
-					<Grid item xs={12} md={4} lg={3}>
-						<Paper
-							sx={{
-								p: 2,
-								display: 'flex',
-								flexDirection: 'column',
-								height: '100%',
-							}}
-						>
-							<SelectRange />
-						</Paper>
+						></Paper>
 					</Grid>
 
 					<Grid item xs={12} md={4} lg={3}>
