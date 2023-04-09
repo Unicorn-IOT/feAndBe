@@ -6,7 +6,7 @@ import { useDB, withDB } from '../../../libs/wrapper/withDB';
 import { withHttp } from '../../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../../types/lambda';
 import { z } from 'zod';
-import { validation } from 'libs/validation';
+import { validation } from '../../../libs/validation';
 
 const Schema = z.object({
 	email: z.string(),
@@ -17,8 +17,6 @@ export const handler: Lambda = withHttp(
 	withDB(async ({ body }) => {
 		if (!body) return status400();
 
-		// const { email, password } = JSON.parse(body);
-		// if (!email || !password) return status400();
 		const parsedBody = JSON.parse(body);
 
 		const { email, password } = validation(Schema, parsedBody);

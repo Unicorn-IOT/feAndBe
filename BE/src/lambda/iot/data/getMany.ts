@@ -6,15 +6,30 @@ import { withHttp } from '../../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../../types/lambda';
 import { MesurementAttributes, TYPE } from '../../../libs/database/models/mesurement';
 import { ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_MONTH } from 'projectConstants';
+import { z } from 'zod';
+
+const GranularityUnit = z.enum(['minutes', 'hours', 'days', 'months']);
+
+const QueryParamsSchema = z.object({
+	type: z.string().regex(/^((temperature|humidity)|temperature,humidity|humidity,temperature)$/),
+	userId: z.string().regex(/^(?!0)\d{1,3}$/),
+	startDate: z.string().datetime({ offset: true }),
+	endDate: z.string().datetime({ offset: true }),
+	granularity: z.string().regex(/^[1-9]|[1-5][0-9]|60$/),
+	granularityUnit: GranularityUnit,
+});
 
 export const handler: Lambda = withHttp(
 	withDB(async ({ queryStringParameters }) => {
 		if (!queryStringParameters) return status400();
-		const { type, userId, startDate, endDate, granularity, granularityUnit } = queryStringParameters;
+
+		const parsedQueryParams = QueryParamsSchema.parse(queryStringParameters);
+		const { type, userId, startDate, endDate, granularity, granularityUnit } = parsedQueryParams;
+
 		if (!type || !userId || !startDate || !endDate || !granularity || !granularityUnit) return status400();
 		if (new Date(endDate) < new Date(startDate)) return status403();
 
-		const parsedGranularity = parseInt(granularity);
+		const parsedGranularity = parseInt(parsedQueryParams.granularity);
 		const diffDates = new Date(endDate).getTime() - new Date(startDate).getTime();
 
 		switch (granularityUnit) {
@@ -38,7 +53,7 @@ export const handler: Lambda = withHttp(
 
 		const types = type.split(',') as TYPE[];
 
-		const result = await Mesurement.findBetweenDates(types, parseInt(userId), new Date(startDate), new Date(endDate));
+		const result = await Mesurement.findBetweenDates(types, parseInt(parsedQueryParams.userId), new Date(startDate), new Date(endDate));
 
 		//granularity 1 hodinu
 
