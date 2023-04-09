@@ -7,6 +7,8 @@ import { withHttp } from '../../../libs/wrapper/withHttp';
 import { useUser, withUser } from '../../../libs/wrapper/withUser';
 import { Lambda } from '../../../../../types/lambda';
 
+// DEPRECATED
+
 export const handler: Lambda = withHttp(
 	withDB(
 		withUser(async ({ body }) => {
