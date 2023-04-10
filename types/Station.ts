@@ -1,16 +1,18 @@
 import { ApiResponse } from './Api';
 
-export type Station = {
-	stationName: string;
-	password: string;
-};
-
 export type GetStationsResponse = ApiResponse<{
-	station: Station;
+	id: number;
+	name: string;
+	password: string;
+	role: string;
+	emailId: number;
 }>;
 
 export type CreateStationResponse = ApiResponse<{
-	station: Station;
+	name: string;
+	password: string;
 }>;
 
-//TODO nadefinovat body
+export type CreateStationRequest = {
+	name: string;
+};

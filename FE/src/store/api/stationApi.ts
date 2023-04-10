@@ -1,26 +1,24 @@
-// import { appApi } from '../api/index';
-// import { CreateStationResponse, GetStationsResponse } from '@type/Station';
+import { appApi } from '../api/index';
+import { CreateStationRequest, CreateStationResponse, GetStationsResponse } from '@type/Station';
 
-// export const stationApi = appApi.injectEndpoints({
-// 	endpoints: (builder) => ({
-// 		getStations: builder.query<GetStationsResponse, void>({
-// 			query: () => ({
-// 				url: '/getStations',
-// 				method: 'GET',
-// 			}),
-// 			providesTags: (result) => (result ? [{ type: 'User', id: 'USER' }] : []),
-// 		}),
-// 		createStation: builder.mutation<CreateStationResponse, void>({
-//TODO nadefinovat body
-// 			query: ({ ...body }) => ({
-// 				url: '/createStation',
-// 				method: 'POST',
-// 				body,
-// 			}),
-// 			invalidatesTags: [{ type: 'Station' }],
-// 		}),
-// 	}),
-// });
+export const stationApi = appApi.injectEndpoints({
+	endpoints: (builder) => ({
+		getStations: builder.query<GetStationsResponse, void>({
+			query: () => ({
+				url: '/iot/iot/get',
+				method: 'GET',
+			}),
+			providesTags: (result) => (result ? [{ type: 'Station' }] : []),
+		}),
+		createStation: builder.mutation<CreateStationResponse, CreateStationRequest>({
+			query: ({ ...body }) => ({
+				url: 'iot/auth/register',
+				method: 'POST',
+				body,
+			}),
+			invalidatesTags: [{ type: 'Station' }],
+		}),
+	}),
+});
 
-// export const { useCreateStationMutation, useGetStationsQuery } = stationApi;
-export {};
+export const { useCreateStationMutation, useGetStationsQuery } = stationApi;

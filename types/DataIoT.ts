@@ -5,7 +5,7 @@ export enum measurementType {
 	HUMIDITY = 'humidity',
 }
 
-export enum granularityUnit {
+export enum granularityUnitType {
 	minutes = 'minutes',
 	hours = 'hours',
 	days = 'days',
@@ -33,5 +33,5 @@ export type GetDataRequest = {
 	startDate: Date;
 	endDate: Date;
 	granularity: number;
-	granularityUnit: granularityUnit;
+	granularityUnit: granularityUnitType;
 };
