@@ -18,6 +18,6 @@ export const appApi = createApi({
 			return action.payload[reducerPath];
 		}
 	},
-	tagTypes: ['User', 'DataIoT', 'Station'],
+	tagTypes: ['User', 'DataIoT', 'Station', 'CurrentDataIoT'],
 	endpoints: () => ({}),
 });

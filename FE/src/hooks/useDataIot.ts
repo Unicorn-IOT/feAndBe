@@ -1,6 +1,5 @@
 import { useAppSelector } from '../store';
 import { useGetDataIotQuery } from '../store/api/dataIoTApi';
-import { dataIoTSlice } from '../store/slices/dataIoTSlice';
 
 export const useDataIot = () => {
 	const { type, userId, startDate, endDate, granularity, granularityUnit } = useAppSelector(({ dataIoT }) => dataIoT);
@@ -9,5 +8,3 @@ export const useDataIot = () => {
 
 	return { data, isError, isFetching, error };
 };
-
-// TODO: MANAS !!!!

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { measurementType } from '@type/DataIoT';
+import { measurementType, granularityUnitType } from '@type/DataIoT';
 
 type DataIoT = {
 	type: measurementType;
@@ -7,7 +7,7 @@ type DataIoT = {
 	startDate: Date;
 	endDate: Date;
 	granularity: number;
-	granularityUnit: string;
+	granularityUnit: granularityUnitType;
 };
 
 export const dataIoTSlice = createSlice({
