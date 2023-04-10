@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import SelectEndDate from './end/SelectEndDate';
 import SelectStartDate from './start/SelectStartDate';
 import SelectStartTime from './start/SelectStartTime';
@@ -107,7 +107,7 @@ export default function SelectForm() {
 					<Grid container>
 						<Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
 							<Button
-								variant="outlined"
+								variant="text"
 								size="large"
 								type="submit"
 								sx={{
