@@ -5,6 +5,12 @@ export enum measurementType {
 	HUMIDITY = 'humidity',
 }
 
+export enum granularityUnit {
+	minutes = 'minutes',
+	hours = 'hours',
+	days = 'days',
+}
+
 export type DataIoT = {
 	temperature: string;
 	humidity: string;
@@ -12,7 +18,7 @@ export type DataIoT = {
 };
 
 export type GetDataResponse = ApiResponse<{
-	temperatureData: {
+	data: {
 		id: number; // ID zaznamu
 		value: number;
 		type: measurementType;
@@ -22,7 +28,10 @@ export type GetDataResponse = ApiResponse<{
 }>;
 
 export type GetDataRequest = {
-	userId: number;
-	days: number;
 	type: measurementType;
+	userId: number;
+	startDate: Date;
+	endDate: Date;
+	granularity: number;
+	granularityUnit: granularityUnit;
 };
