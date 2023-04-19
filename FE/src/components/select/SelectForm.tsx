@@ -33,29 +33,22 @@ export default function SelectForm() {
 		},
 	});
 
-	const selectStartDate = watch('selectStartDate');
-	const selectStartTime = watch('selectStartTime');
-	const selectEndDate = watch('selectEndDate');
-	const selectEndTime = watch('selectEndTime');
-	const granularity = watch('granularity');
-	const granularityUnit = watch('granularityUnit');
-
-	const startDateTime = new Date(selectStartDate);
-	startDateTime.setHours(selectStartTime.getHours());
-	startDateTime.setMinutes(selectStartTime.getMinutes());
-	startDateTime.setSeconds(selectStartTime.getSeconds());
-
-	const endDateTime = new Date(selectEndDate);
-	startDateTime.setHours(selectEndTime.getHours());
-	startDateTime.setMinutes(selectEndTime.getMinutes());
-	startDateTime.setSeconds(selectEndTime.getSeconds());
-
 	const onSubmit = (data: SelectFormType) => {
-		console.log('Data z formulare:', data);
+		const startDateTime = new Date(data.selectStartDate);
+		startDateTime.setHours(data.selectStartTime.getHours());
+		startDateTime.setMinutes(data.selectStartTime.getMinutes());
+		startDateTime.setSeconds(data.selectStartTime.getSeconds());
+
+		const endDateTime = new Date(data.selectEndDate);
+		startDateTime.setHours(data.selectEndTime.getHours());
+		startDateTime.setMinutes(data.selectEndTime.getMinutes());
+		startDateTime.setSeconds(data.selectEndTime.getSeconds());
+
 		dispatch(setStartDate(startDateTime));
 		dispatch(setEndDate(endDateTime));
-		dispatch(setGranularity(granularity));
-		dispatch(setGranularityUnit(granularityUnit));
+		dispatch(setGranularity(data.granularity));
+		dispatch(setGranularityUnit(data.granularityUnit));
+		console.log('Data z formulare:', data);
 	};
 
 	return (
