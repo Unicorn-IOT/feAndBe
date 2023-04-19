@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,6 +8,7 @@ import CreateStationName from './CreateStationName';
 import CreateStationPassword from './CreateStationPassword';
 import { useAppDispatch } from 'FE/src/store';
 import { setName, setPassword } from 'FE/src/store/slices/createStationSlice';
+import { useCreateStationMutation } from 'FE/src/store/api/stationApi';
 
 export type CreateStationType = {
 	name: string;
@@ -33,27 +34,31 @@ export default function CreateStationForm() {
 	const name = watch('name');
 	const password = watch('password');
 
+	const [createStation, { isLoading, isError, isSuccess }] = useCreateStationMutation();
+
+	useEffect(() => {
+		isSuccess && setOpen(false);
+	}, [isSuccess]);
+
 	const onSubmit = async (data: CreateStationType) => {
-		dispatch(setName(name));
-		dispatch(setPassword(password));
-		setOpen(false);
+		await createStation(data);
 		console.log('createStationData', data);
 	};
 
 	return (
 		<Grid>
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<Grid
-					sx={{
-						display: 'flex',
-						justifyContent: 'center',
-						flexDirection: 'column',
-					}}
-				>
-					<Paper sx={{ marginLeft: 'auto', marginRight: 'auto', width: 200, marginTop: 2 }}>
-						<Button onClick={handleOpen}>Create your own station ! </Button>
-					</Paper>
-					<Dialog open={open} onClose={onSubmit}>
+			<Grid
+				sx={{
+					display: 'flex',
+					justifyContent: 'center',
+					flexDirection: 'column',
+				}}
+			>
+				<Paper sx={{ marginLeft: 'auto', marginRight: 'auto', width: 200, marginTop: 2 }}>
+					<Button onClick={handleOpen}>Create your own station ! </Button>
+				</Paper>
+				<Dialog open={open}>
+					<form onSubmit={handleSubmit(onSubmit)}>
 						<Typography
 							variant="h5"
 							color={'black'}
@@ -71,13 +76,14 @@ export default function CreateStationForm() {
 							<CreateStationPassword control={control} />
 						</Grid>
 						<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
-							<Button type="submit" onClick={() => router.push('/')} sx={{ marginTop: 2, fontWeight: 'bold' }}>
+							<Button type="submit" sx={{ marginTop: 2, fontWeight: 'bold' }} disabled={isLoading}>
 								Create Station
 							</Button>
+							<p>{isError && 'je error'}</p>
 						</Grid>
-					</Dialog>
-				</Grid>
-			</form>
+					</form>
+				</Dialog>
+			</Grid>
 		</Grid>
 	);
 }

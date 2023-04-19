@@ -1,10 +1,15 @@
 import React from 'react';
 
 import { Box, Toolbar, Container, Grid } from '@mui/material';
-import CreateStationForm from '../components/viewPages/stations/CreateStationForm.tsx';
+import CreateStationForm from '../components/viewPages/stations/CreateStationForm';
 import StationCard from '../components/reusable/StationCard';
+import { useGetStationsQuery } from '../store/api/stationApi';
 
 const Stations = () => {
+	const { data } = useGetStationsQuery();
+
+	const userName = data?.data.iotUsers.map((user) => user.name);
+
 	return (
 		<>
 			<Box
@@ -22,9 +27,14 @@ const Stations = () => {
 				</Grid>
 				<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
 					<Grid container spacing={3}>
-						<Grid item xs={12} md={4} lg={3}>
-							<StationCard title="nazev stanice" location="Berlin" temperature={5} humidity={4} />
-						</Grid>
+						{/* {userName &&
+							userName.map((name: string) => {
+								return (
+									<Grid item xs={12} md={4} lg={3} key={name}>
+										<StationCard title={name} location="Berlin" temperature={5} humidity={4} />
+									</Grid>
+								);
+							})} */}
 					</Grid>
 				</Container>
 			</Box>

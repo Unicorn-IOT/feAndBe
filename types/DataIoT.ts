@@ -17,15 +17,15 @@ export type DataIoT = {
 	type: measurementType;
 };
 
-export type GetDataResponse = ApiResponse<{
-	data: {
+export type GetDataResponse = ApiResponse<
+	{
 		id: number; // ID zaznamu
 		value: number;
 		type: measurementType;
 		userId: number; // ID stanice
 		localization: string;
-	}[];
-}>;
+	}[]
+>;
 
 export type GetDataRequest = {
 	type: measurementType;
