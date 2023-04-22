@@ -2,19 +2,19 @@ import { Fragment } from 'react';
 
 import Typography from '@mui/material/Typography';
 import { Title } from '../Title';
-import { useGetDataIotQuery } from 'FE/src/store/api/dataIoTApi';
-import { measurementType } from '@type/DataIoT';
-import { useAppSelector } from 'FE/src/store';
-import { useSelector } from 'react-redux';
-import { useDataIot } from 'FE/src/hooks/useDataIot';
+// import { useGetDataIotQuery } from 'FE/src/store/api/dataIoTApi';
+// import { measurementType } from '@type/DataIoT';
+// import { useAppSelector } from 'FE/src/store';
+// import { useSelector } from 'react-redux';
+// import { useDataIot } from 'FE/src/hooks/useDataIot';
 import { useGetCurrentDataIoTQuery } from 'FE/src/store/api/currentDataIoTApi';
 
 export const WeatherRIghtNow = () => {
-	const { data, isError, error, isFetching } = useGetCurrentDataIoTQuery();
+	const { data, isError } = useGetCurrentDataIoTQuery();
 	// const { data } = useGetCurrentDataIoTQuery((state) => state.temperature)
 
 	// const { days } = useGetDataIotQuery((state) => state.);
-	const userId = useAppSelector(({ dataIoT }) => dataIoT.userId);
+	// const userId = useAppSelector(({ dataIoT }) => dataIoT.userId);
 
 	//TODO
 	return (

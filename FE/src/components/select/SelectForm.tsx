@@ -22,7 +22,7 @@ export type SelectFormType = {
 export default function SelectForm() {
 	const dispatch = useAppDispatch();
 
-	const { control, handleSubmit, watch } = useForm<SelectFormType>({
+	const { control, handleSubmit } = useForm<SelectFormType>({
 		defaultValues: {
 			selectStartDate: new Date(),
 			selectStartTime: new Date(),
