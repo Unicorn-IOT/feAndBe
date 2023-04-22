@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button, Grid, Dialog, Typography, Paper } from '@mui/material';
 import CreateStationName from './CreateStationName';
 import CreateStationPassword from './CreateStationPassword';
-import { useAppDispatch } from 'FE/src/store';
-import { setName, setPassword } from 'FE/src/store/slices/createStationSlice';
+// import { useAppDispatch } from 'FE/src/store';
+// import { setName, setPassword } from 'FE/src/store/slices/createStationSlice';
 import { useCreateStationMutation } from 'FE/src/store/api/stationApi';
 
 export type CreateStationType = {
@@ -22,17 +22,17 @@ const schema = yup.object({
 
 export default function CreateStationForm() {
 	const [open, setOpen] = useState(false);
-	const { control, handleSubmit, watch } = useForm<CreateStationType>({
+	const { control, handleSubmit } = useForm<CreateStationType>({
 		resolver: yupResolver(schema),
 		defaultValues: { name: '', password: '' },
 	});
-	const dispatch = useAppDispatch();
+	// const dispatch = useAppDispatch();
 
-	const router = useRouter();
+	// const router = useRouter();
 	const handleOpen = () => setOpen(true);
 
-	const name = watch('name');
-	const password = watch('password');
+	// const name = watch('name');
+	// const password = watch('password');
 
 	const [createStation, { isLoading, isError, isSuccess }] = useCreateStationMutation();
 
