@@ -1,7 +1,7 @@
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { Grid, TextField, Typography } from '@mui/material';
-import { CreateStationType } from './CreateStationForm.tsx';
+import { CreateStationType } from './CreateStationForm';
 
 type CreateStationNameProps = {
 	control: Control<CreateStationType>;

@@ -1,16 +1,20 @@
 import { ApiResponse } from './Api';
 
-export type Station = {
-	stationName: string;
-	password: string;
-};
-
 export type GetStationsResponse = ApiResponse<{
-	station: Station;
+	iotUsers: {
+		id: number;
+		name: string;
+		password: string;
+		role: string;
+		emailId: number;
+	}[];
 }>;
 
 export type CreateStationResponse = ApiResponse<{
-	station: Station;
+	name: string;
 }>;
 
-//TODO nadefinovat body
+export type CreateStationRequest = {
+	name: string;
+	password: string;
+};

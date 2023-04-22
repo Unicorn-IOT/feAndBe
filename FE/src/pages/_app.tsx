@@ -3,7 +3,8 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { AppProps } from 'next/app';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../utils/theme';
@@ -26,21 +27,22 @@ function App(props: MyAppProps) {
 			<Head>
 				<meta name="viewport" content="initial-scale=1, width=device-width" />
 			</Head>
-			<ThemeProvider theme={theme}>
-				{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-				<CssBaseline />
-				{router.pathname == '/login' ? (
-					<Component {...pageProps} />
-				) : router.pathname == '/registration' ? (
-					<Component {...pageProps} />
-				) : router.pathname == '/terms' ? (
-					<Component {...pageProps} />
-				) : (
-					<Dashboard>
+			<LocalizationProvider dateAdapter={AdapterDateFns}>
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
+					{router.pathname == '/login' ? (
 						<Component {...pageProps} />
-					</Dashboard>
-				)}
-			</ThemeProvider>
+					) : router.pathname == '/registration' ? (
+						<Component {...pageProps} />
+					) : router.pathname == '/terms' ? (
+						<Component {...pageProps} />
+					) : (
+						<Dashboard>
+							<Component {...pageProps} />
+						</Dashboard>
+					)}
+				</ThemeProvider>
+			</LocalizationProvider>
 		</CacheProvider>
 	);
 }
