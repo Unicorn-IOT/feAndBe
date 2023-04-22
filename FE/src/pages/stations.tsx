@@ -2,13 +2,13 @@ import React from 'react';
 
 import { Box, Toolbar, Container, Grid } from '@mui/material';
 import CreateStationForm from '../components/viewPages/stations/CreateStationForm';
-import StationCard from '../components/reusable/StationCard';
-import { useGetStationsQuery } from '../store/api/stationApi';
+// import StationCard from '../components/reusable/StationCard';
+// import { useGetStationsQuery } from '../store/api/stationApi';
 
 const Stations = () => {
-	const { data } = useGetStationsQuery();
+	// const { data } = useGetStationsQuery();
 
-	const userName = data?.data.iotUsers.map((user) => user.name);
+	// const userName = data?.data.iotUsers.map((user) => user.name);
 
 	return (
 		<>

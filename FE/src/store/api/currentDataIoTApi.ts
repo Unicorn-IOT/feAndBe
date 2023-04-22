@@ -1,5 +1,5 @@
 import { appApi } from '../api/index';
-import { GetCurrentDataResponse } from '@type/CurrentDataIoT';
+import { GetCurrentDataResponse } from '../../../../types/currentDataIoT';
 
 export const currentDataIoTApi = appApi.injectEndpoints({
 	endpoints: (builder) => ({
