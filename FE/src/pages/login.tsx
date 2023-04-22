@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import { Button, Grid, Typography } from '@mui/material';
-import { LoginFormHopeSo } from '../components/login/LoginFormHopeSo';
+import { LoginFormHopeSo } from '../components/login/LoginFormHopeSo.tsx';
 import { NextPage } from 'next';
 
 const Login: NextPage = () => {
