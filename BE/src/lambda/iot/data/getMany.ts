@@ -5,7 +5,7 @@ import { useDB, withDB } from '../../../libs/wrapper/withDB';
 import { withHttp } from '../../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../../types/lambda';
 import { MesurementAttributes, TYPE } from '../../../libs/database/models/mesurement';
-import { ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_MONTH } from 'projectConstants';
+import { ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_MONTH } from '../../../projectConstants';
 import { z } from 'zod';
 
 const GranularityUnit = z.enum(['minutes', 'hours', 'days', 'months']);
