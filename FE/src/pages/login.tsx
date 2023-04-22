@@ -2,14 +2,14 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import { Button, Grid, Typography } from '@mui/material';
-import { LoginForm } from '../components/login/LoginForm';
+import { LoginFormHopeSo } from '../components/login/LoginFormHopeSo';
 
 const Login = () => {
 	const router = useRouter();
 
 	return (
 		<>
-			<LoginForm />
+			<LoginFormHopeSo />
 
 			<Grid container direction="column" display="flex" justifyContent="center" alignContent="center">
 				<Grid item>
