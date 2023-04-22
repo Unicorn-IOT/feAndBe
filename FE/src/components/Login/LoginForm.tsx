@@ -19,7 +19,7 @@ const schema = yup.object({
 	password: yup.string().required('Password is required'),
 });
 
-export default function LoginForm() {
+export function LoginForm() {
 	const { control, handleSubmit } = useForm<LoginPageType>({
 		resolver: yupResolver(schema),
 		defaultValues: { email: '', password: '' },
