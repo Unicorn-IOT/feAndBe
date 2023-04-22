@@ -3,8 +3,9 @@ import { useRouter } from 'next/router';
 
 import { Button, Grid, Typography } from '@mui/material';
 import { LoginFormHopeSo } from '../components/login/LoginFormHopeSo';
+import { NextPage } from 'next';
 
-const Login = () => {
+const Login: NextPage = () => {
 	const router = useRouter();
 
 	return (
