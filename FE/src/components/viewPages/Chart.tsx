@@ -5,25 +5,6 @@ import { useTheme } from '@mui/material/styles';
 import { Title } from './Title';
 import { useDataIot } from 'FE/src/hooks/useDataIot';
 
-function createData(temperature: number, humidity: number, time: string) {
-	return { temperature, humidity, time };
-}
-
-const dataGraph = [
-	createData(0, 0, '00:00'),
-	createData(20, 33, '00:00'),
-	createData(45, 15, '05:00'),
-	createData(30, 23, '10:00'),
-	createData(44, 39, '12:00'),
-	createData(40, 26, '14:00'),
-	createData(18, 29, '16:00'),
-	createData(21, 33, '18:00'),
-	createData(24, 36, '20:00'),
-	createData(30, 40, '21:00'),
-	createData(40, 45, '22:00'),
-	createData(44, 30, '23:59'),
-];
-
 const now = new Date();
 const Today = now.toLocaleDateString();
 
@@ -31,13 +12,36 @@ export const Chart = () => {
 	const theme = useTheme();
 	const { data } = useDataIot();
 
-	const dataType = data?.data.map((e) => e.type);
+	function createData(temperature: number, humidity: number, time: string) {
+		return { temperature, humidity, time };
+	}
 
-	// useEffect(() => {
+	const dataGraph = [
+		createData(0, 0, '00:00'),
+		createData(20, 33, '00:00'),
+		createData(45, 15, '05:00'),
+		createData(30, 23, '10:00'),
+		createData(44, 39, '12:00'),
+		createData(40, 26, '14:00'),
+		createData(18, 29, '16:00'),
+		createData(21, 33, '18:00'),
+		createData(24, 36, '20:00'),
+		createData(30, 40, '21:00'),
+		createData(40, 45, '22:00'),
+		createData(44, 30, '23:59'),
+	];
 
-	// 	data?.data.map((e) => e.type === 'humidity' ? let humidity = data.data.map((e) => e.type) : let temperature= data.data.map((e) => e.type)
-
-	// });
+	useEffect(() => {
+		data?.data.forEach((e) => {
+			if (e.type === 'temperature') {
+				const temperature = e.value;
+				return temperature;
+			} else if (e.type === 'humidity') {
+				const humidity = e.value;
+				return humidity;
+			}
+		});
+	}, [data]);
 
 	return (
 		<Fragment>
