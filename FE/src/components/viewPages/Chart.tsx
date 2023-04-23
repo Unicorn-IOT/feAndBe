@@ -1,14 +1,15 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 
 import { useTheme } from '@mui/material/styles';
 import { Title } from './Title';
+import { useDataIot } from 'FE/src/hooks/useDataIot';
 
 function createData(temperature: number, humidity: number, time: string) {
 	return { temperature, humidity, time };
 }
 
-const data = [
+const dataGraph = [
 	createData(0, 0, '00:00'),
 	createData(20, 33, '00:00'),
 	createData(45, 15, '05:00'),
@@ -28,13 +29,22 @@ const Today = now.toLocaleDateString();
 
 export const Chart = () => {
 	const theme = useTheme();
+	const { data } = useDataIot();
+
+	const dataType = data?.data.map((e) => e.type);
+
+	// useEffect(() => {
+
+	// 	data?.data.map((e) => e.type === 'humidity' ? let humidity = data.data.map((e) => e.type) : let temperature= data.data.map((e) => e.type)
+
+	// });
 
 	return (
 		<Fragment>
 			<Title>{Today}</Title>
 			<ResponsiveContainer>
 				<LineChart
-					data={data}
+					data={dataGraph}
 					margin={{
 						top: 6,
 						right: 16,

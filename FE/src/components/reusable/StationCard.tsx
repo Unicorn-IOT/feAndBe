@@ -2,25 +2,25 @@ import React from 'react';
 import { Card, CardHeader, CardContent, Typography } from '@mui/material';
 
 type StationCardProps = {
-	title?: string;
-	location?: string;
-	temperature?: number;
-	humidity?: number;
+	name?: string;
+	localization?: string;
+	ownerEmail?: string;
+	ownerName?: string;
 };
 
-export default function StationCard({ title, location, temperature, humidity }: StationCardProps) {
+export default function StationCard({ name, localization, ownerEmail, ownerName }: StationCardProps) {
 	return (
 		<Card sx={{ minWidth: 275 }}>
-			<CardHeader title={title} />
+			<CardHeader name={name} />
 			<CardContent>
 				<Typography variant="h5" component="div" gutterBottom>
-					{location}
+					Localization: {localization}
 				</Typography>
 				<Typography variant="body1" sx={{ mb: 2 }}>
-					Teplota: {temperature}
+					Owner Email: {ownerEmail}
 				</Typography>
 				<Typography variant="body1" sx={{ mb: 2 }}>
-					Vlhkost: {humidity}
+					Owner Name: {ownerName}
 				</Typography>
 			</CardContent>
 		</Card>

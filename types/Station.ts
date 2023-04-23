@@ -4,9 +4,11 @@ export type GetStationsResponse = ApiResponse<{
 	iotUsers: {
 		id: number;
 		name: string;
-		password: string;
-		role: string;
-		emailId: number;
+		ownerName: string;
+		ownerId: number;
+		ownerEmail: string;
+		ownerEmailId: number;
+		localization: string;
 	}[];
 }>;
 
