@@ -24,7 +24,7 @@ const Stations = () => {
 					<CreateStationForm />
 				</Grid>
 				<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-					<Grid container spacing={3}>
+					{/* <Grid container spacing={3}>
 						{data &&
 							data?.data.iotUsers.map((e) => {
 								return (
@@ -38,7 +38,7 @@ const Stations = () => {
 									</Grid>
 								);
 							})}
-					</Grid>
+					</Grid> */}
 				</Container>
 			</Box>
 		</>

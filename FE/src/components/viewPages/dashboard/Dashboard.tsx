@@ -26,7 +26,6 @@ export default function Dashboard({ children }: DashboardContentProps) {
 		setOpen(!open);
 	};
 
-	// const { data } = useDataIot();
 	const userData = data?.data.user.name;
 
 	useEffect(() => {

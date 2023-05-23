@@ -35,7 +35,6 @@ export default function RegistrationForm() {
 	const [registration, { isSuccess, isError }] = useRegisterMutation();
 
 	const onSubmit = async (data: RegistrationPageType) => {
-		console.log('Ahoj Registr', data);
 		await Promise.all([router.prefetch('/'), registration(data)]);
 	};
 

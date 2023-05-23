@@ -3,12 +3,13 @@ import { useForm } from 'react-hook-form';
 // import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Button, Grid, Dialog, Typography, Paper } from '@mui/material';
+import { Button, Grid, Dialog, Typography, Paper, IconButton } from '@mui/material';
 import CreateStationName from './CreateStationName';
 import CreateStationPassword from './CreateStationPassword';
 // import { useAppDispatch } from 'FE/src/store';
 // import { setName, setPassword } from 'FE/src/store/slices/createStationSlice';
 import { useCreateStationMutation } from 'FE/src/store/api/stationApi';
+import { Close } from '@mui/icons-material';
 
 export type CreateStationType = {
 	name: string;
@@ -45,6 +46,10 @@ export default function CreateStationForm() {
 		console.log('createStationData', data);
 	};
 
+	const handleCloseDialog = () => {
+		setOpen(false);
+	};
+
 	return (
 		<Grid>
 			<Grid
@@ -55,7 +60,7 @@ export default function CreateStationForm() {
 				}}
 			>
 				<Paper sx={{ marginLeft: 'auto', marginRight: 'auto', width: 200, marginTop: 2 }}>
-					<Button onClick={handleOpen}>Create your own station ! </Button>
+					<Button onClick={handleOpen}>Create your own station !</Button>
 				</Paper>
 				<Dialog open={open}>
 					<form onSubmit={handleSubmit(onSubmit)}>
@@ -68,7 +73,18 @@ export default function CreateStationForm() {
 						>
 							Create your stations
 						</Typography>
-
+						<IconButton
+							aria-label="close"
+							onClick={handleCloseDialog}
+							sx={{
+								position: 'absolute',
+								right: 8,
+								top: 10,
+								color: (theme) => theme.palette.grey[500],
+							}}
+						>
+							<Close />
+						</IconButton>
 						<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
 							<CreateStationName control={control} />
 						</Grid>
@@ -76,7 +92,7 @@ export default function CreateStationForm() {
 							<CreateStationPassword control={control} />
 						</Grid>
 						<Grid sx={{ display: 'flex', justifyContent: 'center' }}>
-							<Button type="submit" sx={{ marginTop: 2, fontWeight: 'bold' }} disabled={isLoading}>
+							<Button type="submit" sx={{ marginTop: 2, marginBottom: 2, fontWeight: 'bold' }} disabled={isLoading}>
 								Create Station
 							</Button>
 							<p>{isError && 'je error'}</p>

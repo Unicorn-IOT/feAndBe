@@ -4,14 +4,14 @@ import { useRouter } from 'next/router';
 import { Button, Grid, Typography } from '@mui/material';
 
 import { NextPage } from 'next';
-// import { LoginFormHopeSo } from '../components/login/LoginFormHopeSo';
+import { LoginForm } from '../components/login/LoginForm';
 
 const Login: NextPage = () => {
 	const router = useRouter();
 
 	return (
 		<>
-			{/* <LoginFormHopeSo /> */}
+			<LoginForm />
 
 			<Grid container direction="column" display="flex" justifyContent="center" alignContent="center">
 				<Grid item>
