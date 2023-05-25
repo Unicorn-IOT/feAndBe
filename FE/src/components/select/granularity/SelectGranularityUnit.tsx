@@ -13,7 +13,7 @@ export default function SelectGranularityUnit({ control, ...controller }: Select
 			render={(params) => {
 				const { field } = params;
 				return (
-					<Select {...field} label="Select Granularity Unit" onChange={(data) => field.onChange(data)} fullWidth>
+					<Select {...field} label="Unit" variant="outlined" onChange={(data) => field.onChange(data)} fullWidth>
 						<MenuItem value={'minutes'}>minutes</MenuItem>
 						<MenuItem value={'hours'}>hours</MenuItem>
 						<MenuItem value={'days'}>days</MenuItem>

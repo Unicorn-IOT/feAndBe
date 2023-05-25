@@ -40,12 +40,15 @@ export default function SelectForm() {
 		startDateTime.setSeconds(data.selectStartTime.getSeconds());
 
 		const endDateTime = new Date(data.selectEndDate);
-		startDateTime.setHours(data.selectEndTime.getHours());
-		startDateTime.setMinutes(data.selectEndTime.getMinutes());
-		startDateTime.setSeconds(data.selectEndTime.getSeconds());
+		endDateTime.setHours(data.selectEndTime.getHours());
+		endDateTime.setMinutes(data.selectEndTime.getMinutes());
+		endDateTime.setSeconds(data.selectEndTime.getSeconds());
 
-		dispatch(setStartDate(startDateTime));
-		dispatch(setEndDate(endDateTime));
+		const startDateTimeISOString = startDateTime.toISOString();
+		const endDateTimeISOString = endDateTime.toISOString();
+
+		dispatch(setStartDate(startDateTimeISOString));
+		dispatch(setEndDate(endDateTimeISOString));
 		dispatch(setGranularity(data.granularity));
 		dispatch(setGranularityUnit(data.granularityUnit));
 		console.log('Data z formulare:', data);
@@ -97,8 +100,8 @@ export default function SelectForm() {
 							<SelectGranularityUnit control={control} />
 						</Grid>
 					</Grid>
-					<Grid container>
-						<Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+					<Grid container direction="column" display="flex" justifyContent="center" alignContent="center">
+						<Grid item xs={12}>
 							<Button
 								variant="text"
 								size="large"

@@ -2,13 +2,16 @@ import React from 'react';
 
 import { Box, Toolbar, Container, Grid } from '@mui/material';
 import CreateStationForm from '../components/viewPages/stations/CreateStationForm';
-// import StationCard from '../components/reusable/StationCard';
-// import { useGetStationsQuery } from '../store/api/stationApi';
+import StationCard from '../components/reusable/StationCard';
+import { useGetStationsQuery } from '../store/api/stationApi';
 
 const Stations = () => {
-	// const { data } = useGetStationsQuery();
+	const { data } = useGetStationsQuery();
 
-	// const userName = data?.data.iotUsers.map((user) => user.name);
+	console.log(
+		'localization',
+		data?.data.iotResult.map((e) => e.location),
+	);
 
 	return (
 		<>
@@ -27,14 +30,20 @@ const Stations = () => {
 				</Grid>
 				<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
 					<Grid container spacing={3}>
-						{/* {userName &&
-							userName.map((name: string) => {
+						{data &&
+							data?.data.iotResult.map((e) => {
 								return (
-									<Grid item xs={12} md={4} lg={3} key={name}>
-										<StationCard title={name} location="Berlin" temperature={5} humidity={4} />
+									<Grid item xs={12} md={4} lg={3} key={e.id}>
+										<StationCard
+											name={e.name}
+											location={e.location}
+											ownerEmail={e.ownerEmail}
+											ownerName={e.ownerName}
+											stationId={e.id}
+										/>
 									</Grid>
 								);
-							})} */}
+							})}
 					</Grid>
 				</Container>
 			</Box>
