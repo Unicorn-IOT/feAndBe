@@ -8,6 +8,11 @@ import { useGetStationsQuery } from '../store/api/stationApi';
 const Stations = () => {
 	const { data } = useGetStationsQuery();
 
+	console.log(
+		'localization',
+		data?.data.iotResult.map((e) => e.location),
+	);
+
 	return (
 		<>
 			<Box
@@ -24,21 +29,22 @@ const Stations = () => {
 					<CreateStationForm />
 				</Grid>
 				<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-					{/* <Grid container spacing={3}>
+					<Grid container spacing={3}>
 						{data &&
-							data?.data.iotUsers.map((e) => {
+							data?.data.iotResult.map((e) => {
 								return (
 									<Grid item xs={12} md={4} lg={3} key={e.id}>
 										<StationCard
 											name={e.name}
-											localization={e.localization}
+											location={e.location}
 											ownerEmail={e.ownerEmail}
-											ownerName={e.ownerEmail}
+											ownerName={e.ownerName}
+											stationId={e.id}
 										/>
 									</Grid>
 								);
 							})}
-					</Grid> */}
+					</Grid>
 				</Container>
 			</Box>
 		</>

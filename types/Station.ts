@@ -1,14 +1,14 @@
 import { ApiResponse } from './Api';
 
 export type GetStationsResponse = ApiResponse<{
-	iotUsers: {
+	iotResult: {
 		id: number;
 		name: string;
 		ownerName: string;
 		ownerId: number;
 		ownerEmail: string;
 		ownerEmailId: number;
-		localization: string;
+		location: string;
 	}[];
 }>;
 

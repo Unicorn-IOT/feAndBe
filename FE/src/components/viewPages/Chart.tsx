@@ -42,6 +42,10 @@ export const Chart = () => {
 			}
 		});
 	}, [data]);
+	console.log(
+		'data na chart',
+		data?.data.map((e) => e.value),
+	);
 
 	return (
 		<Fragment>

@@ -100,8 +100,8 @@ export default function SelectForm() {
 							<SelectGranularityUnit control={control} />
 						</Grid>
 					</Grid>
-					<Grid container display="flex" justifyContent="center">
-						<Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+					<Grid container direction="column" display="flex" justifyContent="center" alignContent="center">
+						<Grid item xs={12}>
 							<Button
 								variant="text"
 								size="large"
