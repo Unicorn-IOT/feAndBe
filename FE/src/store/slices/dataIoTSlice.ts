@@ -4,8 +4,8 @@ import { measurementType, granularityUnitType } from '@type/DataIoT';
 type DataIoT = {
 	type: measurementType;
 	userId: number;
-	startDate: Date;
-	endDate: Date;
+	startDate: string;
+	endDate: string;
 	granularity: number;
 	granularityUnit: granularityUnitType;
 };
@@ -15,8 +15,8 @@ export const dataIoTSlice = createSlice({
 	initialState: {
 		type: 'temperature',
 		userId: 1,
-		startDate: new Date('2023-04-02T17:25:41.000Z'),
-		endDate: new Date('2023-04-05T17:25:41.000Z'),
+		startDate: '2023-04-02T17:25:41.000Z',
+		endDate: '2023-04-05T17:25:41.000Z',
 		granularity: 5,
 		granularityUnit: 'hours',
 	} as DataIoT,
