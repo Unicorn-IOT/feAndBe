@@ -124,13 +124,14 @@ functions:
                   path: /iot/iot/get
                   method: get
 
-    iot-iot-remove-post: # Endpoint pro odebráni meteo stanice
-        handler: src/lambda/iot/iot/remove.handler
-        events:
-            - httpApi:
-                  authorizer: user-authorize
-                  path: /iot/iot/remove
-                  method: post
+    # DEPRECATED
+    # iot-iot-remove-post: # Endpoint pro odebráni meteo stanice
+    #     handler: src/lambda/iot/iot/remove.handler
+    #     events:
+    #         - httpApi:
+    #               authorizer: user-authorize
+    #               path: /iot/iot/remove
+    #               method: post
 
     # iot-checkStatus: # ???
     #     handler: src/lambda/iot/

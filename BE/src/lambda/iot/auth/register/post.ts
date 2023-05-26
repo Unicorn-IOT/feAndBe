@@ -31,9 +31,6 @@ export const handler: Lambda = withHttp(
 			const iotName = await User.findIotByName(name);
 			if (iotName) return status403();
 
-			// const { hash, salt } = hashPassword({ password });
-			// const iot = await User.create({ emailId, name, salt, password: hash, terms: true, role: Role.IOT });
-
 			const iot = await User.createIot(name, password, emailId);
 
 			if (!iot) return status403();
