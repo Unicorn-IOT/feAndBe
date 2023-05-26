@@ -8,11 +8,6 @@ import { useGetStationsQuery } from '../store/api/stationApi';
 const Stations = () => {
 	const { data } = useGetStationsQuery();
 
-	console.log(
-		'localization',
-		data?.data.iotResult.map((e) => e.location),
-	);
-
 	return (
 		<>
 			<Box

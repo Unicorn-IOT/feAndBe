@@ -11,10 +11,10 @@ import { useAppDispatch } from 'FE/src/store';
 import { setStartDate, setEndDate, setGranularity, setGranularityUnit } from 'FE/src/store/slices/dataIoTSlice';
 
 export type SelectFormType = {
-	selectStartDate: Date;
-	selectStartTime: Date;
-	selectEndDate: Date;
-	selectEndTime: Date;
+	selectStartDate: string | null;
+	selectStartTime: string | null;
+	selectEndDate: string | null;
+	selectEndTime: string | null;
 	granularity: number;
 	granularityUnit: 'minutes' | 'hours' | 'days';
 };
@@ -24,34 +24,38 @@ export default function SelectForm() {
 
 	const { control, handleSubmit } = useForm<SelectFormType>({
 		defaultValues: {
-			selectStartDate: new Date(),
-			selectStartTime: new Date(),
-			selectEndDate: new Date(),
-			selectEndTime: new Date(),
+			selectStartDate: null,
+			selectStartTime: null,
+			selectEndDate: null,
+			selectEndTime: null,
 			granularity: 5,
 			granularityUnit: 'hours',
 		},
 	});
 
-	const onSubmit = (data: SelectFormType) => {
-		const startDateTime = new Date(data.selectStartDate);
-		startDateTime.setHours(data.selectStartTime.getHours());
-		startDateTime.setMinutes(data.selectStartTime.getMinutes());
-		startDateTime.setSeconds(data.selectStartTime.getSeconds());
+	const onSubmit = ({ selectStartDate, selectStartTime, selectEndDate, selectEndTime, granularity, granularityUnit }: SelectFormType) => {
+		if (!selectEndDate || !selectEndTime || !selectStartTime || !selectStartDate) {
+			return;
+		}
+		const startDateTime = new Date(selectStartDate);
+		startDateTime.setHours(new Date(selectStartTime).getHours());
+		startDateTime.setMinutes(new Date(selectStartTime).getMinutes());
+		startDateTime.setSeconds(new Date(selectStartTime).getSeconds());
 
-		const endDateTime = new Date(data.selectEndDate);
-		endDateTime.setHours(data.selectEndTime.getHours());
-		endDateTime.setMinutes(data.selectEndTime.getMinutes());
-		endDateTime.setSeconds(data.selectEndTime.getSeconds());
+		const endDateTime = new Date(selectEndDate);
+		endDateTime.setHours(new Date(selectEndTime).getHours());
+		endDateTime.setMinutes(new Date(selectEndTime).getMinutes());
+		endDateTime.setSeconds(new Date(selectEndTime).getSeconds());
 
 		const startDateTimeISOString = startDateTime.toISOString();
 		const endDateTimeISOString = endDateTime.toISOString();
 
 		dispatch(setStartDate(startDateTimeISOString));
 		dispatch(setEndDate(endDateTimeISOString));
-		dispatch(setGranularity(data.granularity));
-		dispatch(setGranularityUnit(data.granularityUnit));
-		console.log('Data z formulare:', data);
+		dispatch(setGranularity(granularity));
+		dispatch(setGranularityUnit(granularityUnit));
+
+		console.log('test range');
 	};
 
 	return (

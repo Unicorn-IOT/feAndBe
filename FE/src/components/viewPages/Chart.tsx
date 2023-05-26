@@ -32,7 +32,7 @@ export const Chart = () => {
 	];
 
 	useEffect(() => {
-		data?.data.forEach((e) => {
+		data?.data.finalResult.forEach((e) => {
 			if (e.type === 'temperature') {
 				const temperature = e.value;
 				return temperature;
@@ -42,10 +42,6 @@ export const Chart = () => {
 			}
 		});
 	}, [data]);
-	console.log(
-		'data na chart',
-		data?.data.map((e) => e.value),
-	);
 
 	return (
 		<Fragment>
