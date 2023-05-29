@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 
 import { useTheme } from '@mui/material/styles';
@@ -12,43 +12,18 @@ export const Chart = () => {
 	const theme = useTheme();
 	const { data } = useDataIot();
 
-	function createData(temperature: number, humidity: number, time: string) {
-		return { temperature, humidity, time };
-	}
-
-	const dataGraph = [
-		createData(0, 0, '00:00'),
-		createData(20, 33, '00:00'),
-		createData(45, 15, '05:00'),
-		createData(30, 23, '10:00'),
-		createData(44, 39, '12:00'),
-		createData(40, 26, '14:00'),
-		createData(18, 29, '16:00'),
-		createData(21, 33, '18:00'),
-		createData(24, 36, '20:00'),
-		createData(30, 40, '21:00'),
-		createData(40, 45, '22:00'),
-		createData(44, 30, '23:59'),
-	];
-
-	useEffect(() => {
-		data?.data.finalResult.forEach((e) => {
-			if (e.type === 'temperature') {
-				const temperature = e.value;
-				return temperature;
-			} else if (e.type === 'humidity') {
-				const humidity = e.value;
-				return humidity;
-			}
-		});
-	}, [data]);
+	const finalData = data?.data.finalResult.map((date) => {
+		const newDate = { ...date, createdAtTime: date.createdAt.split('T')[1].split('.')[0] };
+		console.log('finalData', newDate);
+		return newDate;
+	});
 
 	return (
 		<Fragment>
-			<Title>{Today}</Title>
+			{/* <Title>{Today}</Title> */}
 			<ResponsiveContainer>
 				<LineChart
-					data={dataGraph}
+					data={finalData}
 					margin={{
 						top: 6,
 						right: 16,
@@ -56,7 +31,7 @@ export const Chart = () => {
 						left: 24,
 					}}
 				>
-					<XAxis dataKey="time" stroke={theme.palette.text.primary} style={theme.typography.body2}>
+					<XAxis dataKey="createdAtTime" stroke={theme.palette.text.primary} style={theme.typography.body2}>
 						<Label
 							angle={0}
 							position="bottom"
@@ -69,7 +44,7 @@ export const Chart = () => {
 							Time
 						</Label>
 					</XAxis>
-					<YAxis dataKey="humidity" stroke={theme.palette.text.primary} style={theme.typography.body2} domain={[0, 100]}>
+					<YAxis dataKey="value" stroke={theme.palette.text.primary} style={theme.typography.body2} domain={[0, 100]}>
 						<Label
 							angle={270}
 							position="left"
@@ -83,8 +58,7 @@ export const Chart = () => {
 						</Label>
 					</YAxis>
 
-					<Line isAnimationActive={true} type="natural" dataKey="temperature" stroke="red" dot={true} />
-					<Line isAnimationActive={true} type="natural" dataKey="humidity" stroke="blue" dot={true} />
+					<Line isAnimationActive={true} type="linear" dataKey="value" stroke="red" dot={true} />
 				</LineChart>
 			</ResponsiveContainer>
 		</Fragment>

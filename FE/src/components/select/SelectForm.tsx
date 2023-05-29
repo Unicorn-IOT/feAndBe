@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Switch, Typography } from '@mui/material';
 import SelectEndDate from './end/SelectEndDate';
 import SelectStartDate from './start/SelectStartDate';
 import SelectStartTime from './start/SelectStartTime';
@@ -54,8 +54,6 @@ export default function SelectForm() {
 		dispatch(setEndDate(endDateTimeISOString));
 		dispatch(setGranularity(granularity));
 		dispatch(setGranularityUnit(granularityUnit));
-
-		console.log('test range');
 	};
 
 	return (
@@ -105,7 +103,10 @@ export default function SelectForm() {
 						</Grid>
 					</Grid>
 					<Grid container direction="column" display="flex" justifyContent="center" alignContent="center">
-						<Grid item xs={12}>
+						<Grid item xs={6} justifyContent="center">
+							<Switch />
+						</Grid>
+						<Grid item xs={6}>
 							<Button
 								variant="text"
 								size="large"

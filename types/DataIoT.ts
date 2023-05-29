@@ -24,6 +24,8 @@ export type GetDataResponse = ApiResponse<{
 		type: measurementType;
 		userId: number; // ID stanice
 		localization: string;
+		createdAt: string;
+		updatedAt: string;
 	}[];
 }>;
 
