@@ -5,7 +5,8 @@ import { useGetCurrentDataIoTQuery } from 'FE/src/store/api/currentDataIoTApi';
 
 export const WeatherRIghtNow = () => {
 	const { data, isError } = useGetCurrentDataIoTQuery();
-
+	console.log('temp', data?.data.temperature);
+	console.log('hum', data?.data.humidity);
 	return (
 		<Fragment>
 			<Title>Weather right now !</Title>

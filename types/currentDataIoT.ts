@@ -4,4 +4,5 @@ export type GetCurrentDataResponse = ApiResponse<{
 	location: string;
 	temperature: number;
 	humidity: number;
+	id: number;
 }>;

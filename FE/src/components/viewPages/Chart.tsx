@@ -15,7 +15,6 @@ export const Chart = () => {
 
 	const finalData = data?.data.finalResult.map((date) => {
 		const newDate = { ...date, createdAtTime: date.createdAt.split('T')[1].split('.')[0] };
-		console.log('finalData', newDate);
 		return newDate;
 	});
 	const type = data?.data.finalResult.map((type) => type.type);
@@ -27,7 +26,6 @@ export const Chart = () => {
 	};
 
 	const tooltipCallBack = useCallback((data: any) => {
-		console.log(data);
 		return (
 			<g style={tooltipContentStyle}>
 				<text>Value: {data.payload?.[0]?.value}</text>

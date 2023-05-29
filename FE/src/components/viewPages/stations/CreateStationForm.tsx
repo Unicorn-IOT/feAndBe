@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-// import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button, Grid, Dialog, Typography, Paper, IconButton } from '@mui/material';
 import CreateStationName from './CreateStationName';
 import CreateStationPassword from './CreateStationPassword';
-// import { useAppDispatch } from 'FE/src/store';
-// import { setName, setPassword } from 'FE/src/store/slices/createStationSlice';
 import { useCreateStationMutation } from 'FE/src/store/api/stationApi';
 import { Close } from '@mui/icons-material';
 
@@ -27,13 +24,8 @@ export default function CreateStationForm() {
 		resolver: yupResolver(schema),
 		defaultValues: { name: '', password: '' },
 	});
-	// const dispatch = useAppDispatch();
 
-	// const router = useRouter();
 	const handleOpen = () => setOpen(true);
-
-	// const name = watch('name');
-	// const password = watch('password');
 
 	const [createStation, { isLoading, isError, isSuccess }] = useCreateStationMutation();
 
@@ -43,7 +35,6 @@ export default function CreateStationForm() {
 
 	const onSubmit = async (data: CreateStationType) => {
 		await createStation(data);
-		console.log('createStationData', data);
 	};
 
 	const handleCloseDialog = () => {

@@ -48,7 +48,6 @@ export default function CustomizedSwitches() {
 	const handleCheck = () => {
 		setCheck((prev) => !prev);
 		check === true ? dispatch(setType('humidity')) : dispatch(setType('temperature'));
-		console.log('check', check);
 	};
 
 	return (
