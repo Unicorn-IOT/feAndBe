@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Box, Button, Grid, Switch, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import SelectEndDate from './end/SelectEndDate';
 import SelectStartDate from './start/SelectStartDate';
 import SelectStartTime from './start/SelectStartTime';
@@ -9,6 +9,7 @@ import SelectGranularity from './granularity/SelectGranularity';
 import SelectGranularityUnit from './granularity/SelectGranularityUnit';
 import { useAppDispatch } from 'FE/src/store';
 import { setStartDate, setEndDate, setGranularity, setGranularityUnit } from 'FE/src/store/slices/dataIoTSlice';
+import CustomizedSwitch from '../reusable/CustomizeSwitch';
 
 export type SelectFormType = {
 	selectStartDate: string | null;
@@ -104,7 +105,7 @@ export default function SelectForm() {
 					</Grid>
 					<Grid container direction="column" display="flex" justifyContent="center" alignContent="center">
 						<Grid item xs={6} justifyContent="center">
-							<Switch />
+							<CustomizedSwitch />
 						</Grid>
 						<Grid item xs={6}>
 							<Button

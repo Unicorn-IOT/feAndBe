@@ -4,6 +4,7 @@ import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recha
 import { useTheme } from '@mui/material/styles';
 import { Title } from './Title';
 import { useDataIot } from 'FE/src/hooks/useDataIot';
+import { measurementType } from '@type/DataIoT';
 
 const now = new Date();
 const Today = now.toLocaleDateString();
@@ -17,6 +18,8 @@ export const Chart = () => {
 		console.log('finalData', newDate);
 		return newDate;
 	});
+
+	const type = data?.data.finalResult.map((type) => type.type);
 
 	return (
 		<Fragment>
@@ -58,7 +61,13 @@ export const Chart = () => {
 						</Label>
 					</YAxis>
 
-					<Line isAnimationActive={true} type="linear" dataKey="value" stroke="red" dot={true} />
+					<Line
+						isAnimationActive={true}
+						type="linear"
+						dataKey="value"
+						stroke={type && type.includes(measurementType.HUMIDITY) ? 'blue' : 'red'}
+						dot={true}
+					/>
 				</LineChart>
 			</ResponsiveContainer>
 		</Fragment>
