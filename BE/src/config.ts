@@ -11,7 +11,7 @@
 // };
 
 /*CLOUD Setting*/
-export const isOffline = true;
+export const isOffline = false;
 
 export const db = {
 	host: 'unicorniot.cd98mbmqu8a5.eu-west-1.rds.amazonaws.com',
