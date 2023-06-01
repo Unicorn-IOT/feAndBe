@@ -1,10 +1,14 @@
 import { Fragment } from 'react';
 import Typography from '@mui/material/Typography';
 import { Title } from '../Title';
-import { useGetCurrentDataIoTQuery } from 'FE/src/store/api/currentDataIoTApi';
+
+import { useCurrentDataIot } from 'FE/src/hooks/useCurrentDataIot';
 
 export const WeatherRIghtNow = () => {
-	const { data, isError } = useGetCurrentDataIoTQuery();
+	const { data, isError, userId } = useCurrentDataIot();
+	console.log('temp', data?.data.temperature);
+	console.log('hum', data?.data.humidity);
+	console.log('id', userId);
 
 	return (
 		<Fragment>

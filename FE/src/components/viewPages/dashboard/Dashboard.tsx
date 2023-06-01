@@ -64,10 +64,10 @@ export default function Dashboard({ children }: DashboardContentProps) {
 						<Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
 							Unicorn Team IoT - 07
 						</Typography>
-						<Typography align="right" variant="h6">
+						<Typography align="right" variant="h6" alignItems="center">
 							{userName ? `Welcome ${userName}` : 'Welcome'}
 						</Typography>
-						<Button sx={{ color: '#ffff' }} onClick={() => router.push('/logout')}>
+						<Button sx={{ color: '#ffff', alignItems: 'center', paddingTop: 1 }} onClick={() => router.push('/logout')}>
 							Logout
 						</Button>
 					</Toolbar>

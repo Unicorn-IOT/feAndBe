@@ -9,6 +9,7 @@ import SelectGranularity from './granularity/SelectGranularity';
 import SelectGranularityUnit from './granularity/SelectGranularityUnit';
 import { useAppDispatch } from 'FE/src/store';
 import { setStartDate, setEndDate, setGranularity, setGranularityUnit } from 'FE/src/store/slices/dataIoTSlice';
+import CustomizedSwitch from '../reusable/CustomizeSwitch';
 
 export type SelectFormType = {
 	selectStartDate: string | null;
@@ -54,8 +55,6 @@ export default function SelectForm() {
 		dispatch(setEndDate(endDateTimeISOString));
 		dispatch(setGranularity(granularity));
 		dispatch(setGranularityUnit(granularityUnit));
-
-		console.log('test range');
 	};
 
 	return (
@@ -105,7 +104,10 @@ export default function SelectForm() {
 						</Grid>
 					</Grid>
 					<Grid container direction="column" display="flex" justifyContent="center" alignContent="center">
-						<Grid item xs={12}>
+						<Grid item xs={6} justifyContent="center">
+							<CustomizedSwitch />
+						</Grid>
+						<Grid item xs={6}>
 							<Button
 								variant="text"
 								size="large"
