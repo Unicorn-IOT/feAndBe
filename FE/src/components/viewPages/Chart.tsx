@@ -19,18 +19,14 @@ export const Chart = () => {
 	});
 	const type = data?.data.finalResult.map((type) => type.type);
 	const tooltipContentStyle = {
-		padding: '5px',
+		padding: '3px',
 		border: '1px solid black',
 		backgroundColor: '#d8d8d8',
 		borderRadius: 3,
 	};
 
 	const tooltipCallBack = useCallback((data: any) => {
-		return (
-			<g style={tooltipContentStyle}>
-				<text>Value: {data.payload?.[0]?.value}</text>
-			</g>
-		);
+		return <div style={tooltipContentStyle}>Value: {data.payload?.[0]?.value}</div>;
 	}, []);
 
 	return (

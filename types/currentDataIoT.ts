@@ -2,7 +2,8 @@ import { ApiResponse } from './Api';
 
 export type GetCurrentDataResponse = ApiResponse<{
 	location: string;
-	temperature: number;
-	humidity: number;
-	id: number;
+	temperature: string;
+	humidity: string;
+	dateTemp: string;
+	dataHum: string;
 }>;

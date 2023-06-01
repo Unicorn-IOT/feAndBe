@@ -2,14 +2,14 @@ import { ReactNode } from 'react';
 
 import Typography from '@mui/material/Typography';
 
-interface TitleProps {
+type TitleProps = {
 	children?: ReactNode;
-}
+};
 
-export const Title = (props: TitleProps) => {
+export const Title = ({ children }: TitleProps) => {
 	return (
 		<Typography component="h2" variant="h5" color="primary" gutterBottom>
-			{props.children}
+			{children}
 		</Typography>
 	);
 };
