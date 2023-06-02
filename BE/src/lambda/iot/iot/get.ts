@@ -13,10 +13,6 @@ export const handler: Lambda = withHttp(
 
 		const iotResult = [];
 		for (const user of iotUsers) {
-			const name = await User.findOne({
-				where: { id: user.emailId },
-			});
-			const ownerName = name?.name ?? '';
 
 			const email = await Email.findOne({
 				where: { id: user.emailId },
@@ -25,6 +21,7 @@ export const handler: Lambda = withHttp(
 
 			const ownerUser = await User.findByEmail(ownerEmail);
 			const ownerUserId = ownerUser?.id ?? '';
+			const ownerName = ownerUser?.name ?? '';
 
 			const measurement = await Mesurement.findOne({
 				where: { userId: user.id },
