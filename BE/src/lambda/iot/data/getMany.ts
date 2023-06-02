@@ -28,7 +28,6 @@ export const handler: Lambda = withHttp(
 
 		if (!type || !userId || !startDate || !endDate || !granularity || !granularityUnit) return status400();
 		if (new Date(endDate) < new Date(startDate)) return status403();
-
 		const parsedGranularity = parseInt(parsedQueryParams.granularity);
 		const diffDates = new Date(endDate).getTime() - new Date(startDate).getTime();
 
@@ -73,14 +72,14 @@ export const handler: Lambda = withHttp(
 
 		const finalResult = result.reduce<MesurementAttributes[]>((acc, currentItem) => {
 			if (acc.length === 0) acc.push(currentItem);
-
+			// if (currentItem.type !== (TYPE.TEMPERATURE || TYPE.HUMIDITY)) acc.push(currentItem);
+			// else acc.push(currentItem);
 			const lastItem = acc[acc.length - 1];
 			const limitTime = new Date(lastItem.date.getTime() - multipliedTime);
 
 			if (currentItem.date <= limitTime) acc.push(currentItem);
 			return acc;
 		}, []);
-
 		return status200({ data: { finalResult } });
 	}),
 );
