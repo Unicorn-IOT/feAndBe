@@ -28,7 +28,6 @@ export const handler: Lambda = withHttp(
 
 		if (!type || !userId || !startDate || !endDate || !granularity || !granularityUnit) return status400();
 		if (new Date(endDate) < new Date(startDate)) return status403();
-
 		const parsedGranularity = parseInt(parsedQueryParams.granularity);
 		const diffDates = new Date(endDate).getTime() - new Date(startDate).getTime();
 
@@ -70,16 +69,29 @@ export const handler: Lambda = withHttp(
 		if (!time) return status400();
 
 		const multipliedTime = time * parsedGranularity;
+		const hum = result.filter((item) => item.type === TYPE.HUMIDITY);
+		const temp = result.filter((item) => item.type === TYPE.TEMPERATURE);
 
-		const finalResult = result.reduce<MesurementAttributes[]>((acc, currentItem) => {
-			if (acc.length === 0) acc.push(currentItem);
-
-			const lastItem = acc[acc.length - 1];
+		const temperatureResult = temp.reduce<MesurementAttributes[]>((temperatureAcc, currentItem) => {
+			if (temperatureAcc.length === 0) temperatureAcc.push(currentItem);
+			const lastItem = temperatureAcc[temperatureAcc.length - 1];
 			const limitTime = new Date(lastItem.date.getTime() - multipliedTime);
 
-			if (currentItem.date <= limitTime) acc.push(currentItem);
-			return acc;
+			if (currentItem.date <= limitTime) temperatureAcc.push(currentItem);
+			return temperatureAcc;
 		}, []);
+
+		const humidityResult = hum.reduce<MesurementAttributes[]>((humidityAcc, currentItem) => {
+			if (humidityAcc.length === 0) humidityAcc.push(currentItem);
+			const lastItem = humidityAcc[humidityAcc.length - 1];
+			const limitTime = new Date(lastItem.date.getTime() - multipliedTime);
+
+			if (currentItem.date <= limitTime) humidityAcc.push(currentItem);
+			return humidityAcc;
+		}, []);
+
+		const finalResult = temperatureResult.concat(humidityResult);
+		finalResult.sort((a, b) => b.date.getTime() - a.date.getTime());
 
 		return status200({ data: { finalResult } });
 	}),
