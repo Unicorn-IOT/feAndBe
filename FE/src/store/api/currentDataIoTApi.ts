@@ -1,11 +1,11 @@
 import { appApi } from '../api/index';
-import { GetCurrentDataResponse } from '../../../../types/currentDataIoT';
+import { GetCurrentDataRequest, GetCurrentDataResponse } from '../../../../types/currentDataIoT';
 
 export const currentDataIoTApi = appApi.injectEndpoints({
 	endpoints: (builder) => ({
-		getCurrentDataIoT: builder.query<GetCurrentDataResponse, void>({
-			query: () => ({
-				url: '/iot/data/get',
+		getCurrentDataIoT: builder.query<GetCurrentDataResponse, GetCurrentDataRequest>({
+			query: ({ userId }) => ({
+				url: `/iot/data/get?userId=${userId}`,
 				method: 'GET',
 			}),
 			providesTags: (result) => (result ? [{ type: 'CurrentDataIoT' }] : []),

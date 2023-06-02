@@ -4,7 +4,7 @@ import { useGetCurrentDataIoTQuery } from '../store/api/currentDataIoTApi';
 export const useCurrentDataIot = () => {
 	const { userId } = useAppSelector(({ dataIoT }) => dataIoT);
 
-	const { data, isError, error } = useGetCurrentDataIoTQuery();
+	const { data, isError, ...rest } = useGetCurrentDataIoTQuery({ userId });
 
-	return { data, isError, error, userId };
+	return { data, userId, isError, ...rest };
 };

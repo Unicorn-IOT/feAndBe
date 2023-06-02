@@ -7,3 +7,7 @@ export type GetCurrentDataResponse = ApiResponse<{
 	dateTemp: string;
 	dataHum: string;
 }>;
+
+export type GetCurrentDataRequest = {
+	userId: number;
+};
