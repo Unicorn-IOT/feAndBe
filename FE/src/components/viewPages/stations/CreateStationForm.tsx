@@ -15,7 +15,11 @@ export type CreateStationType = {
 
 const schema = yup.object({
 	name: yup.string().required('Station name is required'),
-	password: yup.string().required('Password is required'),
+	password: yup
+		.string()
+		.required('Password is required')
+		.min(5, 'Min 5 chars')
+		.matches(/^(?=.*[A-Z])(?=.*\d).+$/, 'You have to inlude at lease one big letter in your password.'),
 });
 
 export default function CreateStationForm() {

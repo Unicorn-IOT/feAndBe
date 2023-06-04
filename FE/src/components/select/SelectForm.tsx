@@ -7,7 +7,7 @@ import SelectStartTime from './start/SelectStartTime';
 import SelectEndTime from './end/SelectEndTime';
 import SelectGranularity from './granularity/SelectGranularity';
 import SelectGranularityUnit from './granularity/SelectGranularityUnit';
-import { useAppDispatch } from 'FE/src/store';
+import { useAppDispatch, useAppSelector } from 'FE/src/store';
 import { setStartDate, setEndDate, setGranularity, setGranularityUnit } from 'FE/src/store/slices/dataIoTSlice';
 import CustomizedSwitch from '../reusable/CustomizeSwitch';
 
@@ -22,15 +22,23 @@ export type SelectFormType = {
 
 export default function SelectForm() {
 	const dispatch = useAppDispatch();
-
+	const { endDate, granularity, granularityUnit, startDate } = useAppSelector(({ dataIoT }) => dataIoT);
 	const { control, handleSubmit } = useForm<SelectFormType>({
 		defaultValues: {
-			selectStartDate: null,
-			selectStartTime: null,
-			selectEndDate: null,
-			selectEndTime: null,
-			granularity: 5,
-			granularityUnit: 'hours',
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			//@ts-ignore
+			selectStartDate: new Date(startDate),
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			//@ts-ignore
+			selectStartTime: new Date(startDate),
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			//@ts-ignore
+			selectEndDate: new Date(endDate),
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			//@ts-ignore
+			selectEndTime: new Date(endDate),
+			granularity: granularity,
+			granularityUnit: granularityUnit,
 		},
 	});
 
@@ -38,6 +46,7 @@ export default function SelectForm() {
 		if (!selectEndDate || !selectEndTime || !selectStartTime || !selectStartDate) {
 			return;
 		}
+		console.log(selectStartDate, selectStartTime);
 		const startDateTime = new Date(selectStartDate);
 		startDateTime.setHours(new Date(selectStartTime).getHours());
 		startDateTime.setMinutes(new Date(selectStartTime).getMinutes());

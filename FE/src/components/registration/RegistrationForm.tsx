@@ -21,7 +21,11 @@ export type RegistrationPageType = {
 const schema = yup.object({
 	name: yup.string().required('User name is required'),
 	email: yup.string().required('User email is required'),
-	password: yup.string().required('Password is required').min(3, 'Min 3 chars').max(30, ' Max 30 chars'),
+	password: yup
+		.string()
+		.required('Password is required')
+		.min(5, 'Min 5 chars')
+		.matches(/^(?=.*[A-Z])(?=.*\d).+$/, 'You have to inlude at lease one big letter in your password.'),
 	terms: yup.bool().required('Accept terms is required'),
 });
 

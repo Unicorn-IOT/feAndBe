@@ -8,7 +8,7 @@ export const stationApi = appApi.injectEndpoints({
 				url: '/iot/iot/get',
 				method: 'GET',
 			}),
-			providesTags: (result) => (result ? [{ type: 'Station' }] : []),
+			providesTags: (result) => (result ? [{ type: 'Station', id: 'LIST' }] : []),
 		}),
 		createStation: builder.mutation<CreateStationResponse, CreateStationRequest>({
 			query: ({ ...body }) => ({
@@ -16,7 +16,7 @@ export const stationApi = appApi.injectEndpoints({
 				method: 'POST',
 				body,
 			}),
-			invalidatesTags: [{ type: 'Station' }],
+			invalidatesTags: [{ type: 'Station', id: 'LIST' }],
 		}),
 	}),
 });
