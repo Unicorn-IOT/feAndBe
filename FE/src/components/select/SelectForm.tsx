@@ -46,7 +46,6 @@ export default function SelectForm() {
 		if (!selectEndDate || !selectEndTime || !selectStartTime || !selectStartDate) {
 			return;
 		}
-		console.log(selectStartDate, selectStartTime);
 		const startDateTime = new Date(selectStartDate);
 		startDateTime.setHours(new Date(selectStartTime).getHours());
 		startDateTime.setMinutes(new Date(selectStartTime).getMinutes());

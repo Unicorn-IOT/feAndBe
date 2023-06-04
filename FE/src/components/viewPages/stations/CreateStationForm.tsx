@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button, Grid, Dialog, Typography, Paper, IconButton } from '@mui/material';
@@ -19,7 +19,7 @@ const schema = yup.object({
 		.string()
 		.required('Password is required')
 		.min(5, 'Min 5 chars')
-		.matches(/^(?=.*[A-Z])(?=.*\d).+$/, 'You have to inlude at lease one big letter in your password.'),
+		.matches(/^(?=.*[A-Z])(?=.*\d).+$/, 'You have to include at least one big letter and at least one number in your password.'),
 });
 
 export default function CreateStationForm() {
@@ -30,6 +30,12 @@ export default function CreateStationForm() {
 	});
 
 	const handleOpen = () => setOpen(true);
+
+	const passwordValue = useWatch({
+		control,
+		name: 'password',
+		defaultValue: '',
+	});
 
 	const [createStation, { isLoading, isError, isSuccess }] = useCreateStationMutation();
 

@@ -27,7 +27,6 @@ export const Chart = () => {
 
 	return (
 		<Fragment>
-			{/* <Title>{Today}</Title> */}
 			<ResponsiveContainer>
 				<LineChart
 					data={finalData}
