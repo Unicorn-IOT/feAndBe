@@ -19,23 +19,33 @@ export default function StationCard({ name, location, ownerEmail, ownerName, sta
 	const handleButtonClick = () => {
 		dispatch(setUserId(stationId));
 		router.push('/');
-		console.log('station ID', stationId);
 	};
+
 	return (
-		<Card sx={{ minWidth: 275 }}>
-			<CardHeader name={name} />
+		<Card sx={{ minWidth: 275, ':hover': { boxShadow: 20 } }}>
+			<CardHeader />
 			<CardContent>
 				<Grid container alignItems="center">
 					<Grid item xs={12}>
-						<Typography variant="h6" component="div" gutterBottom>
-							Location:
-						</Typography>
-						<Typography variant="body1" component="div" gutterBottom>
-							{location !== undefined ? location : 'There is no location'}
+						<Typography color="primary" variant="h6">
+							Name of station:
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
-						<Typography variant="h6" component="div" gutterBottom>
+						<Typography variant="h6" color={name !== '' || undefined ? 'default' : 'error'}>
+							{name !== undefined ? name : 'Missing name of station'}
+						</Typography>
+					</Grid>
+					<Grid item xs={12}>
+						<Typography color="primary" variant="h6" component="div" gutterBottom>
+							Location:
+						</Typography>
+						<Typography variant="body1" component="div" gutterBottom color={location !== '' || undefined ? 'default' : 'error'}>
+							{location !== '' || undefined ? location : 'There is no location'}
+						</Typography>
+					</Grid>
+					<Grid item xs={12}>
+						<Typography color="primary" variant="h6" component="div" gutterBottom>
 							Owner Email:
 						</Typography>
 						<Typography variant="body1" sx={{ mb: 2 }}>
@@ -43,7 +53,7 @@ export default function StationCard({ name, location, ownerEmail, ownerName, sta
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
-						<Typography variant="h6" component="div" gutterBottom>
+						<Typography color="primary" variant="h6" component="div" gutterBottom>
 							Owner Name:
 						</Typography>
 						<Typography variant="body1" sx={{ mb: 2 }}>

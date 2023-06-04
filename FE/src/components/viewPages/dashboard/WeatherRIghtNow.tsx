@@ -5,10 +5,7 @@ import { Title } from '../Title';
 import { useCurrentDataIot } from 'FE/src/hooks/useCurrentDataIot';
 
 export const WeatherRIghtNow = () => {
-	const { data, isError, userId } = useCurrentDataIot();
-	console.log('temp', data?.data.temperature);
-	console.log('hum', data?.data.humidity);
-	console.log('id', userId);
+	const { data, isError } = useCurrentDataIot();
 
 	return (
 		<Fragment>
