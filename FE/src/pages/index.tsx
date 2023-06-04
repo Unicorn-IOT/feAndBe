@@ -1,15 +1,14 @@
+'use client';
 import * as React from 'react';
-
 import { Box, Toolbar, Container, Grid, Paper } from '@mui/material';
 import { Chart } from '../components/viewPages/Chart';
 import { WeatherRIghtNow } from '../components/viewPages/dashboard/WeatherRIghtNow';
 import SelectForm from '../components/select/SelectForm';
-// import { wrapper } from '../store';
-// import { prepopulateUserInfo } from '../store/server/prepopulateUserInfo';
-// import { useServerLoggedOutRedirect } from '../store/server/useServerLoggedOutRedirect';
-// import { waitForRequests } from '../store/server/waitForRequests';
+import { useUser } from 'FE/src/hooks/useUser';
 
 const Dashboard = () => {
+	useUser();
+
 	return (
 		<Box
 			component="main"
@@ -67,12 +66,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-// export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
-// 	prepopulateUserInfo(store, context);
-// 	await waitForRequests(store);
-// 	return {
-// 		props: {},
-// 		redirect: useServerLoggedOutRedirect(context),
-// 	};
-// });

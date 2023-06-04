@@ -1,13 +1,14 @@
+'use client';
 import React from 'react';
-
 import { Box, Toolbar, Container, Grid } from '@mui/material';
 import CreateStationForm from '../components/viewPages/stations/CreateStationForm';
 import StationCard from '../components/reusable/StationCard';
 import { useGetStationsQuery } from '../store/api/stationApi';
+import { useUser } from 'FE/src/hooks/useUser';
 
 const Stations = () => {
 	const { data } = useGetStationsQuery();
-
+	useUser();
 	return (
 		<>
 			<Box
