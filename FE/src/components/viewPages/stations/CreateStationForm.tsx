@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button, Grid, Dialog, Typography, Paper, IconButton } from '@mui/material';
@@ -30,12 +30,6 @@ export default function CreateStationForm() {
 	});
 
 	const handleOpen = () => setOpen(true);
-
-	const passwordValue = useWatch({
-		control,
-		name: 'password',
-		defaultValue: '',
-	});
 
 	const [createStation, { isLoading, isError, isSuccess }] = useCreateStationMutation();
 
