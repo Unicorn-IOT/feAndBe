@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Button, Grid, Typography } from '@mui/material';
 
 import { NextPage } from 'next';
-import { LoginForm } from '../components/login/LoginForm';
+import { LoginForm } from 'FE/src/components/Login/LoginForm';
 
 const Login: NextPage = () => {
 	const router = useRouter();

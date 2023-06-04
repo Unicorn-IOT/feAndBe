@@ -2,12 +2,8 @@ import { Fragment, useCallback } from 'react';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer, Tooltip, CartesianGrid } from 'recharts';
 
 import { useTheme } from '@mui/material/styles';
-import { Title } from './Title';
 import { useDataIot } from 'FE/src/hooks/useDataIot';
 import { measurementType } from '@type/DataIoT';
-
-const now = new Date();
-const Today = now.toLocaleDateString();
 
 export const Chart = () => {
 	const theme = useTheme();

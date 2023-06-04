@@ -4,8 +4,8 @@ import { withHttp } from '../../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../../types/lambda';
 import { Mesurement } from '../../../libs/database/models/mesurement';
 import { z } from 'zod';
-import { validation } from 'libs/validation';
-import { status400 } from 'libs/http/status400';
+import { validation } from '../../../libs/validation';
+import { status400 } from '../../../libs/http/status400';
 
 // Endpoint pro získání posledního záznamu z DB
 const Schema = z.object({
