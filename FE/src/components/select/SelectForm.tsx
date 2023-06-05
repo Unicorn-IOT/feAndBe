@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import SelectEndDate from './end/SelectEndDate';
@@ -21,6 +21,7 @@ export type SelectFormType = {
 };
 
 export default function SelectForm() {
+	const [err, setErr] = useState(false);
 	const dispatch = useAppDispatch();
 	const { endDate, granularity, granularityUnit, startDate } = useAppSelector(({ dataIoT }) => dataIoT);
 	const { control, handleSubmit, watch } = useForm<SelectFormType>({
@@ -59,10 +60,16 @@ export default function SelectForm() {
 		const startDateTimeISOString = startDateTime.toISOString();
 		const endDateTimeISOString = endDateTime.toISOString();
 
-		dispatch(setStartDate(startDateTimeISOString));
-		dispatch(setEndDate(endDateTimeISOString));
-		dispatch(setGranularity(granularity));
-		dispatch(setGranularityUnit(granularityUnit));
+		if (startDateTime < endDateTime && startDateTime.getMinutes() < endDateTime.getMinutes()) {
+			setErr(false);
+
+			dispatch(setStartDate(startDateTimeISOString));
+			dispatch(setEndDate(endDateTimeISOString));
+			dispatch(setGranularity(granularity));
+			dispatch(setGranularityUnit(granularityUnit));
+		} else {
+			setErr(true);
+		}
 	};
 
 	const minTime = watch('selectStartTime');
@@ -74,13 +81,14 @@ export default function SelectForm() {
 		<Grid container>
 			<Typography
 				variant="h5"
-				color={'black'}
+				color={err ? 'red' : 'black'}
 				marginBottom={2}
 				fontWeight={'bold'}
 				sx={{ display: 'flex', justifyContent: 'center', marginLeft: 'auto', marginRight: 'auto' }}
 			>
-				Select Range
+				{err ? 'Start Date Time cannot be bigger than End Date Time' : 'Select Range'}
 			</Typography>
+
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Box
 					sx={{
@@ -116,6 +124,7 @@ export default function SelectForm() {
 							<SelectGranularityUnit control={control} />
 						</Grid>
 					</Grid>
+
 					<Grid container direction="column" display="flex" justifyContent="center" alignContent="center">
 						<Grid item xs={6} justifyContent="center">
 							<CustomizedSwitch />
