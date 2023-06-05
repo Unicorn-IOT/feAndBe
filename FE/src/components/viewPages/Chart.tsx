@@ -10,7 +10,8 @@ export const Chart = () => {
 	const { data } = useDataIot();
 
 	const finalData = data?.data.finalResult.map((date) => {
-		const newDate = { ...date, createdAtTime: date.createdAt.split('T')[1].split('.')[0] };
+		const createdAtTime = new Date(date.createdAt);
+		const newDate = { ...date, createdAtTime };
 		return newDate;
 	});
 	const type = data?.data.finalResult.map((type) => type.type);
@@ -38,7 +39,14 @@ export const Chart = () => {
 					}}
 				>
 					<CartesianGrid strokeDasharray="3 3" />
-					<XAxis dataKey="createdAtTime" stroke={theme.palette.text.primary} style={theme.typography.body2}>
+					<XAxis
+						dataKey="createdAtTime"
+						stroke={theme.palette.text.primary}
+						style={theme.typography.body2}
+						tickFormatter={(time) =>
+							`${time.getDate()}/${time.getMonth() + 1} ${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
+						}
+					>
 						<Label
 							angle={0}
 							position="bottom"
