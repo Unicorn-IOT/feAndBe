@@ -4,14 +4,15 @@ import { SelectFormType } from '../SelectForm';
 
 type SelectStartDateProps = {
 	control: Control<SelectFormType>;
+	maxDate: string | null;
 };
 
-export default function SelectStartDate({ control, ...controller }: SelectStartDateProps) {
+export default function SelectStartDate({ maxDate, control, ...controller }: SelectStartDateProps) {
 	return (
 		<Controller
 			render={(params) => {
 				const { field } = params;
-				return <DatePicker {...field} label="Select Start Date " onChange={(data) => field.onChange(data)} />;
+				return <DatePicker {...field} label="Select Start Date " onChange={(data) => field.onChange(data)} maxDate={maxDate} />;
 			}}
 			name="selectStartDate"
 			control={control}

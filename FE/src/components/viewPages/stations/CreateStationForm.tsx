@@ -90,7 +90,7 @@ export default function CreateStationForm() {
 							<Button type="submit" sx={{ marginTop: 2, marginBottom: 2, fontWeight: 'bold' }} disabled={isLoading}>
 								Create Station
 							</Button>
-							<p>{isError && 'je error'}</p>
+							<p>{isError && 'error'}</p>
 						</Grid>
 					</form>
 				</Dialog>
