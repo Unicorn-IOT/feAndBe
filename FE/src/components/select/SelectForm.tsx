@@ -23,7 +23,7 @@ export type SelectFormType = {
 export default function SelectForm() {
 	const dispatch = useAppDispatch();
 	const { endDate, granularity, granularityUnit, startDate } = useAppSelector(({ dataIoT }) => dataIoT);
-	const { control, handleSubmit } = useForm<SelectFormType>({
+	const { control, handleSubmit, watch } = useForm<SelectFormType>({
 		defaultValues: {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-ignore
@@ -65,6 +65,11 @@ export default function SelectForm() {
 		dispatch(setGranularityUnit(granularityUnit));
 	};
 
+	const minTime = watch('selectStartTime');
+	const maxTime = watch('selectEndTime');
+	const maxDate = watch('selectEndDate');
+	const minDate = watch('selectStartDate');
+
 	return (
 		<Grid container>
 			<Typography
@@ -88,19 +93,19 @@ export default function SelectForm() {
 				>
 					<Grid container>
 						<Grid item xs={12}>
-							<SelectStartDate control={control} />
+							<SelectStartDate control={control} maxDate={maxDate} />
 						</Grid>
 						<Grid item xs={12}>
-							<SelectStartTime control={control} />
+							<SelectStartTime control={control} maxTime={maxTime} />
 						</Grid>
 					</Grid>
 					<Grid container>
 						<Grid item xs={12}>
-							<SelectEndDate control={control} />
+							<SelectEndDate control={control} minDate={minDate} />
 						</Grid>
 
 						<Grid item xs={12}>
-							<SelectEndTime control={control} />
+							<SelectEndTime control={control} minTime={minTime} />
 						</Grid>
 					</Grid>
 					<Grid container>
