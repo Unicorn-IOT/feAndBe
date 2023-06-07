@@ -60,7 +60,7 @@ export default function SelectForm() {
 		const startDateTimeISOString = startDateTime.toISOString();
 		const endDateTimeISOString = endDateTime.toISOString();
 
-		if (startDateTime < endDateTime && startDateTime.getMinutes() < endDateTime.getMinutes()) {
+		if (startDateTime < endDateTime && startDateTime.getMinutes() <= endDateTime.getMinutes()) {
 			setErr(false);
 
 			dispatch(setStartDate(startDateTimeISOString));

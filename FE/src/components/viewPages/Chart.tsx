@@ -43,9 +43,7 @@ export const Chart = () => {
 						dataKey="createdAtTime"
 						stroke={theme.palette.text.primary}
 						style={theme.typography.body2}
-						tickFormatter={(time) =>
-							`${time.getDate()}/${time.getMonth() + 1} ${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
-						}
+						tickFormatter={(time) => `${time.getDate()}/${time.getMonth() + 1} ${time.getHours()}:${time.getMinutes()}`}
 					>
 						<Label
 							angle={0}

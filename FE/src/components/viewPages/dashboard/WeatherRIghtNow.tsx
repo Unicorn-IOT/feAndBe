@@ -11,6 +11,12 @@ export const WeatherRIghtNow = () => {
 		<Fragment>
 			<Title>Weather right now !</Title>
 			<Typography component="p" variant="h6">
+				Location:
+			</Typography>
+			<Typography color="text.secondary" sx={{ flex: 1 }}>
+				{isError ? 'There is an error' : data?.data.location}
+			</Typography>
+			<Typography component="p" variant="h6">
 				Humidity:
 			</Typography>
 			<Typography color="text.secondary" sx={{ flex: 1 }}>
