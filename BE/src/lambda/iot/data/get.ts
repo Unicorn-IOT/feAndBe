@@ -6,6 +6,7 @@ import { Mesurement } from '../../../libs/database/models/mesurement';
 import { z } from 'zod';
 import { validation } from '../../../libs/validation';
 import { status400 } from '../../../libs/http/status400';
+import { User } from "../../../libs/database/models/user";
 
 // Endpoint pro získání posledního záznamu z DB
 const Schema = z.object({
@@ -28,8 +29,12 @@ export const handler: Lambda = withHttp(
 			order: [['date', 'DESC']],
 		});
 
+		const iotStation =await User.findWithIotId(parseInt(userId));
+		const nameIot = iotStation?.name??'';
+
 		return status200({
 			data: {
+				nameStation: nameIot,
 				location: temperatureMeasurement?.location,
 				temperature: temperatureMeasurement?.value,
 				dateTemp: temperatureMeasurement?.date,
