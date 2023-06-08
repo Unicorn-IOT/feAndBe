@@ -6,7 +6,7 @@ import { Mesurement } from '../../../libs/database/models/mesurement';
 import { z } from 'zod';
 import { validation } from '../../../libs/validation';
 import { status400 } from '../../../libs/http/status400';
-import { User } from "../../../libs/database/models/user";
+import { User } from '../../../libs/database/models/user';
 
 // Endpoint pro získání posledního záznamu z DB
 const Schema = z.object({
