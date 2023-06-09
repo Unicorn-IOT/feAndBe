@@ -1,6 +1,5 @@
 import { status200 } from '../../../libs/http/status200';
 import { status400 } from '../../../libs/http/status400';
-import { status403 } from '../../../libs/http/status403';
 import { useDB, withDB } from '../../../libs/wrapper/withDB';
 import { withHttp } from '../../../libs/wrapper/withHttp';
 import { Lambda } from '../../../../../types/lambda';
@@ -27,25 +26,28 @@ export const handler: Lambda = withHttp(
 		const { type, userId, startDate, endDate, granularity, granularityUnit } = parsedQueryParams;
 
 		if (!type || !userId || !startDate || !endDate || !granularity || !granularityUnit) return status400();
-		if (new Date(endDate) < new Date(startDate)) return status403();
+		if (new Date(endDate) < new Date(startDate)) return status400({ data: { msg: 'StartDate has to be smaller than endDate' } });
 		const parsedGranularity = parseInt(parsedQueryParams.granularity);
-		const diffDates = new Date(endDate).getTime() - new Date(startDate).getTime();
 
 		switch (granularityUnit) {
 			case 'minutes':
-				if (diffDates >= ONE_DAY || parsedGranularity < 5 || parsedGranularity > 60) return status403();
+				if (parsedGranularity < 5 || parsedGranularity > 60)
+					return status400({ data: { msg: 'For minutes the granularity has to be between 5 and 60' } });
 				break;
 			case 'hours':
-				if (diffDates >= ONE_MONTH || parsedGranularity < 1 || parsedGranularity > 24) return status403();
+				if (parsedGranularity < 1 || parsedGranularity > 24)
+					return status400({ data: { msg: 'For hours the granularity has to be between 1 and 24' } });
 				break;
 			case 'days':
-				if (diffDates >= ONE_MONTH * 3 || parsedGranularity < 1 || parsedGranularity > 30) return status403();
+				if (parsedGranularity < 1 || parsedGranularity > 30)
+					return status400({ data: { msg: 'For days the granularity has to be between 1 and 30' } });
 				break;
 			case 'months':
-				if (diffDates >= ONE_MONTH * 24 || parsedGranularity < 1 || parsedGranularity > 12) return status403();
+				if (parsedGranularity < 1 || parsedGranularity > 12)
+					return status400({ data: { msg: 'For months the granularity has to be between 1 and 12' } });
 				break;
 			default:
-				return status403();
+				return status400();
 		}
 
 		const { Mesurement } = await useDB();
