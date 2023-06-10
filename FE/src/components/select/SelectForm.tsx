@@ -20,8 +20,26 @@ export type SelectFormType = {
 	granularityUnit: 'minutes' | 'hours' | 'days';
 };
 
+enum Errors {
+	MINUTES = 1,
+	HOURS = 2,
+	DAYS = 3,
+	MINUTES_GRAN = 4,
+	HOURS_GRAN = 5,
+	DAYS_GRAN = 6,
+}
+
+const ErrorMsg: Record<Errors, string> = {
+	[Errors.MINUTES]: 'Too big range with minutes units',
+	[Errors.HOURS]: 'Too big range with hours units',
+	[Errors.DAYS]: 'Too big range with days units',
+	[Errors.MINUTES_GRAN]: 'For minutes the granularity has to be between 5 and 60',
+	[Errors.HOURS_GRAN]: 'For hours the granularity has to be between 1 and 24',
+	[Errors.DAYS_GRAN]: 'For days the granularity has to be between 1 and 30',
+};
+
 export default function SelectForm() {
-	const [err, setErr] = useState<'minutes' | 'days' | 'hours' | undefined>(undefined);
+	const [err, setErr] = useState<Errors | undefined>();
 	const dispatch = useAppDispatch();
 	const { endDate, granularity, granularityUnit, startDate } = useAppSelector(({ dataIoT }) => dataIoT);
 	const { control, handleSubmit, watch } = useForm<SelectFormType>({
@@ -67,12 +85,24 @@ export default function SelectForm() {
 		const diffInMonths = Math.abs(endDateTime.getMonth() - startDateTime.getMonth());
 		const diffInYears = Math.abs(endDateTime.getFullYear() - startDateTime.getFullYear());
 
+		switch (granularityUnit) {
+			case 'minutes':
+				if (granularity < 5 || granularity > 60) return setErr(Errors.MINUTES_GRAN);
+				break;
+			case 'hours':
+				if (granularity < 1 || granularity > 24) return setErr(Errors.HOURS_GRAN);
+				break;
+			case 'days':
+				if (granularity < 1 || granularity > 30) return setErr(Errors.DAYS_GRAN);
+				break;
+		}
+
 		if (granularityUnit === 'minutes' && diffInHours >= 60) {
-			setErr('minutes');
+			setErr(Errors.MINUTES);
 		} else if (granularityUnit === 'hours' && diffInMonths >= 1) {
-			setErr('hours');
+			setErr(Errors.HOURS);
 		} else if (granularityUnit === 'days' && (diffInYears > 1 || (diffInYears === 1 && diffInMonths > 0))) {
-			setErr('days');
+			setErr(Errors.DAYS);
 		} else if (startDateTime < endDateTime && startDateTime.getTime() <= endDateTime.getTime()) {
 			dispatch(setStartDate(startDateTimeISOString));
 			dispatch(setEndDate(endDateTimeISOString));
@@ -96,13 +126,7 @@ export default function SelectForm() {
 				fontWeight={'bold'}
 				sx={{ display: 'flex', justifyContent: 'center', marginLeft: 'auto', marginRight: 'auto' }}
 			>
-				{err === 'minutes'
-					? 'Too big range with minutes units'
-					: err === 'hours'
-					? 'Too big range with hours units'
-					: err === 'days'
-					? 'Too big range with days units'
-					: 'Select Range'}
+				{!err ? 'Select Range' : ErrorMsg[err]}
 			</Typography>
 
 			<form onSubmit={handleSubmit(onSubmit)}>
