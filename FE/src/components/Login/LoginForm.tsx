@@ -28,11 +28,11 @@ export function LoginForm() {
 	const [login, { isSuccess, isError }] = useLoginMutation();
 
 	const onSubmit = async (data: LoginPageType) => {
-		await Promise.all([router.prefetch('/'), login(data)]);
+		await Promise.all([router.prefetch('/stations'), login(data)]);
 	};
 
 	useEffect(() => {
-		if (isSuccess) router.push('/');
+		if (isSuccess) router.push('/stations');
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSuccess]);
 
