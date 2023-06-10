@@ -29,8 +29,8 @@ export const handler: Lambda = withHttp(
 			order: [['date', 'DESC']],
 		});
 
-		const iotStation =await User.findWithIotId(parseInt(userId));
-		const nameIot = iotStation?.name??'';
+		const iotStation = await User.findWithIotId(parseInt(userId));
+		const nameIot = iotStation?.name ?? '';
 
 		return status200({
 			data: {
