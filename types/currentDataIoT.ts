@@ -6,7 +6,7 @@ export type GetCurrentDataResponse = ApiResponse<{
 	humidity: string;
 	dateTemp: string;
 	dataHum: string;
-	name: string;
+	nameStation: string;
 }>;
 
 export type GetCurrentDataRequest = {
