@@ -21,7 +21,7 @@ export type SelectFormType = {
 };
 
 export default function SelectForm() {
-	const [err, setErr] = useState(false);
+	const [err, setErr] = useState<'minutes' | 'days' | 'hours' | undefined>(undefined);
 	const dispatch = useAppDispatch();
 	const { endDate, granularity, granularityUnit, startDate } = useAppSelector(({ dataIoT }) => dataIoT);
 	const { control, handleSubmit, watch } = useForm<SelectFormType>({
@@ -60,15 +60,25 @@ export default function SelectForm() {
 		const startDateTimeISOString = startDateTime.toISOString();
 		const endDateTimeISOString = endDateTime.toISOString();
 
-		if (startDateTime < endDateTime && startDateTime.getMinutes() <= endDateTime.getMinutes()) {
-			setErr(false);
+		const startDateTimeTimestamp = startDateTime.getTime();
+		const endDateTimeTimestamp = endDateTime.getTime();
 
+		const diffInHours = Math.abs((endDateTimeTimestamp - startDateTimeTimestamp) / (1000 * 60));
+		const diffInMonths = Math.abs(endDateTime.getMonth() - startDateTime.getMonth());
+		const diffInYears = Math.abs(endDateTime.getFullYear() - startDateTime.getFullYear());
+
+		if (granularityUnit === 'minutes' && diffInHours >= 60) {
+			setErr('minutes');
+		} else if (granularityUnit === 'hours' && diffInMonths >= 1) {
+			setErr('hours');
+		} else if (granularityUnit === 'days' && (diffInYears > 1 || (diffInYears === 1 && diffInMonths > 0))) {
+			setErr('days');
+		} else if (startDateTime < endDateTime && startDateTime.getTime() <= endDateTime.getTime()) {
 			dispatch(setStartDate(startDateTimeISOString));
 			dispatch(setEndDate(endDateTimeISOString));
 			dispatch(setGranularity(granularity));
 			dispatch(setGranularityUnit(granularityUnit));
-		} else {
-			setErr(true);
+			setErr(undefined);
 		}
 	};
 
@@ -80,13 +90,19 @@ export default function SelectForm() {
 	return (
 		<Grid container>
 			<Typography
-				variant="h5"
+				variant="h6"
 				color={err ? 'red' : 'black'}
 				marginBottom={2}
 				fontWeight={'bold'}
 				sx={{ display: 'flex', justifyContent: 'center', marginLeft: 'auto', marginRight: 'auto' }}
 			>
-				{err ? 'Start Date Time cannot be bigger than End Date Time' : 'Select Range'}
+				{err === 'minutes'
+					? 'Too big range with minutes units'
+					: err === 'hours'
+					? 'Too big range with hours units'
+					: err === 'days'
+					? 'Too big range with days units'
+					: 'Select Range'}
 			</Typography>
 
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -116,7 +132,7 @@ export default function SelectForm() {
 							<SelectEndTime control={control} minTime={minTime} />
 						</Grid>
 					</Grid>
-					<Grid container>
+					<Grid container sx={{ paddingTop: '7px' }}>
 						<Grid item xs={12}>
 							<SelectGranularity control={control} />
 						</Grid>
@@ -140,7 +156,7 @@ export default function SelectForm() {
 									fontWeight: 'bold',
 								}}
 							>
-								set range !
+								set range
 							</Button>
 						</Grid>
 					</Grid>

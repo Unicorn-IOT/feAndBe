@@ -4,10 +4,13 @@ import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer, Tooltip, Car
 import { useTheme } from '@mui/material/styles';
 import { useDataIot } from 'FE/src/hooks/useDataIot';
 import { measurementType } from '@type/DataIoT';
+import { useAppSelector } from 'FE/src/store';
 
 export const Chart = () => {
 	const theme = useTheme();
 	const { data } = useDataIot();
+
+	const sliceHumidity = useAppSelector(({ dataIoT }) => dataIoT.type);
 
 	const finalData = data?.data.finalResult.map((date) => {
 		const createdAtTime = new Date(date.createdAt);
@@ -25,6 +28,8 @@ export const Chart = () => {
 	const tooltipCallBack = useCallback((data: any) => {
 		return <div style={tooltipContentStyle}>Value: {data.payload?.[0]?.value}</div>;
 	}, []);
+
+	const color = sliceHumidity === measurementType.HUMIDITY ? 'blue' : 'red';
 
 	return (
 		<Fragment>
@@ -69,11 +74,11 @@ export const Chart = () => {
 							position="left"
 							style={{
 								textAnchor: 'middle',
-								fill: theme.palette.text.primary,
+								fill: color,
 								...theme.typography.body1,
 							}}
 						>
-							Temp & Humidity
+							{sliceHumidity === measurementType.HUMIDITY ? 'Humidity' : 'Temperature'}
 						</Label>
 					</YAxis>
 					<Tooltip content={tooltipCallBack} />
@@ -82,7 +87,7 @@ export const Chart = () => {
 						isAnimationActive={true}
 						type="linear"
 						dataKey="value"
-						stroke={type && type.includes(measurementType.HUMIDITY) ? 'red' : 'blue'}
+						stroke={type && type.includes(measurementType.HUMIDITY) ? 'blue' : 'red'}
 						dot={true}
 					/>
 				</LineChart>
