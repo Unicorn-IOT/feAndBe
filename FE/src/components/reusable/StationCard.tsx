@@ -18,7 +18,7 @@ export default function StationCard({ name, location, ownerEmail, ownerName, sta
 
 	const handleButtonClick = () => {
 		dispatch(setUserId(stationId));
-		router.push('/');
+		router.push(`/?stationIdQuery=${stationId}`);
 	};
 
 	return (
