@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import { Box, Toolbar, Container, Grid, Paper, CircularProgress } from '@mui/material';
+import { Box, Toolbar, Container, Grid, Paper, CircularProgress, Typography } from '@mui/material';
 import { Chart } from '../components/viewPages/Chart';
 import { WeatherRIghtNow } from '../components/viewPages/dashboard/WeatherRIghtNow';
 import SelectForm from '../components/select/SelectForm';
@@ -11,7 +11,7 @@ import { useCurrentDataIot } from '../hooks/useCurrentDataIot';
 const Dashboard = () => {
 	useUser();
 	const { isFetching } = useDataIot();
-	const { isFetching: isWeatherFetching } = useCurrentDataIot();
+	const { isFetching: isWeatherFetching, data, isError } = useCurrentDataIot();
 
 	return (
 		<Box
@@ -24,8 +24,55 @@ const Dashboard = () => {
 			}}
 		>
 			<Toolbar />
+
 			<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
 				<Grid container spacing={3}>
+					<Grid item xs={12} md={12} lg={12}>
+						<Paper
+							sx={{
+								p: 2,
+								display: 'flex',
+								flexDirection: 'row',
+								alignItems: 'center',
+								justifyContent: 'space-between',
+								height: 400,
+							}}
+						>
+							<Grid
+								container
+								alignItems="center"
+								direction="row"
+								sx={{ marginLeft: 'auto', marginRight: 'auto' }}
+								spacing={1}
+							>
+								<Grid item xs={12} md={6} lg={3} textAlign="end">
+									<Typography component="p" variant="h6">
+										Name of station:
+									</Typography>
+								</Grid>
+								<Grid item xs={12} md={6} lg={3} textAlign="start">
+									<Typography component="p" variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
+										{isError ? 'There is an error' : data?.data.nameStation}
+									</Typography>
+								</Grid>
+
+								<Grid item xs={12} md={6} lg={3} textAlign="end">
+									<Typography component="p" variant="h6">
+										Location:
+									</Typography>
+								</Grid>
+								<Grid item xs={12} md={6} lg={3} textAlign="start">
+									<Typography component="p" variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
+										{isError ? 'There is an error' : data?.data.location}
+									</Typography>
+								</Grid>
+
+								<Grid item xs={12}>
+									<SelectForm />
+								</Grid>
+							</Grid>
+						</Paper>
+					</Grid>
 					<Grid item xs={12} md={8} lg={9}>
 						<Paper
 							sx={{
@@ -61,18 +108,6 @@ const Dashboard = () => {
 							) : (
 								<WeatherRIghtNow />
 							)}
-						</Paper>
-					</Grid>
-					<Grid item xs={12} md={12} lg={12}>
-						<Paper
-							sx={{
-								p: 2,
-								display: 'flex',
-								flexDirection: 'column',
-								height: 300,
-							}}
-						>
-							<SelectForm />
 						</Paper>
 					</Grid>
 				</Grid>
