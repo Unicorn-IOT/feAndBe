@@ -10,7 +10,7 @@ export const Chart = () => {
 	const theme = useTheme();
 	const { data } = useDataIot();
 
-	const sliceHumidity = useAppSelector(({ dataIoT }) => dataIoT.type);
+	const { dataType, unit } = useAppSelector(({ dataIoT }) => ({ dataType: dataIoT.type, unit: dataIoT.granularityUnit }));
 
 	const finalData = data?.data.finalResult.map((date) => {
 		const createdAtTime = new Date(date.createdAt);
@@ -26,10 +26,14 @@ export const Chart = () => {
 	};
 
 	const tooltipCallBack = useCallback((data: any) => {
-		return <div style={tooltipContentStyle}>Value: {data.payload?.[0]?.value}</div>;
+		return (
+			<div style={tooltipContentStyle}>
+				{data.payload?.[0]?.value} {unit}
+			</div>
+		);
 	}, []);
 
-	const color = sliceHumidity === measurementType.HUMIDITY ? 'blue' : 'red';
+	const color = dataType === measurementType.HUMIDITY ? 'blue' : 'red';
 
 	return (
 		<Fragment>
@@ -78,7 +82,7 @@ export const Chart = () => {
 								...theme.typography.body1,
 							}}
 						>
-							{sliceHumidity === measurementType.HUMIDITY ? 'Humidity' : 'Temperature'}
+							{dataType === measurementType.HUMIDITY ? 'Humidity' : 'Temperature'}
 						</Label>
 					</YAxis>
 					<Tooltip content={tooltipCallBack} />
