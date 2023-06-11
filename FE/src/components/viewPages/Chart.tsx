@@ -10,7 +10,7 @@ export const Chart = () => {
 	const theme = useTheme();
 	const { data } = useDataIot();
 
-	const { dataType, unit } = useAppSelector(({ dataIoT }) => ({ dataType: dataIoT.type, unit: dataIoT.granularityUnit }));
+	const { dataType } = useAppSelector(({ dataIoT }) => ({ dataType: dataIoT.type }));
 
 	const finalData = data?.data.finalResult.map((date) => {
 		const createdAtTime = new Date(date.createdAt);
@@ -28,7 +28,7 @@ export const Chart = () => {
 	const tooltipCallBack = useCallback((data: any) => {
 		return (
 			<div style={tooltipContentStyle}>
-				{data.payload?.[0]?.value} {unit}
+				{data.payload?.[0]?.value} {dataType === measurementType.HUMIDITY ? '%' : '°C'}
 			</div>
 		);
 	}, []);
