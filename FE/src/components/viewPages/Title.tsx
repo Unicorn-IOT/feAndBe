@@ -8,7 +8,7 @@ type TitleProps = {
 
 export const Title = ({ children }: TitleProps) => {
 	return (
-		<Typography component="h2" variant="h5" gutterBottom>
+		<Typography component="h2" variant="h6" gutterBottom>
 			{children}
 		</Typography>
 	);
