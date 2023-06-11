@@ -46,23 +46,23 @@ const Dashboard = () => {
 								spacing={1}
 							>
 								<Grid item xs={12} md={6} lg={3} textAlign="end">
-									<Typography component="p" variant="h6">
+									<Typography component="p" variant="h5">
 										Name of station:
 									</Typography>
 								</Grid>
 								<Grid item xs={12} md={6} lg={3} textAlign="start">
-									<Typography component="p" variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
+									<Typography component="p" variant="h5" color="primary" sx={{ fontWeight: 'bold' }}>
 										{isError ? 'There is an error' : data?.data.nameStation}
 									</Typography>
 								</Grid>
 
 								<Grid item xs={12} md={6} lg={3} textAlign="end">
-									<Typography component="p" variant="h6">
+									<Typography component="p" variant="h5">
 										Location:
 									</Typography>
 								</Grid>
 								<Grid item xs={12} md={6} lg={3} textAlign="start">
-									<Typography component="p" variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
+									<Typography component="p" variant="h5" color="primary" sx={{ fontWeight: 'bold' }}>
 										{isError ? 'There is an error' : data?.data.location}
 									</Typography>
 								</Grid>
